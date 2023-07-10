@@ -1,21 +1,17 @@
-public class Person{
+public abstract class Person {
     private String name;
+    private String address;
 
-    public Person(String name){
+    public Person(String name, String address) {
         this.name = name;
+        this.address = address;
     }
-    /**
-     * Getting persons name
-     * @return the persons name 
-     */
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    /**
-     * sets the persons name
-     * @param name the persons name
-     */
-    public void setName(String name){
-        this.name = name;
+
+    public String getAddress() {
+        return address;
     }
 }
