@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +10,7 @@ public class Main {
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             while ((line = br.readLine()) != null) {
                 // use comma as separator
-                String[] data = line.split(cvsSplitBy);
+                String[] data = line.split(",");
 
                 String identificationNumber = data[0];
                 String firstName = data[1];

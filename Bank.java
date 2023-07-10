@@ -1,3 +1,7 @@
+import java.util.List;
+import java.util.ArrayList;
+
+
 public class Bank {
     private List<Customer> customers;
 
