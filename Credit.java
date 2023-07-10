@@ -1,43 +1,21 @@
-public class Credit extends Person{
-    protected double creditMax;
-    protected double availableCredit;
+public class Credit extends Account {
+    private double creditLimit;
 
-    public Credit(String name, double creditMax){
-        super(name);
-        this.creditMax = creditMax;
-        this.availableCredit = creditMax; //0 debt
+    public Credit(String accountNumber, double creditLimit) {
+        super(accountNumber);
+        this.creditLimit = creditLimit;
     }
 
-    /**
-     * Allows banker and user to see what their credit line is
-     * @return credit line
-     */
-    public double getCredit(){
-        return creditMax;
+    public double getCreditLimit() {
+        return creditLimit;
     }
 
-    /**
-     * this will allow banker to set max credit line
-     * @param creditMax maximum credit limit
-     */
-    public void setCredit(double creditMax){
-        this.creditMax = creditMax;
-    }
-
-    /**
-     * Allows user and banker to get available credit
-     */
-    public double getAvailableCredit(){
-        return availableCredit;
-    }
-    /**
-     * deducts the amount from payment to available credit
-     */
-    public void creditPayment(double amt){
-        if(amt < availableCredit){
-            availableCredit = availableCredit-amt;
-        }else{
-            System.out.println("Payment is greater than available credit");
+    @Override
+    public void withdraw(double amount) {
+        if (balance + creditLimit >= amount) {
+            balance -= amount;
+        } else {
+            System.out.println("Withdrawal amount exceeds credit limit.");
         }
     }
 }
