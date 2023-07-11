@@ -1,7 +1,5 @@
 /**
  * This class represents a general bank account. 
- * It is designed to be subclassed to create specific types of bank accounts.
- * Each account has an account number and a balance.
  */
 public abstract class Account {
 
@@ -17,9 +15,7 @@ public abstract class Account {
 
     /**
      * Constructs a new Account with the given account number.
-     * Initial balance is set to 0.0.
-     *
-     * @param accountNumber The unique identifier for this account.
+     * @param accountNumber The unique number for this account.
      */
     public Account(String accountNumber) {
         this.accountNumber = accountNumber;
@@ -28,8 +24,7 @@ public abstract class Account {
 
     /**
      * Returns the current balance of the account.
-     *
-     * @return The current balance of the account.
+     * @return The current balance
      */
     public double getBalance() {
         return balance;
@@ -37,8 +32,7 @@ public abstract class Account {
 
     /**
      * Returns the account number of the account.
-     *
-     * @return The account number of the account.
+     * @return The account number
      */
     public String getAccountNumber() {
         return accountNumber;
@@ -55,7 +49,6 @@ public abstract class Account {
 
     /**
      * Abstract method to be implemented in subclasses for withdrawing money from the account.
-     * Different types of accounts may have different rules for withdrawal.
      *
      * @param amount The amount to be withdrawn.
      */

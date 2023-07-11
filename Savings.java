@@ -5,18 +5,16 @@ public class Savings extends Account {
 
     /**
      * Constructs a new instance of the Savings class with the specified account number.
-     *
-     * @param accountNumber the account number associated with the savings account
+     * @param accountNumber the account number
      */
     public Savings(String accountNumber) {
         super(accountNumber);
     }
 
     /**
-     * Overrides the withdraw method from the parent class (Account) to allow withdrawals
-     * from the savings account, if the balance is sufficient.
+     * Overrides the withdraw method from the parent class (Account) to allow withdrawals from the savings account
      *
-     * @param amount the amount to be withdrawn from the account
+     * @param amount the amount to be withdrawn
      */
     @Override
     public void withdraw(double amount) {
@@ -28,10 +26,8 @@ public class Savings extends Account {
     }
     
     /**
-     * Overrides the deposit method from the parent class (Account) to allow deposits
-     * into the savings account, if the amount is non-negative.
-     *
-     * @param amount the amount to be deposited into the account
+     * Overrides the deposit method from the parent class (Account) to allow deposits into the savings account
+     * @param amount the amount to be deposite
      */
     @Override
     public void deposit(double amount) {
