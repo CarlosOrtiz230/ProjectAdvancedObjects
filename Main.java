@@ -13,11 +13,9 @@ public class Main {
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             int skipfirst12 = 0;
+            br.readLine();
             while ((line = br.readLine()) != null) {
-                if(skipfirst12 < 12){ // skip first 12 data
-                    skipfirst12++;
-                    continue;
-                }
+
                 String[] data = line.split(",");
 
                 String identificationNumber = data[0];
