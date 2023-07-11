@@ -11,4 +11,12 @@ public class Savings extends Account {
             System.out.println("Insufficient balance.");
         }
     }
+    @Override
+    public  void deposit(double amount){
+        if(amount >= 0){
+            balance += amount;
+        }else{
+            System.out.println("Error with deposit.");
+        }
+    }
 }
