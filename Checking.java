@@ -36,11 +36,11 @@ public class Checking extends Account {
     @Override
     public  void deposit(double amount){
         if(amount >= 0){
-            balance += amount;
+            balance += amount;// adds amount to current balance
         }else{
             System.out.println("Error with deposit.");
         }
-    }//desposit endsd
+    }//deposit ends
 
 
         /**
@@ -51,8 +51,9 @@ public class Checking extends Account {
      */
 
     public void transferMoneyToSaving(Savings savingAccount, double amount) {
-        if  (this.balance >= amount) {
+        if  (this.balance >= amount) {// if checking balance is greater than amount
             savingAccount.deposit(amount);
+            this.balance -= amount; // subtracts amount from checking balance.
             System.out.println("Transfer successful!");
         } else {
             System.out.println("Insufficient funds in checking account.");
@@ -61,25 +62,25 @@ public class Checking extends Account {
 
     @Override
     public void payToThirdParty(List<Customer> dataBase ,String name, String lastname, String accountNumber,double amount) {
-        String recieverFullName  = name + " " + lastname;
-        Customer reciever = null;
+        String receiverFullName  = name + " " + lastname;
+        Customer receiver = null;
 
         //find thirdParty
         for (Customer customer : dataBase){
-            if(customer.getName().equals(recieverFullName)){
-                reciever = customer;
+            if(customer.getName().equals(receiverFullName)){
+                receiver = customer;// sets the receiver as customer if found
                 break;
             }//if
         }//for
         
         //customer not found
 
-        if(reciever == null){System.out.println("customer was not found"); return;}
+        if(receiver == null){System.out.println("customer was not found"); return;}
 
-        List<Account> recieverAccounts = reciever.getAccounts();
+        List<Account> receiverAccounts = receiver.getAccounts();
         
         boolean accountFound = false;
-        for ( Account currentAccount: recieverAccounts) { //iterate over the customer account to find the correct one
+        for ( Account currentAccount: receiverAccounts) { //iterate over the customer account to find the correct one
             if (currentAccount.getAccountNumber().equals(accountNumber)) {
                 currentAccount.deposit(amount); //deposit the corresponding ammount
                 accountFound = true;
@@ -94,9 +95,8 @@ public class Checking extends Account {
         }
         
         //notice success
-        System.out.println("Your Deposit to " + recieverFullName + " was successfull");
+        System.out.println("Your Deposit to " + receiverFullName + " was successfull");
     }//payToThirdParty ends
-
 
 
 }// class ends
