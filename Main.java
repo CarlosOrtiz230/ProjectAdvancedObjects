@@ -3,9 +3,62 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        Scanner x = new Scanner(System.in);
+
+        System.out.println("A. Bank Client\nB. Bank Manager");
+        String role = x.nextLine();
+
+        switch(role.toLowerCase()){
+            case "a":
+                while(true){
+                    System.out.println("What would you like to do today?  1. Inquiry about a balance 2. Deposit money to an account 3. Withdraw money from an account 4. Transfer money between accounts 5. Pay Someone");
+                    int option = x.nextInt();
+                    switch(option){
+                        case 1:
+                            System.out.println("Enter your account number");
+                        case 2: 
+                            System.out.println("Enter your account number");
+                            String accountNum = x.next();
+                            System.out.println("Where wouldyou like to deposit your money? \nA.Savings\nB.Checkings");\
+                            String choice = x.nextLine();
+                            if (choice.equalsIgnoreCase("A")){
+                                Checking checkingAccount = new Checking(accountNum);
+                                System.out.println("How much would you like to deposit today?");
+                                double amt = x.nextDouble();
+                                checkingAccount.deposit(amt);
+                                break;
+                            }
+                            else if(choice.equalsIgnoreCase("B")){
+                                Savings savingAccount = new Savings(accountNum);
+                                System.out.println("How much would you like to deposit today?"):
+                                double amt = x.nextDouble();
+                                savingAccount.deposit(amt);
+                            }
+                        case 3:
+                            //Withdrawal
+
+                        
+
+                    }
+                }//case a ends
+            case "b":
+                while(true){
+
+                }
+        }
+
+
+
+
+
+
+
+
+
         String csvFile = "BankUser.CSV"; // Name of DataBase
         List<Customer> customers = new ArrayList<>(); //Array List to hold data base during the program 
         customers = bankUserReader(csvFile);    
@@ -63,5 +116,13 @@ public class Main {
         }
         return  customers;
     }//file reader ends
+
+        /**
+     * Inquiring about balance
+     * @param account
+     */
+    public static double inquireBalance(Account currAccount){
+
+    }
 
 }// class ends
