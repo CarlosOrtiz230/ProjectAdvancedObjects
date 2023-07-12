@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * This class represents a general bank account. 
  */
@@ -53,4 +55,6 @@ public abstract class Account {
      * @param amount The amount to be withdrawn.
      */
     public abstract void withdraw(double amount);
+
+    public abstract void payToThirdParty(List<Customer> dataBase,String name, String lastname, String accountNumber,double amount);
 }

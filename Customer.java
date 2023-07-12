@@ -7,6 +7,9 @@ import java.util.List;
 public class Customer extends Person {
     private List<Account> accounts;
 
+
+    public Customer() {} //default 
+
     /**
      * Constructs a new Customer with the given name and address.
      * @param name The name of the Customer.

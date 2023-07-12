@@ -5,12 +5,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        String csvFile = "BankUser.CSV";
+    public static void main(String[] args) throws IOException {
+        String csvFile = "BankUser.CSV"; // Name of DataBase
+        List<Customer> customers = new ArrayList<>(); //Array List to hold data base during the program 
+        customers = bankUserReader(csvFile);    
+        
+        //needs to implement user password authentication based on cellphone and DOB
+        
+    } //main methods ends
+
+
+     /**
+     * Obtains the file name with the dasa base and return an array List with the data base.
+     * @param csvfile the name of the file
+     */    
+    public static List<Customer> bankUserReader(String csvFile) throws IOException {
         String line;
-        List<Customer> customers = new ArrayList<>();
-        int hola;
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        List<Customer> customers = new ArrayList<Customer>();
+         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             String skipLine = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
@@ -49,5 +61,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-}
+        return  customers;
+    }//file reader ends
+
+}// class ends

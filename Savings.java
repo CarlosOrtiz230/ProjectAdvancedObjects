@@ -36,5 +36,24 @@ public class Savings extends Account {
         } else {
             System.out.println("Error with deposit.");
         }
-    }
-}
+    }//despoist ends
+
+    /**
+     * Transfers the specified amount of money from the checking account to the checking account.
+     *
+     * @param checkingAccount The checkings account to which the money will be transferred.
+     * @param amount The amount of money to transfer.
+     */
+
+     public void transferMoneyToChecking(Checking checkingAccount, double amount) {
+        if  (this.balance >= amount) {
+            checkingAccount.deposit(amount);
+            System.out.println("Transfer successful!");
+        } else {
+            System.out.println("Insufficient funds in Saving account.");
+        }
+    }// transfer Money ends
+
+    //DOES NOT IMPLEMENT PAY TO THIRD PARTY
+
+}//class ends

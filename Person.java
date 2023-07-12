@@ -6,6 +6,8 @@ public abstract class Person {
     private String name;  
     private String address; 
 
+    public Person() {} //default 
+
     /**
      * Constructs a new instance of the Person class with the specified name and address.
      *
