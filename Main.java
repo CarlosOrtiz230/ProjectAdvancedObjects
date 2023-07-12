@@ -11,15 +11,9 @@ public class Main {
         List<Customer> customers = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            int skipfirst12 = 0;
+            String skipLine = br.readLine();
             while ((line = br.readLine()) != null) {
-                if(skipfirst12 < 12){ // skip first 12 data
-                    skipfirst12++;
-                    System.out.println(line);//testing
-                    continue;
-                }
                 String[] data = line.split(",");
-
                 String identificationNumber = data[0];
                 String firstName = data[1];
                 String lastName = data[2];
