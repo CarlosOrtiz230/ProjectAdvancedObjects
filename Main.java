@@ -9,7 +9,7 @@ public class Main {
         String csvFile = "BankUser.CSV";
         String line;
         List<Customer> customers = new ArrayList<>();
-
+        int hola;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             String skipLine = br.readLine();
             while ((line = br.readLine()) != null) {
