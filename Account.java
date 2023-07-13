@@ -45,9 +45,6 @@ public abstract class Account {
      *
      * @param amount The amount to be deposited.
      */
-    public void deposit(double amount) {
-        balance += amount;
-    }
 
     /**
      * Abstract method to be implemented in subclasses for withdrawing money from the account.
@@ -55,6 +52,7 @@ public abstract class Account {
      * @param amount The amount to be withdrawn.
      */
     public abstract void withdraw(double amount);
+    public abstract void deposit(double amount);
 
     public abstract void payToThirdParty(List<Customer> dataBase,String name, String lastname, String accountNumber,double amount);
 }

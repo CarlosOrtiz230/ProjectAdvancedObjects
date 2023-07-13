@@ -24,6 +24,11 @@ public class Credit extends Account {
         return creditLimit;
     }
 
+    @Override
+    public  void deposit(double amount){
+        balance += amount;// adds amount to current balance
+    }//deposit ends
+
     /**
      * Withdraws the amount from the account
      * @param amount The amount to be withdrawn.

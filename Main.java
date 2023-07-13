@@ -7,24 +7,89 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-    
         String csvFile = "BankUser.CSV"; // Name of DataBase
-        List<Customer> customers = new ArrayList<>(); //Array List to hold data base during the program 
-        customers = bankUserReader(csvFile);    
-        
-        //needs to implement user password authentication based on cellphone and DOB
-        
-    } //main methods ends
+        List<Customer> customers = new ArrayList<>(); //Array List to hold database during the program 
+        customers = bankUserReader(csvFile);
 
+        // Implement user password authentication based on cellphone and DOB here
 
-     /**
-     * Obtains the file name with the dasa base and return an array List with the data base.
-     * @param csvfile the name of the file
-     */    
+        Scanner x = new Scanner(System.in);
+        System.out.println("Enter your first and last name:");
+        String userName = x.nextLine();
+
+        Customer currentCustomer = null;
+
+        // Find the customer in ArrayList
+        for (Customer customer : customers) {
+            if (customer.getName().equalsIgnoreCase(userName)) {
+                currentCustomer = customer;
+                break;
+            }
+        }
+
+        if (currentCustomer == null) {
+            System.out.println("User not found.");
+            return;
+        }
+
+        System.out.println("A. Bank Client\nB. Bank Manager");
+        String role = x.nextLine();
+
+        switch(role.toLowerCase()){
+            case "a":
+                while(true){
+                    System.out.println("What would you like to do today?  \n1. Inquiry about a balance \n2. Deposit money to an account \n3. Withdraw money from an account \n4. Transfer money between accounts \n5. EXIT");
+                    int option = x.nextInt();
+                    x.nextLine(); // To skp line
+
+                    switch(option){
+                        case 1:
+                            System.out.println("Which account's balance would you like to check? \nA.Savings\nB.Checkings");
+                            String accountType = x.nextLine();
+                            System.out.println("Your current balance is: " + currentCustomer.checkBalance(accountType));
+                            break;
+                        case 2:
+                            System.out.println("To which account would you like to deposit money? \nA.Savings\nB.Checkings");
+                            String depositAccount = x.nextLine().trim().toUpperCase();
+                            System.out.println("Enter the amount you want to deposit:");
+                            double depositAmount = x.nextDouble();
+                            x.nextLine(); // Consume newline left-over
+                            if(depositAccount.equals("A") || depositAccount.equals("B")){
+                                currentCustomer.deposit(depositAccount, depositAmount);
+                                System.out.println("Deposit Successful!");
+                            } else {
+                                System.out.println("Invalid account type entered! Please try again.");
+                            }
+                            break;
+                    
+                        case 3:
+                            System.out.println("From which account you would like to withdraw money? \nA.Savings\nB.Checkings");
+                            String withdrawAccount = x.nextLine();
+                            System.out.println("Enter the amount you want to withdraw:");
+                            double withdrawAmount = x.nextDouble();
+                            //currentCustomer.withdraw(withdrawAccount, withdrawAmount);
+                            break;
+                        case 4:
+                            System.out.println("Enter the amount you would like to transfer from Checking to Savings account:");
+                            double transferAmount = x.nextDouble();
+                            currentCustomer.transferMoneyToSaving(transferAmount);
+                            break;
+                        case 5:
+                            System.out.println("Exiting... Bye!");
+                            System.exit(0);
+                    }
+                }//case a ends
+            case "b":
+                while(true){
+                    // Manager tasks
+                }
+        }
+    }
+
     public static List<Customer> bankUserReader(String csvFile) throws IOException {
         String line;
         List<Customer> customers = new ArrayList<Customer>();
-         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             String skipLine = br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
@@ -63,109 +128,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  customers;
+        return customers;
     }//file reader ends
-
-
-        Scanner x = new Scanner(System.in);
-
-        System.out.println("A. Bank Client\nB. Bank Manager");
-        String role = x.nextLine();
-
-        switch(role.toLowerCase()){
-            case "a":
-                while(true){
-                    System.out.println("What would you like to do today?  1. Inquiry about a balance 2. Deposit money to an account 3. Withdraw money from an account 4. Transfer money between accounts 5. Pay Someone");
-                    int option = x.nextInt();
-                    switch(option){
-                        case 1:
-                            System.out.println("Enter your account number");
-                            String accountNumber = x.nextLine();
-                            System.out.println("Which account's balance would you like to check? \nA.Savings\nB.Checkings");
-                            String accountType = x.nextLine();
-                            
-                            if (accountType.equalsIgnoreCase("A")) {
-                                Checking checkingAccount = new Checking(accountNumber);
-                                System.out.println("Your current balance is: " + checkingAccount.getBalance());
-                                break;
-                            }
-                            
-                            else if(accountType.equalsIgnoreCase("B")){
-                                Savings savingAccount = new Savings(accountNumber);
-                                System.out.println("Your current balance is: " + savingAccount.getBalance());
-                                break;
-                            }
-
-                        case 2: 
-                            System.out.println("Enter your account number");
-                            String accountNum = x.next();
-                            System.out.println("Where wouldyou like to deposit your money? \nA.Savings\nB.Checkings");\
-                            String choice = x.nextLine();
-
-                            if (choice.equalsIgnoreCase("A")){
-                                Checking checkingAccount = new Checking(accountNum);
-                                System.out.println("How much would you like to deposit today?");
-                                double amt = x.nextDouble();
-                                checkingAccount.deposit(amt);
-                                break;
-                            }
-                            else if(choice.equalsIgnoreCase("B")){
-                                Savings savingAccount = new Savings(accountNum);
-                                System.out.println("How much would you like to deposit today?"):
-                                double amt = x.nextDouble();
-                                savingAccount.deposit(amt);
-                            }
-                        case 3:
-                            //Withdrawal
-                            System.out.println("Enter your account number");
-                            String accountNumber = x.nextLine();
-                            System.out.println("From which account would you like to withdraw money? \nA.Savings\nB.Checkings");
-                            String withdrawChoice = x.nextLine();
-
-                            if (withdrawChoice.equalsIgnoreCase("A")){
-                                Checking checkingAccount = new Checking(accountNumber);
-                                System.out.println("How much would you like to withdraw today?");
-                                double withdrawAmt = x.nextDouble();
-                                checkingAccount.withdraw(withdrawAmt);
-                            }
-
-                            else if(withdrawChoice.equalsIgnoreCase("B")){
-                                Savings savingAccount = new Savings(accountNumber);
-                                System.out.println("How much would you like to withdraw today?");
-                                double withdrawAmt = x.nextDouble();
-                                savingAccount.withdraw(withdrawAmt);
-                            }
-                            break;
-                        case 4:
-                        //assumes that checking and savings account exist.
-                        System.out.println("Enter your checking account number");
-                        String checkingAccountNumber = x.nextLine();
-                        System.out.println("Enter your savings account number");
-                        String savingAccountNumber = x.nextLine();
-                        Checking checkingAccount = new Checking(checkingAccountNumber);
-                        Savings savingAccount = new Savings(savingAccountNumber);
-                        System.out.println("How much would you like to transfer from checking to savings?");
-                        double transferAmt = x.nextDouble();
-                        checkingAccount.transferMoneyToSaving(savingAccount, transferAmt);
-                        break;
-                            
-
-                        
-
-                    }
-                }//case a ends
-            case "b":
-                while(true){
-
-                }
-        }
-
-        /**
-     * Inquiring about balance
-     * @param account
-     */
-    public static double inquireBalance(Account currAccount){
-
-    }
 
 }// class ends
