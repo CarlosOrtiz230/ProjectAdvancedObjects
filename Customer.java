@@ -95,18 +95,20 @@ public class Customer extends Person {
     //checks balance of customer
     public double checkBalance(String accountType) {
         for (Account account : accounts) {
-            if ((account instanceof Checking && accountType.equalsIgnoreCase("A")) || (account instanceof Savings && accountType.equalsIgnoreCase("B"))) {
+            if ((account instanceof Checking && accountType.equalsIgnoreCase("B")) || 
+                (account instanceof Savings && accountType.equalsIgnoreCase("A"))) {
                 return account.getBalance();
             }
         }
         System.out.println("Account not found.");
-        return 0;
+        return 0.0;
     }
+    
 
     public void deposit(String accountType, double amount) {
         for (Account account : accounts) {
-            if ((account instanceof Checking && accountType.equalsIgnoreCase("A")) || 
-                (account instanceof Savings && accountType.equalsIgnoreCase("B"))) {
+            if ((account instanceof Savings && accountType.equalsIgnoreCase("A")) || 
+                (account instanceof Checking && accountType.equalsIgnoreCase("B"))) {
                 account.deposit(amount);
                 System.out.println("Deposit of " + amount + " made to " + accountType + " account.");
                 return;
@@ -114,6 +116,7 @@ public class Customer extends Person {
         }
         System.out.println("Account not found.");
     }
+    
 
      public void withdraw(String accountType, double amount) {
         for (Account account : accounts) {

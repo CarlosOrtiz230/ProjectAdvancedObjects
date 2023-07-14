@@ -29,7 +29,7 @@ public abstract class Account {
      * @return The current balance
      */
     public double getBalance() {
-        return balance;
+        return this.balance;
     }
 
     /**

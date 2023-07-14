@@ -9,6 +9,8 @@ import javax.swing.plaf.TreeUI;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        //(714) 781-4636
+        //7147814636
         String csvFile = "BankUser.CSV"; // Name of DataBase
         List<Customer> customers = new ArrayList<>(); //Array List to hold database during the program 
         List<String> transactionHistory = new ArrayList<>(); 
@@ -38,7 +40,7 @@ public class Main {
             displayCustomerMenu();
             Scanner x = new Scanner(System.in);
             String option = x.nextLine();
-            x.nextLine(); // To skp line
+            //x.nextLine(); // To skp line
 
             switch(option){
                 case "1":
@@ -56,7 +58,7 @@ public class Main {
                     System.out.print(">");
                     double depositAmount = x.nextDouble();
                     x.nextLine(); // Consume newline left-over
-                    if(depositAccount.equals("A") || depositAccount.equals("B")){
+                    if(depositAccount.equalsIgnoreCase("A") || depositAccount.equalsIgnoreCase("B")){
                         currentCustomer.deposit(depositAccount, depositAmount);
                         System.out.println("Deposit Successful!");
                     } else {
@@ -66,11 +68,11 @@ public class Main {
             
                 case "3":
                     System.out.println("From which account you would like to withdraw money? \nA.Savings\nB.Checkings");
-                    System.out.print(">");
+                    //System.out.print(">");
                     String withdrawAccount = x.nextLine();
-                    if (withdrawAccount.equals("A") || withdrawAccount.equals("B")){
+                    if (withdrawAccount.equalsIgnoreCase("A") || withdrawAccount.equalsIgnoreCase("B")){
                         System.out.println("Enter the amount you want to withdraw:");
-                        System.out.print(">");
+                        //System.out.print(">");
                         Double withdrawAmount =  x.nextDouble();
                         currentCustomer.withdraw(withdrawAccount, withdrawAmount);
                         System.out.println("With DrawSuccessful!");
@@ -85,7 +87,7 @@ public class Main {
                     System.out.println("Enter the amount you would like to transfer from Between your accounts?:");
                     System.out.print(">");
 
-                    if (transferAccount.equals("A") || transferAccount.equals("B")){
+                    if (transferAccount.equalsIgnoreCase("A") || transferAccount.equalsIgnoreCase("B")){
                         System.out.println("Enter the amount you want to withdraw:");
                         System.out.print(">");
                         Double transferAmount =  x.nextDouble();
