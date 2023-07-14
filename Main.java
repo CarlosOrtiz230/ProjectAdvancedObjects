@@ -42,7 +42,7 @@ public class Main {
             String option = x.nextLine();
             //x.nextLine(); // To skp line
 
-            switch(option){
+            switch(option.toLowerCase()){
                 case "1":
                     System.out.println("Which account's balance would you like to check? \nA.Savings\nB.Checkings");
                     System.out.print(">");
@@ -72,7 +72,6 @@ public class Main {
                     String withdrawAccount = x.nextLine();
                     if (withdrawAccount.equalsIgnoreCase("A") || withdrawAccount.equalsIgnoreCase("B")){
                         System.out.println("Enter the amount you want to withdraw:");
-                        //System.out.print(">");
                         Double withdrawAmount =  x.nextDouble();
                         currentCustomer.withdraw(withdrawAccount, withdrawAmount);
                         System.out.println("With DrawSuccessful!");
@@ -81,36 +80,33 @@ public class Main {
                     }
                     break;
 
-                case "4":
+                    case "4":
                     System.out.println("From which account would you like to transfer\nA.Savings\nB.Checkings");
-                    System.out.print(">"); String transferAccount = x.nextLine();
-                    System.out.println("Enter the amount you would like to transfer from Between your accounts?:");
+                    System.out.print(">"); 
+                    String transferAccount = x.nextLine().trim();
+                    System.out.println("Enter the amount you would like to transfer between your accounts:");
                     System.out.print(">");
-
+                    double transferAmount = x.nextDouble();
+                    x.nextLine(); // This line is added to consume the newline character
+                
                     if (transferAccount.equalsIgnoreCase("A") || transferAccount.equalsIgnoreCase("B")){
-                        System.out.println("Enter the amount you want to withdraw:");
-                        System.out.print(">");
-                        Double transferAmount =  x.nextDouble();
-                        switch (transferAccount) {
-                            case "A"://savings
+                        switch (transferAccount.toLowerCase()) {
+                            case "a"://savings
                                 currentCustomer.transferMoneyToSaving(transferAmount);
                                 break;
-                        
-                            default:
+                            case "b":
                                 currentCustomer.transferMoneyToChecking(transferAmount);
                                 break;
+                            default:
+                                System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
+                                break;
                         }
-                        System.out.println("WithDraw Successful!");
-                    }else{
+                    } else {
                          System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
                     }
-                    
-                    double transferAmount = x.nextDouble();
-                    currentCustomer.transferMoneyToSaving(transferAmount);
                     break;
-
-
-                case "Exit":// no te enojes we asi dice el pdf
+                
+                case "exit":
                     System.out.println("Exiting... Bye!");
                     System.exit(0);
                 default:  

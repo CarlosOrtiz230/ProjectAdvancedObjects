@@ -62,6 +62,7 @@ public class Savings extends Account {
      public void transferMoneyToChecking(Checking checkingAccount, double amount) {
         if  (this.balance >= amount) {
             checkingAccount.deposit(amount);
+            this.balance -= amount;
             System.out.println("Transfer successful!");
         } else {
             System.out.println("Insufficient funds in Saving account.");
