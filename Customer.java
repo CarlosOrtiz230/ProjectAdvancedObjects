@@ -10,6 +10,7 @@ public class Customer extends Person {
     //attributes
     private List<Account> accounts;
     private String password;
+    private String identificationNumber;
 
     //construtors
 
@@ -20,11 +21,16 @@ public class Customer extends Person {
      * @param name The name of the Customer.
      * @param address The address of the Customer.
      */
-    public Customer(String name, String address,String password) {
+    public Customer(String name, String address,String password, String identificationNumber) {
         super(name, address);
         this.accounts = new ArrayList<>();
         String phone =  password.replaceAll("[()\\-\\s]", ""); //get ride of spaces and lines
         this.password = phone;
+        this.identificationNumber = identificationNumber;
+    }
+
+    private String getIdentificationNumber(){
+        return this.identificationNumber;
     }
 
     //getters and setters
@@ -128,5 +134,25 @@ public class Customer extends Person {
             }
         }
         System.out.println("Account not found.");
+    }
+    public void printCheckingInfo(){
+        Checking checkingAccount = (Checking) accounts.get(0); // if checking account is always the first in the list
+        System.out.println("Customer ID: " + this.getIdentificationNumber());
+        System.out.println("Account Number: " + checkingAccount.getAccountNumber());
+        System.out.println("Current Balance: " + checkingAccount.getBalance());
+    }
+    
+    public void printSavingsInfo(){
+        Savings savingsAccount = (Savings) accounts.get(1); // if savings account is always the second in the list
+        System.out.println("Customer ID: " + this.getIdentificationNumber());
+        System.out.println("Account Number: " + savingsAccount.getAccountNumber());
+        System.out.println("Current Balance: " + savingsAccount.getBalance());
+    }
+    
+    public void printCreditInfo(){
+        Credit creditAccount = (Credit) accounts.get(2); // if credit account is always the third in the list
+        System.out.println("Customer ID: " + this.getIdentificationNumber());
+        System.out.println("Account Number: " + creditAccount.getAccountNumber());
+        System.out.println("Current Balance: " + creditAccount.getBalance());
     }
 }

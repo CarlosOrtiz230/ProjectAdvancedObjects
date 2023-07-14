@@ -150,7 +150,7 @@ public class Main {
                 double creditMax = Double.parseDouble(data[13]);
                 double creditStartingBalance = Double.parseDouble(data[14]);
 
-                Customer customer = new Customer(firstName + " " + lastName, address, phoneNumber);
+                Customer customer = new Customer(firstName + " " + lastName, address, phoneNumber, identificationNumber);
                 Checking checkingAccount = new Checking(checkingAccountNum);
                 Savings savingsAccount = new Savings(savingsAccountNum);
                 Credit creditAccount = new Credit(creditAccountNumber, creditMax);
@@ -265,7 +265,7 @@ public class Main {
                 for (Customer customer : customers) {
                      if (customer.getName().equalsIgnoreCase(managerInput)) {
                             System.out.println("Costumer Found!");
-                            desiredCustomer = customer;
+                            
                             while(true){
                                 System.out.println("Which account would you like to inquire?");
                                 System.out.println("1. Checkings\n2. Savings \n3. Credit\n4. Transaction Log");
@@ -273,18 +273,18 @@ public class Main {
                                 managerInput = userInput.nextLine();
                                 switch(managerInput.toLowerCase()){
                                     case "1":
-                                        System.out.println("\nPrinting Checkings Information........");
-                                        // desiredCustomer.printHistoryCheckings()
+                                        System.out.println("\nPrinting Checkings Information:");
+                                        customer.printCheckingInfo();
                                         return;
 
                                     case "2":
-                                        System.out.println("\nPrinting Savings Information........");
-                                        // desiredCustomer.printHistorySavings()
+                                        System.out.println("\nPrinting Savings Information:");
+                                        customer.printSavingsInfo();
                                         return;
                                     
                                     case "3":
-                                        System.out.println("\nPrinting Credits Information........");
-                                        // desiredCustomer.printHistoryCredit()
+                                        System.out.println("\nPrinting Credits Information");
+                                        customer.printCreditInfo();
                                         return;
                                     case "4":
                                         System.out.println("Log:");
@@ -300,7 +300,7 @@ public class Main {
                      }//if ends
                 }
                 
-                System.out.println("xxxx----customer was not found----xxxx");
+                System.out.println("xxxx----Customer was NOT Found----xxxx");
                 return; //return to the begining
 
             case "b": //if user
