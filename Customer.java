@@ -117,8 +117,8 @@ public class Customer extends Person {
 
      public void withdraw(String accountType, double amount) {
         for (Account account : accounts) {
-            if ((account instanceof Checking && accountType.equalsIgnoreCase("A")) || 
-                (account instanceof Savings && accountType.equalsIgnoreCase("B"))) {
+            if ((account instanceof Checking && accountType.equalsIgnoreCase("B")) || 
+                (account instanceof Savings && accountType.equalsIgnoreCase("A"))) {
                 account.withdraw(amount);
                 System.out.println("Withdraw of " + amount + " made to " + accountType + " account.");
                 return;

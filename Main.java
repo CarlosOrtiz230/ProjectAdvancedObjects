@@ -28,7 +28,6 @@ public class Main {
 
         if(isManager){ // main menu for managers
             while(true){
-                displayManagerMenu();
                 managerOptions(customers);
             }
         }
@@ -73,7 +72,7 @@ public class Main {
                         System.out.println("Enter the amount you want to withdraw:");
                         System.out.print(">");
                         Double withdrawAmount =  x.nextDouble();
-                        currentCustomer.deposit(withdrawAccount, withdrawAmount);
+                        currentCustomer.withdraw(withdrawAccount, withdrawAmount);
                         System.out.println("With DrawSuccessful!");
                     }else{
                          System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
@@ -117,7 +116,9 @@ public class Main {
                     break;
             }//switch
         }//while
-    } //main
+    } //main ends
+
+    //complementary methods start
 
     public static List<Customer> bankUserReader(String csvFile) throws IOException {
         String line;
@@ -240,6 +241,7 @@ public class Main {
     }//displayManagerMenu ends
 
     public static void managerOptions(List<Customer> customers){
+        displayManagerMenu(); //display main options
         Scanner userInput = new Scanner(System.in);
         Customer desiredCustomer = null;
 
@@ -342,6 +344,10 @@ public class Main {
         }//switch
     } //manager Options
 
-
+    public static String addTextTransaction(Customer customer, Account account, String transactionType, double transactionAmmount){
+        String transaction = "\nCustomer " + customer.getName() + " did a " + transactionType + " of " + transactionAmmount +
+                            " now the current balance is " + account.getBalance();
+        return transaction;
+    }
 
 }// class ends
