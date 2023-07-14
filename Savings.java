@@ -4,6 +4,8 @@ import java.util.List;
  * A class representing a savings account that extends Account.
  */
 public class Savings extends Account {
+    
+    //constructor
 
     /**
      * Constructs a new instance of the Savings class with the specified account number.
@@ -18,6 +20,16 @@ public class Savings extends Account {
      *
      * @param amount the amount to be withdrawn
      */
+
+    //setters and getters
+
+    @Override
+    public String getAccountNumber() {
+        return this.accountNumber;
+    }
+
+
+     //methods 
     @Override
     public void withdraw(double amount) {
         if (balance >= amount) {

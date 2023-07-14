@@ -4,7 +4,12 @@ import java.util.List;
  * This class represents a Credit account.
  */
 public class Credit extends Account {
+    // attributes
+
     private double creditLimit;
+
+    //constructors
+
     /**
      * Constructs a new Credit account with the given account number and credit limit.
      *
@@ -16,6 +21,9 @@ public class Credit extends Account {
         this.creditLimit = creditLimit;
     }
 
+
+    //setters and getters
+
     /**
      * Returns the credit limit.
      * @return The credit limit.
@@ -24,6 +32,14 @@ public class Credit extends Account {
         return creditLimit;
     }
 
+
+    @Override
+    public String getAccountNumber() {
+        return this.accountNumber;
+    }
+
+    //methods 
+    
     @Override
     public  void deposit(double amount){
         balance += amount;// adds amount to current balance

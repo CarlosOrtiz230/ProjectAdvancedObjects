@@ -7,8 +7,11 @@ import java.util.*;
  * This class represents a Customer.
  */
 public class Customer extends Person {
+    //attributes
     private List<Account> accounts;
+    private String password;
 
+    //construtors
 
     public Customer() {} //default 
 
@@ -17,11 +20,35 @@ public class Customer extends Person {
      * @param name The name of the Customer.
      * @param address The address of the Customer.
      */
-    public Customer(String name, String address) {
+    public Customer(String name, String address,String password) {
         super(name, address);
         this.accounts = new ArrayList<>();
+        String phone =  password.replaceAll("[()\\-\\s]", ""); //get ride of spaces and lines
+        this.password = phone;
     }
 
+    //getters and setters
+
+    /**
+     * Returns the list of Accounts that the Customer has.
+     * @return The list of Accounts.
+     */
+    public List<Account> getAccounts() {
+        return this.accounts;
+    }
+
+    public String getPassword(){
+        return this.password;
+    }
+
+    public void setPassword(String phone){
+        phone =  phone.replaceAll("[()\\-\\s]", "");
+        System.out.println(phone);
+        this.password = phone;
+    }
+
+
+    //methods 
     /**
      * Adds an Account to the Customer's list of accounts.
      * @param account The account to be added.
@@ -46,16 +73,6 @@ public class Customer extends Person {
             System.out.println("Either Savings or Checking account not found.");
         }
     }
-
-    /**
-     * Returns the list of Accounts that the Customer has.
-     * @return The list of Accounts.
-     */
-    public List<Account> getAccounts() {
-        return this.accounts;
-    }
-
-
 
     //checks balance of customer
     public double checkBalance(String accountType) {

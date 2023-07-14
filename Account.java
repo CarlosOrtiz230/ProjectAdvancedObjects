@@ -13,7 +13,7 @@ public abstract class Account {
     /**
      * The unique identifier of the account.
      */
-    private String accountNumber;
+    protected String accountNumber;
 
     /**
      * Constructs a new Account with the given account number.

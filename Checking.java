@@ -2,10 +2,21 @@ import java.util.List;
 
 public class Checking extends Account {
 
+    //constructor
     public Checking(String accountNumber) {
         super(accountNumber);
     }
 
+
+    //setters and getters
+
+    @Override
+    public String getAccountNumber() {
+        return this.accountNumber;
+    }
+    
+
+    //methods
     @Override
     public void withdraw(double amount) {
         if (balance >= amount) {
