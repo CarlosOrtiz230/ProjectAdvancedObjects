@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         String csvFile = "BankUser.CSV"; // Name of DataBase
         List<Customer> customers = new ArrayList<>(); //Array List to hold database during the program 
+        List<String> transactionHistory = new ArrayList<>(); 
         customers = bankUserReader(csvFile);
         Customer currentCustomer = null; //before assigning a customer
 
@@ -34,57 +35,89 @@ public class Main {
 
         //main menu for customers
 
-        // switch(role.toLowerCase()){
-        //     case "a":
-        //         while(true){
-        //             System.out.println("What would you like to do today?  \n1. Inquiry about a balance \n2. Deposit money to an account \n3. Withdraw money from an account \n4. Transfer money between accounts \n5. EXIT");
-        //             int option = x.nextInt();
-        //             x.nextLine(); // To skp line
+        while(true){
+            displayCustomerMenu();
+            Scanner x = new Scanner(System.in);
+            String option = x.nextLine();
+            x.nextLine(); // To skp line
 
-        //             switch(option){
-        //                 case 1:
-        //                     System.out.println("Which account's balance would you like to check? \nA.Savings\nB.Checkings");
-        //                     String accountType = x.nextLine();
-        //                     System.out.println("Your current balance is: " + currentCustomer.checkBalance(accountType));
-        //                     break;
+            switch(option){
+                case "1":
+                    System.out.println("Which account's balance would you like to check? \nA.Savings\nB.Checkings");
+                    System.out.print(">");
+                    String accountType = x.nextLine();
+                    System.out.println("Your current balance is: " + currentCustomer.checkBalance(accountType));
+                    break;
 
-        //                 case 2:
-        //                     System.out.println("To which account would you like to deposit money? \nA.Savings\nB.Checkings");
-        //                     String depositAccount = x.nextLine().trim().toUpperCase();
-        //                     System.out.println("Enter the amount you want to deposit:");
-        //                     double depositAmount = x.nextDouble();
-        //                     x.nextLine(); // Consume newline left-over
-        //                     if(depositAccount.equals("A") || depositAccount.equals("B")){
-        //                         currentCustomer.deposit(depositAccount, depositAmount);
-        //                         System.out.println("Deposit Successful!");
-        //                     } else {
-        //                         System.out.println("Invalid account type entered! Please try again.");
-        //                     }
-        //                     break;
+                case "2":
+                    System.out.println("To which account would you like to deposit money? \nA.Savings\nB.Checkings");
+                    System.out.print(">");
+                    String depositAccount = x.nextLine().trim().toUpperCase();
+                    System.out.println("Enter the amount you want to deposit:");
+                    System.out.print(">");
+                    double depositAmount = x.nextDouble();
+                    x.nextLine(); // Consume newline left-over
+                    if(depositAccount.equals("A") || depositAccount.equals("B")){
+                        currentCustomer.deposit(depositAccount, depositAmount);
+                        System.out.println("Deposit Successful!");
+                    } else {
+                        System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
+                    }
+                    break;
+            
+                case "3":
+                    System.out.println("From which account you would like to withdraw money? \nA.Savings\nB.Checkings");
+                    System.out.print(">");
+                    String withdrawAccount = x.nextLine();
+                    if (withdrawAccount.equals("A") || withdrawAccount.equals("B")){
+                        System.out.println("Enter the amount you want to withdraw:");
+                        System.out.print(">");
+                        Double withdrawAmount =  x.nextDouble();
+                        currentCustomer.deposit(withdrawAccount, withdrawAmount);
+                        System.out.println("With DrawSuccessful!");
+                    }else{
+                         System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
+                    }
+                    break;
+
+                case "4":
+                    System.out.println("From which account would you like to transfer\nA.Savings\nB.Checkings");
+                    System.out.print(">"); String transferAccount = x.nextLine();
+                    System.out.println("Enter the amount you would like to transfer from Between your accounts?:");
+                    System.out.print(">");
+
+                    if (transferAccount.equals("A") || transferAccount.equals("B")){
+                        System.out.println("Enter the amount you want to withdraw:");
+                        System.out.print(">");
+                        Double transferAmount =  x.nextDouble();
+                        switch (transferAccount) {
+                            case "A"://savings
+                                currentCustomer.transferMoneyToSaving(transferAmount);
+                                break;
+                        
+                            default:
+                                currentCustomer.transferMoneyToChecking(transferAmount);
+                                break;
+                        }
+                        System.out.println("WithDraw Successful!");
+                    }else{
+                         System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
+                    }
                     
-        //                 case 3:
-        //                     System.out.println("From which account you would like to withdraw money? \nA.Savings\nB.Checkings");
-        //                     String withdrawAccount = x.nextLine();
-        //                     System.out.println("Enter the amount you want to withdraw:");
-        //                     double withdrawAmount = x.nextDouble();
-        //                     //currentCustomer.withdraw(withdrawAccount, withdrawAmount);
-        //                     break;
-        //                 case 4:
-        //                     System.out.println("Enter the amount you would like to transfer from Checking to Savings account:");
-        //                     double transferAmount = x.nextDouble();
-        //                     currentCustomer.transferMoneyToSaving(transferAmount);
-        //                     break;
-        //                 case 5:
-        //                     System.out.println("Exiting... Bye!");
-        //                     System.exit(0);
-        //             }
-        //         }//case a ends
-        //     case "b":
-        //         while(true){
-        //             // Manager tasks
-        //         }
-      //  }
-    }
+                    double transferAmount = x.nextDouble();
+                    currentCustomer.transferMoneyToSaving(transferAmount);
+                    break;
+
+
+                case "Exit":// no te enojes we asi dice el pdf
+                    System.out.println("Exiting... Bye!");
+                    System.exit(0);
+                default:  
+                    System.out.println("xxxx----please enter a valid option----xxxx");
+                    break;
+            }//switch
+        }//while
+    } //main
 
     public static List<Customer> bankUserReader(String csvFile) throws IOException {
         String line;
@@ -199,6 +232,13 @@ public class Main {
         System.out.print(">");
     }//displayManagerMenu ends
     
+    public static void displayCustomerMenu(){
+        System.out.println("----Customer Menu----");
+        System.out.println("What would you like to do today?");
+        System.out.println("\n1. Inquiry about a balance \n2. Deposit money to an account");
+        System.out.println("3. Withdraw money from an account \n4. Transfer money between accounts \n5. EXIT");
+    }//displayManagerMenu ends
+
     public static void managerOptions(List<Customer> customers){
         Scanner userInput = new Scanner(System.in);
         Customer desiredCustomer = null;
@@ -301,6 +341,7 @@ public class Main {
                 break;
         }//switch
     } //manager Options
+
 
 
 }// class ends

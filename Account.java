@@ -55,4 +55,6 @@ public abstract class Account {
     public abstract void deposit(double amount);
 
     public abstract void payToThirdParty(List<Customer> dataBase,String name, String lastname, String accountNumber,double amount);
+
+    public abstract void displayTransactionsHistory(List<String> history );
 }

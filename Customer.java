@@ -74,6 +74,24 @@ public class Customer extends Person {
         }
     }
 
+    public void transferMoneyToChecking(double amount) {
+        Savings savingsAccount = null;
+        Checking checkingAccount = null;
+        for (Account account : accounts) {
+            if (account instanceof Savings) {
+                savingsAccount = (Savings) account;
+            } else if (account instanceof Checking) {
+                checkingAccount = (Checking) account;
+            }
+        }
+        if (checkingAccount != null && savingsAccount != null) {
+            savingsAccount.transferMoneyToChecking(checkingAccount, amount); 
+        } else {
+            System.out.println("Either Savings or Checking account not found.");
+        }
+    }
+
+
     //checks balance of customer
     public double checkBalance(String accountType) {
         for (Account account : accounts) {
@@ -91,6 +109,18 @@ public class Customer extends Person {
                 (account instanceof Savings && accountType.equalsIgnoreCase("B"))) {
                 account.deposit(amount);
                 System.out.println("Deposit of " + amount + " made to " + accountType + " account.");
+                return;
+            }
+        }
+        System.out.println("Account not found.");
+    }
+
+     public void withdraw(String accountType, double amount) {
+        for (Account account : accounts) {
+            if ((account instanceof Checking && accountType.equalsIgnoreCase("A")) || 
+                (account instanceof Savings && accountType.equalsIgnoreCase("B"))) {
+                account.withdraw(amount);
+                System.out.println("Withdraw of " + amount + " made to " + accountType + " account.");
                 return;
             }
         }
