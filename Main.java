@@ -11,12 +11,12 @@ public class Main {
     public static void main(String[] args) throws IOException {
         //(714) 781-4636
         //7147814636
+        List<String> log = new ArrayList<>();
         String csvFile = "BankUser.CSV"; // Name of DataBase
         List<Customer> customers = new ArrayList<>(); //Array List to hold database during the program 
-        List<String> transactionHistory = new ArrayList<>(); 
         customers = bankUserReader(csvFile);
         Customer currentCustomer = null; //before assigning a customer
-
+        while(true){
         //Check if the user is a manager to change the functionality
    
         boolean isManager = checkIfManager();
@@ -30,7 +30,7 @@ public class Main {
 
         if(isManager){ // main menu for managers
             while(true){
-                managerOptions(customers);
+                managerOptions(customers, log);
             }
         }
 
@@ -48,6 +48,7 @@ public class Main {
                     System.out.print(">");
                     String accountType = x.nextLine();
                     System.out.println("Your current balance is: " + currentCustomer.checkBalance(accountType));
+                    logTransaction(currentCustomer, accountType, "balance inquiry", currentCustomer.checkBalance(accountType), log );
                     break;
 
                 case "2":
@@ -61,6 +62,7 @@ public class Main {
                     if(depositAccount.equalsIgnoreCase("A") || depositAccount.equalsIgnoreCase("B")){
                         currentCustomer.deposit(depositAccount, depositAmount);
                         System.out.println("Deposit Successful!");
+                        logTransaction(currentCustomer, depositAccount, "deposit", depositAmount, log);
                     } else {
                         System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
                     }
@@ -75,37 +77,43 @@ public class Main {
                         Double withdrawAmount =  x.nextDouble();
                         currentCustomer.withdraw(withdrawAccount, withdrawAmount);
                         System.out.println("With DrawSuccessful!");
+                        logTransaction(currentCustomer, withdrawAccount, "withdrawal", withdrawAmount, log);
                     }else{
                          System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
                     }
                     break;
 
                     case "4":
-                    System.out.println("From which account would you like to transfer\nA.Savings\nB.Checkings");
-                    System.out.print(">"); 
-                    String transferAccount = x.nextLine().trim();
-                    System.out.println("Enter the amount you would like to transfer between your accounts:");
-                    System.out.print(">");
-                    double transferAmount = x.nextDouble();
-                    x.nextLine(); // This line is added to consume the newline character
-                
-                    if (transferAccount.equalsIgnoreCase("A") || transferAccount.equalsIgnoreCase("B")){
-                        switch (transferAccount.toLowerCase()) {
-                            case "a"://savings
-                                currentCustomer.transferMoneyToSaving(transferAmount);
-                                break;
-                            case "b":
-                                currentCustomer.transferMoneyToChecking(transferAmount);
-                                break;
-                            default:
-                                System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
-                                break;
+                        System.out.println("From which account would you like to transfer\nA.Savings\nB.Checkings");
+                        System.out.print(">"); 
+                        String transferAccount = x.nextLine().trim();
+                        System.out.println("Enter the amount you would like to transfer between your accounts:");
+                        System.out.print(">");
+                        double transferAmount = x.nextDouble();
+                        x.nextLine(); // This line is added to consume the newline character
+                    
+                        if (transferAccount.equalsIgnoreCase("A") || transferAccount.equalsIgnoreCase("B")){
+                            switch (transferAccount.toLowerCase()) {
+                                case "a"://savings
+                                    currentCustomer.transferMoneyToSaving(transferAmount);
+                                    logTransaction(currentCustomer, "Checkings", "transfer to Savings", transferAmount, log);
+                                    break;
+                                case "b":
+                                    currentCustomer.transferMoneyToChecking(transferAmount);
+                                    logTransaction(currentCustomer, "Savings", "transfer to Checkings", transferAmount, log);
+                                    break;
+                                default:
+                                    System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
+                                    break;
+                            }
+                        } else {
+                            System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
                         }
-                    } else {
-                         System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
-                    }
+                        break;
+                case "5":
+                    System.out.println("Back to Role Selection");
                     break;
-                
+                 
                 case "exit":
                     System.out.println("Exiting... Bye!");
                     System.exit(0);
@@ -113,9 +121,12 @@ public class Main {
                     System.out.println("xxxx----please enter a valid option----xxxx");
                     break;
             }//switch
+            if(option.equals("5")){
+                break;
+            }
         }//while
     } //main ends
-
+}// first while ends
     //complementary methods start
 
     public static List<Customer> bankUserReader(String csvFile) throws IOException {
@@ -235,17 +246,17 @@ public class Main {
         System.out.println("----Customer Menu----");
         System.out.println("What would you like to do today?");
         System.out.println("\n1. Inquiry about a balance \n2. Deposit money to an account");
-        System.out.println("3. Withdraw money from an account \n4. Transfer money between accounts \n5. EXIT");
+        System.out.println("3. Withdraw money from an account \n4. Transfer money between accounts \n5. Switch Bank Roles \n--Type 'EXIT' to Close--");
     }//displayManagerMenu ends
 
-    public static void managerOptions(List<Customer> customers){
+    public static void managerOptions(List<Customer> customers, List<String> log){
         displayManagerMenu(); //display main options
         Scanner userInput = new Scanner(System.in);
         Customer desiredCustomer = null;
 
         String managerInput = userInput.nextLine();
-        switch(managerInput){
-            case "A":
+        switch(managerInput.toLowerCase()){
+            case "a":
                 System.out.print("What is the name of the customer");
                 System.out.println(">");
                 managerInput = userInput.nextLine();
@@ -257,10 +268,10 @@ public class Main {
                             desiredCustomer = customer;
                             while(true){
                                 System.out.println("Which account would you like to inquire?");
-                                System.out.println("1. Checkings\n2. Savings \n3. Credit");
+                                System.out.println("1. Checkings\n2. Savings \n3. Credit\n4. Transaction Log");
                                 System.out.print(">");
                                 managerInput = userInput.nextLine();
-                                switch(managerInput){
+                                switch(managerInput.toLowerCase()){
                                     case "1":
                                         System.out.println("\nPrinting Checkings Information........");
                                         // desiredCustomer.printHistoryCheckings()
@@ -275,6 +286,12 @@ public class Main {
                                         System.out.println("\nPrinting Credits Information........");
                                         // desiredCustomer.printHistoryCredit()
                                         return;
+                                    case "4":
+                                        System.out.println("Log:");
+                                        for (String hisotry : log){
+                                            System.out.println(hisotry);
+                                        }
+                                        break;
                                     default:
                                         System.out.println("xxxx----This is not a valid entry----x");
                                         return;
@@ -286,11 +303,11 @@ public class Main {
                 System.out.println("xxxx----customer was not found----xxxx");
                 return; //return to the begining
 
-            case "B": //if user
+            case "b": //if user
                 System.out.println("What type of account is it?\n 1. Checkings\n 2. Savings\n 3. Credit");
                 System.out.print(">");
                 managerInput = userInput.nextLine();
-                switch(managerInput){
+                switch(managerInput.toLowerCase()){
                                 case "1": //checking
                                     System.out.print("Enter your checking account number");
                                     System.out.println(">"); managerInput = userInput.nextLine();
@@ -342,10 +359,10 @@ public class Main {
         }//switch
     } //manager Options
 
-    public static String addTextTransaction(Customer customer, Account account, String transactionType, double transactionAmmount){
-        String transaction = "\nCustomer " + customer.getName() + " did a " + transactionType + " of " + transactionAmmount +
-                            " now the current balance is " + account.getBalance();
-        return transaction;
+    public static void logTransaction(Customer customer, String accountType, String transactionType, double balance, List<String> log) {
+        String logEntry = "Customer " + customer.getName() + " with account type: " + accountType + " made a " + transactionType + ". Current balance: " + balance;
+        log.add(logEntry);
     }
+    
 
 }// class ends
