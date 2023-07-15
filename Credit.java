@@ -4,11 +4,11 @@ import java.util.List;
  * This class represents a Credit account.
  */
 public class Credit extends Account {
-    // attributes
+    // attributes----------------------------------------------------------------
 
     private double creditLimit;
 
-    //constructors
+    //constructors----------------------------------------------------------------
 
     /**
      * Constructs a new Credit account with the given account number and credit limit.
@@ -22,7 +22,7 @@ public class Credit extends Account {
     }
 
 
-    //setters and getters
+    //setters and getters----------------------------------------------------------------
 
     /**
      * Returns the credit limit.
@@ -32,18 +32,27 @@ public class Credit extends Account {
         return creditLimit;
     }
 
-
+    /**
+         * Returns the account number associated with this account.
+         *
+         * @return The account number.
+    */
     @Override
     public String getAccountNumber() {
         return this.accountNumber;
     }
 
-    //methods 
+    //methods------------------------------------------------------------------------------
     
+    /**
+         * Deposits the specified amount to the account.
+         *
+        * @param amount The amount to be deposited.
+    */
     @Override
     public  void deposit(double amount){
         balance += amount;// adds amount to current balance
-    }//deposit ends
+    } 
 
     /**
      * Withdraws the amount from the account
@@ -58,7 +67,16 @@ public class Credit extends Account {
         }
     }//withdraw
 
-     @Override
+    /**
+         * Pays a specified amount to a third party account.
+         *
+         * @param dataBase      The list of customers to search for the receiver.
+         * @param name          The first name of the receiver.
+         * @param lastname      The last name of the receiver.
+         * @param accountNumber The account number of the receiver.
+         * @param amount        The amount to be paid.
+    */
+    @Override
     public void payToThirdParty(List<Customer> dataBase ,String name, String lastname, String accountNumber,double amount) {
         String recieverFullName  = name + " " + lastname;
         Customer reciever = null;
@@ -69,7 +87,7 @@ public class Credit extends Account {
                 reciever = customer;
                 break;
             }//if
-        }//for
+        } 
         
         //customer not found
 
