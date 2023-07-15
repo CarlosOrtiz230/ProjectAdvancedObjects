@@ -2,12 +2,13 @@
  * The abstract class representing a person with a name and address.
  */
 public abstract class Person {
-    
+    //attributes----------------------------------------------------------------
     private String name;  
     private String address; 
     private String dob;
     private String phoneNumber;
 
+    //constructor----------------------------------------------------------------
     public Person() {} //default 
 
     /**
@@ -23,6 +24,8 @@ public abstract class Person {
         this.phoneNumber = phoneNumber;
     }
 
+    //getters and setters----------------------------------------------------------------
+
     /**
      * Retrieves the name of the person.
      *
@@ -32,10 +35,20 @@ public abstract class Person {
         return name;
     }
 
+    /**
+         * Retrieves the date of birth of the customer.
+         *
+         * @return The date of birth of the customer.
+    */
     public String getDob(){
         return this.dob;
     }
 
+    /**
+         * Retrieves the phone number of the customer.
+         *
+         * @return The phone number of the customer.
+     */
     public String getPhoneNumber(){
         return this.phoneNumber;
     }
@@ -49,4 +62,5 @@ public abstract class Person {
     public String getAddress() {
         return address;
     }
+    
 }
