@@ -185,6 +185,7 @@ public class Main {
                     case "exit":
                         System.out.println("Exiting... Bye!");
                         writeCustomersToCSV(customers, csvFile);
+                        createTextFile(log, "outputBalance.txt");
                         System.exit(0);
                     default:  
                         System.out.println("xxxx----please enter a valid option----xxxx");
@@ -279,9 +280,10 @@ public class Main {
     public static boolean checkIfManager(){
         Scanner x = new Scanner(System.in);
         System.out.println("are you a Bank Client or Manager?");
-        System.out.println("A. Bank Client\nB. Bank Manager");
+        System.out.println("A. Bank Client\nB. Bank Manager\ntype 'exit' to finish the program");
         String role = x.nextLine();
         System.out.print(">");
+        if(role.equalsIgnoreCase("exit")){System.exit(0);}
         if(role.equalsIgnoreCase("A") ||  role.equalsIgnoreCase("a")){ //if the user is a manager just return
             return false;
         }
@@ -310,7 +312,7 @@ public class Main {
         System.out.println("----Manager Menu----");
         System.out.println("Would you like to inquire by name or by type/number");
         System.out.println("A. Inquire account by name.\nB. Inquire account by type/number");
-        System.out.println("Type 'exit' to leave the program");
+        System.out.println("Type 'Exit' to leave the program");
         System.out.print(">");
     }//displayManagerMenu ends
     
@@ -430,7 +432,8 @@ public class Main {
             case "exit":
                 String csvFile = "BankUser.CSV"; // Name of DataBase
                 writeCustomersToCSV(customers, csvFile);
-                return; //leave program
+                createTextFile(log, "outputBalance.txt");
+                System.exit(0);//leave program
             default: 
                 System.out.println("xxxx----This is not a valid entry----xxxx");
                 break;
@@ -504,5 +507,12 @@ public class Main {
         }
     }
 
+    public static void createTextFile(List<String> lines, String fileName) throws IOException {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            for (String line : lines) {
+                writer.write(line + "\n");
+            }
+        }
+    }
 
 }// class ends
