@@ -5,13 +5,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 import javax.swing.plaf.TreeUI;
 
+
+
 public class Main {
+
+    /**
+         * The main entry point of the program.
+         *
+         * @param args the command line arguments
+    */
     public static void main(String[] args) throws IOException {
-        //(714) 781-4636
-        //7147814636
         List<String> log = new ArrayList<>();
         String csvFile = "BankUser.CSV"; // Name of DataBase
         List<Customer> customers = new ArrayList<>(); //Array List to hold database during the program 
@@ -201,6 +206,13 @@ public class Main {
    
 //complementary methods start
 
+    /**
+     * Reads customer data from a CSV file and creates a list of Customer objects.
+     *
+     * @param csvFile the path of the CSV file containing the customer data
+     * @return a list of Customer objects representing the customers read from the CSV file
+     */
+
     public static List<Customer> bankUserReader(String csvFile) throws IOException {
         String line;
         List<Customer> customers = new ArrayList<Customer>();
@@ -246,6 +258,14 @@ public class Main {
         return customers;
     }//file reader ends
 
+    /**
+         * Performs user login by requesting the user's name and phone number, and validating the credentials against
+         * the list of customers.
+         *
+         * @param currentCustomer the current Customer object, which will be updated if the login is successful
+         * @param customers       the list of Customer objects to check for user existence and validate credentials
+         * @return the updated currentCustomer object if the login is successful, otherwise null
+    */
     public static Customer userLogin(Customer currentCustomer,List<Customer> customers) throws IOException {
         Scanner x = new Scanner(System.in); //ask the user's name
         System.out.println("Enter your first and last name:");
@@ -277,6 +297,11 @@ public class Main {
         }
     }//userLogin ends
 
+    /**
+         * Checks if the user is a bank manager or a bank client based on the user input.
+         *
+         * @return true if the user is a bank manager, false if the user is a bank client or the program should exit
+    */
     public static boolean checkIfManager(){
         Scanner x = new Scanner(System.in);
         System.out.println("are you a Bank Client or Manager?");
@@ -308,6 +333,9 @@ public class Main {
         
     }//checkIfManager ends
 
+    /**
+         * Displays the menu options for the bank manager.
+    */
     public static void displayManagerMenu(){
         System.out.println("----Manager Menu----");
         System.out.println("Would you like to inquire by name or by type/number");
@@ -316,6 +344,9 @@ public class Main {
         System.out.print(">");
     }//displayManagerMenu ends
     
+    /**
+        * Displays the menu options for the bank customer.
+    */
     public static void displayCustomerMenu(){
         System.out.println("----Customer Menu----");
         System.out.println("What would you like to do today?");
@@ -324,6 +355,12 @@ public class Main {
         "6. Pay to someone else" +"\n--Type 'EXIT' to Close--");
     }//displayManagerMenu ends
 
+    /**
+         * Displays and handles the menu options for the bank manager.
+         *
+         * @param customers the list of Customer objects representing the bank customers
+         * @param log       the list of String objects representing the transaction log
+     */
     public static void managerOptions(List<Customer> customers, List<String> log) throws IOException{
         displayManagerMenu(); //display main options
         Scanner userInput = new Scanner(System.in);
@@ -366,7 +403,7 @@ public class Main {
                                         for (String hisotry : log){
                                             System.out.println(hisotry);
                                         }
-                                        break;
+                                        return;
                                     default:
                                         System.out.println("xxxx----This is not a valid entry----x");
                                         return;
@@ -440,11 +477,26 @@ public class Main {
         }//switch
     } //manager Options
 
+    /**
+         * Logs a transaction by creating an entry in the transaction log.
+         *
+         * @param customer        the Customer object associated with the transaction
+         * @param accountType     the type of account involved in the transaction
+         * @param transactionType the type of transaction performed
+         * @param balance         the current balance after the transaction
+         * @param log             the list of String objects representing the transaction log
+     */
     public static void logTransaction(Customer customer, String accountType, String transactionType, double balance, List<String> log) {
         String logEntry = "Customer " + customer.getName() + " with account type: " + accountType + " made a " + transactionType + ". Current balance: " + balance;
         log.add(logEntry);
     }
     
+    /**
+         * Checks if a given string can be parsed as a numeric value.
+         *
+         * @param str the string to check
+         * @return true if the string is numeric, false otherwise
+     */
     public static boolean isNumeric(String str) { //to check if an string is numeric
         try {
             Double.parseDouble(str);
@@ -454,6 +506,12 @@ public class Main {
         }
     }
 
+    /**
+         * Writes the customer data to a CSV file.
+         *
+         * @param customers the list of Customer objects representing the bank customers
+         * @param csvFile   the file path of the CSV file to write to
+    */
     public static void writeCustomersToCSV(List<Customer> customers, String csvFile) throws IOException {
         try (FileWriter writer = new FileWriter(csvFile, false)) {
             // Escribir los datos de los clientes en el CSV
@@ -507,6 +565,12 @@ public class Main {
         }
     }
 
+    /**
+         * Creates a text file with the given lines of text.
+         *
+         * @param lines    the list of String objects representing the lines of text
+         * @param fileName the name of the text file to create
+    */
     public static void createTextFile(List<String> lines, String fileName) throws IOException {
         try (FileWriter writer = new FileWriter(fileName)) {
             for (String line : lines) {
