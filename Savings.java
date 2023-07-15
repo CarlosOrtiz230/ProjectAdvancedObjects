@@ -5,7 +5,7 @@ import java.util.List;
  */
 public class Savings extends Account {
     
-    //constructor
+    //constructor----------------------------------------------------------------
 
     /**
      * Constructs a new instance of the Savings class with the specified account number.
@@ -15,22 +15,27 @@ public class Savings extends Account {
         super(accountNumber);
     }
 
+    //setters and getters----------------------------------------------------------------
+
     /**
      * Overrides the withdraw method from the parent class (Account) to allow withdrawals from the savings account
      *
      * @param amount the amount to be withdrawn
      */
-
-    //setters and getters
-
     @Override
     public String getAccountNumber() {
         return this.accountNumber;
     }
 
 
-     //methods 
-    @Override
+     //methods------------------------------------------------------------------------------------------------
+    
+    /**
+         * Retrieves the phone number of the customer.
+         *
+         * @return The phone number of the customer.
+    */
+     @Override
     public void withdraw(double amount) {
         if (balance >= amount) {
             balance -= amount;
@@ -50,7 +55,7 @@ public class Savings extends Account {
         } else {
             System.out.println("Error with deposit.");
         }
-    }//despoist ends
+    }
 
     /**
      * Transfers the specified amount of money from the checking account to the checking account.
@@ -58,7 +63,6 @@ public class Savings extends Account {
      * @param checkingAccount The checkings account to which the money will be transferred.
      * @param amount The amount of money to transfer.
      */
-
      public void transferMoneyToChecking(Checking checkingAccount, double amount) {
         if  (this.balance >= amount) {
             checkingAccount.deposit(amount);
@@ -67,10 +71,20 @@ public class Savings extends Account {
         } else {
             System.out.println("Insufficient funds in Saving account.");
         }
-    }// transfer Money ends
+    }
 
-    //DOES NOT IMPLEMENT PAY TO THIRD PARTY
-       @Override
+    //DOES NOT IMPLEMENT PAY TO THIRD PARTY since it is a saving account
+
+    /**
+         * Overrides the payToThirdParty method to transfer money from the current account to a third-party account.
+         *
+         * @param dataBase      The list of customers in the database.
+         * @param name          The first name of the recipient.
+         * @param lastname      The last name of the recipient.
+         * @param accountNumber The account number of the recipient's account.
+         * @param amount        The amount to be transferred.
+    */
+    @Override
     public void payToThirdParty(List<Customer> dataBase ,String name, String lastname, String accountNumber,double amount) {
         String receiverFullName  = name + " " + lastname;
         Customer receiver = null;
@@ -86,9 +100,7 @@ public class Savings extends Account {
         //customer not found
 
         if(receiver == null){System.out.println("customer was not found"); return;}
-
-        List<Account> receiverAccounts = receiver.getAccounts();
-        
+        List<Account> receiverAccounts = receiver.getAccounts();   
         boolean accountFound = false;
         for ( Account currentAccount: receiverAccounts) { //iterate over the customer account to find the correct one
             if (currentAccount.getAccountNumber().equals(accountNumber)) {
@@ -106,5 +118,6 @@ public class Savings extends Account {
         
         //notice success
         System.out.println("Your Deposit to " + receiverFullName + " was successfull");
-    }//payToThirdParty ends
+    }
+    
 }//class ends
