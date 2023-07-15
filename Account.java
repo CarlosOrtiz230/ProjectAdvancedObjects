@@ -53,9 +53,22 @@ public abstract class Account {
      */
     public abstract void withdraw(double amount);
     
+    /**
+         * Abstract method to deposit a specified amount into the account.
+         *
+         * @param amount The amount to be deposited.
+    */
     public abstract void deposit(double amount);
 
+    /**
+         * Abstract method to transfer a specified amount to a third party account.
+         *
+         * @param dataBase      The list of customers in the database.
+         * @param name          The first name of the recipient.
+         * @param lastname      The last name of the recipient.
+         * @param accountNumber The account number of the recipient.
+         * @param amount        The amount to be transferred.
+    */
     public abstract void payToThirdParty(List<Customer> dataBase,String name, String lastname, String accountNumber,double amount);
 
-   
 }
