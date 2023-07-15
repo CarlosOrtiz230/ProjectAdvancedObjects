@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,7 @@ public class Main {
                     managerOptions(customers, log);
                 }
             }
+            isManager = false;
 
             //main menu for customers
 
@@ -81,7 +83,7 @@ public class Main {
                         String withdrawAccount = x.nextLine();
                         if (withdrawAccount.equalsIgnoreCase("A") || withdrawAccount.equalsIgnoreCase("B")){
                             System.out.println("Enter the amount you want to withdraw:");
-                            System.out.println(">");
+                            System.out.print(">");
                             String withdrawInput =  x.nextLine();
                             double withdrawAmount;
                             if (isNumeric(withdrawInput)) {
@@ -99,7 +101,7 @@ public class Main {
                         break;
 
                         case "4":
-                            System.out.println("From which account would you like to transfer\nA.Savings\nB.Checkings");
+                            System.out.println("From which account would you like to transfer?\nA.Savings to Checkings \nB.Checkings to Savings");
                             System.out.print(">"); 
                             String transferAccount = x.nextLine().trim();
                             System.out.println("Enter the amount you would like to transfer between your accounts:");
@@ -134,9 +136,55 @@ public class Main {
                     case "5":
                         System.out.println("Back to Role Selection");
                         break;
+
+                    case "6":
+                            System.out.println("From which account would you like to pay/deposit thirdParty?\nA.Savings\nB.Checkings");
+                            System.out.print(">"); 
+                            String payAccount = x.nextLine().trim();
+                            System.out.println("What is the first name of the recipient");
+                            System.out.print(">"); 
+                            String name = x.nextLine().trim();
+                            System.out.println("What is the last name of the recipient");
+                            System.out.print(">"); 
+                            String lastName = x.nextLine().trim();
+                       
+                            //account info
+                            System.out.println("What is the recipient account number");
+                            System.out.print(">"); 
+                            String reciepientAccountNumber = x.nextLine().trim();
+                            System.out.println("Enter the amount you would like to pay to thirdParty:");
+                            System.out.print(">");
+                            String payInput = x.nextLine();
+                            double payAmount;
+                            if (isNumeric(payInput)){
+                                payAmount = Double.parseDouble(payInput);
+                             } else {
+                            System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
+                            break; //exit the program
+                            }
+                            x.nextLine(); // This line is added to consume the newline character
+                            if (payAccount.equalsIgnoreCase("A") || payAccount.equalsIgnoreCase("B")){
+                                switch (payAccount.toLowerCase()) {
+                                    case "a"://savings
+                                        ((Savings)currentCustomer.getAccounts().get(1)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
+                                        logTransaction(currentCustomer, "Savings", ("transfer to " + name + " " + lastName  + " "), payAmount, log);
+                                        break;
+                                    case "b"://checking
+                                        ((Checking)currentCustomer.getAccounts().get(0)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
+                                        logTransaction(currentCustomer, "Checking", ("transfer to " + name + " " + lastName  + " "), payAmount, log);
+                                        break;
+                                    default:
+                                        System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
+                                        break;
+                                }
+                            } else {
+                                System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
+                            }
+                            break; //breake case 6
                     
                     case "exit":
                         System.out.println("Exiting... Bye!");
+                        writeCustomersToCSV(customers, csvFile);
                         System.exit(0);
                     default:  
                         System.out.println("xxxx----please enter a valid option----xxxx");
@@ -173,7 +221,7 @@ public class Main {
                 double creditMax = Double.parseDouble(data[13]);
                 double creditStartingBalance = Double.parseDouble(data[14]);
 
-                Customer customer = new Customer(firstName + " " + lastName, address, phoneNumber, identificationNumber);
+                Customer customer = new Customer(firstName + " " + lastName, dob,address, phoneNumber, identificationNumber);
                 Checking checkingAccount = new Checking(checkingAccountNum);
                 Savings savingsAccount = new Savings(savingsAccountNum);
                 Credit creditAccount = new Credit(creditAccountNumber, creditMax);
@@ -262,6 +310,7 @@ public class Main {
         System.out.println("----Manager Menu----");
         System.out.println("Would you like to inquire by name or by type/number");
         System.out.println("A. Inquire account by name.\nB. Inquire account by type/number");
+        System.out.println("Type 'exit' to leave the program");
         System.out.print(">");
     }//displayManagerMenu ends
     
@@ -269,10 +318,11 @@ public class Main {
         System.out.println("----Customer Menu----");
         System.out.println("What would you like to do today?");
         System.out.println("\n1. Inquiry about a balance \n2. Deposit money to an account");
-        System.out.println("3. Withdraw money from an account \n4. Transfer money between accounts \n5. Switch Bank Roles \n--Type 'EXIT' to Close--");
+        System.out.println("3. Withdraw money from an account \n4. Transfer money between accounts \n5. Switch Bank Roles\n" + 
+        "6. Pay to someone else" +"\n--Type 'EXIT' to Close--");
     }//displayManagerMenu ends
 
-    public static void managerOptions(List<Customer> customers, List<String> log){
+    public static void managerOptions(List<Customer> customers, List<String> log) throws IOException{
         displayManagerMenu(); //display main options
         Scanner userInput = new Scanner(System.in);
         Customer desiredCustomer = null;
@@ -280,8 +330,8 @@ public class Main {
         String managerInput = userInput.nextLine();
         switch(managerInput.toLowerCase()){
             case "a":
-                System.out.print("What is the name of the customer");
-                System.out.println(">");
+                System.out.println("What is the name of the customer");
+                System.out.print(">");
                 managerInput = userInput.nextLine();
                 
                 //loking for the customer
@@ -374,8 +424,13 @@ public class Main {
                                 default:
                                     System.out.println("xxxx----This was not a valid entry. Enter 1 2 or 3----xxxx");
                                     break;
-                }//switch ends
+                }// inner switch ends
                 break;
+
+            case "exit":
+                String csvFile = "BankUser.CSV"; // Name of DataBase
+                writeCustomersToCSV(customers, csvFile);
+                return; //leave program
             default: 
                 System.out.println("xxxx----This is not a valid entry----xxxx");
                 break;
@@ -395,5 +450,59 @@ public class Main {
             return false;
         }
     }
+
+    public static void writeCustomersToCSV(List<Customer> customers, String csvFile) throws IOException {
+        try (FileWriter writer = new FileWriter(csvFile, false)) {
+            // Escribir los datos de los clientes en el CSV
+            for (int i = 0; i < customers.size(); i++) {
+                Customer customer = customers.get(i);
+
+                if (i > 0) {
+                    writer.write("\n"); // Agregar una nueva línea después de la primera línea
+                }
+
+                if(i==0){
+                    String line = "Identification Number,First Name,Last Name,Date of Birth,Address,Phone" +
+                            "Number,Checking Account Number,Checking Starting Balance," +
+                            "Savings Account Number,Savings Starting Balance,Credit Account Number,Credit Max,Credit Starting Balance";
+                            writer.write(line);
+                    continue;
+                }
+                //get information that can be retrived before
+
+                //name and last name
+
+                String[] nameAndLastName = customer.getName().split(" "); //since it comes together
+                String name = nameAndLastName[0];
+                String lastName = nameAndLastName[1];
+
+                //account infos from account subclasses
+
+                String checkingAccountNumber = customer.getAccounts().get(0).getAccountNumber(); //index 0 is checking
+                double checkingBalance = customer.getAccounts().get(0).getBalance();
+                String savingAccountNumber = customer.getAccounts().get(1).getAccountNumber(); //indedex 1 is savings
+                double savingBalance = customer.getAccounts().get(1).getBalance();
+                String creditAccountNumber = customer.getAccounts().get(2).getAccountNumber();
+                double creditMax = ((Credit) (customer.getAccounts().get(2))).getCreditLimit(); // need to cast Credit because Account does not have this function
+                double creditBalance = customer.getAccounts().get(2).getBalance();
+
+                String line = customer.getIdentificationNumber() + "," +
+                        name + "," +
+                        lastName + "," +
+                        customer.getDob() + "," +
+                        customer.getAddress() + "," +
+                        customer.getPhoneNumber() + "," +
+                        checkingAccountNumber + "," +
+                        checkingBalance + "," +
+                        savingAccountNumber + "," +
+                        savingBalance + "," +
+                        creditAccountNumber + "," +
+                        creditMax + "," +
+                        creditBalance;
+                writer.write(line);
+            }
+        }
+    }
+
 
 }// class ends

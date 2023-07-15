@@ -5,6 +5,8 @@ public abstract class Person {
     
     private String name;  
     private String address; 
+    private String dob;
+    private String phoneNumber;
 
     public Person() {} //default 
 
@@ -14,9 +16,11 @@ public abstract class Person {
      * @param name    the name of the person
      * @param address the address of the person
      */
-    public Person(String name, String address) {
+    public Person(String name, String address,String dob,String phoneNumber) {
         this.name = name;
         this.address = address;
+        this.dob = dob;
+        this.phoneNumber = phoneNumber;
     }
 
     /**
@@ -27,6 +31,15 @@ public abstract class Person {
     public String getName() {
         return name;
     }
+
+    public String getDob(){
+        return this.dob;
+    }
+
+    public String getPhoneNumber(){
+        return this.phoneNumber;
+    }
+
 
     /**
      * Retrieves the address of the person.

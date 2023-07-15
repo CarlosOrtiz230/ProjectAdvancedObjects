@@ -21,15 +21,16 @@ public class Customer extends Person {
      * @param name The name of the Customer.
      * @param address The address of the Customer.
      */
-    public Customer(String name, String address,String password, String identificationNumber) {
-        super(name, address);
+    public Customer(String name, String dob, String address,String password , String identificationNumber) {
+        super(name, address,dob,password);
         this.accounts = new ArrayList<>();
         String phone =  password.replaceAll("[()\\-\\s]", ""); //get ride of spaces and lines
         this.password = phone;
         this.identificationNumber = identificationNumber;
+  
     }
 
-    private String getIdentificationNumber(){
+    public String getIdentificationNumber(){
         return this.identificationNumber;
     }
 
@@ -46,6 +47,8 @@ public class Customer extends Person {
     public String getPassword(){
         return this.password;
     }
+
+   
 
     public void setPassword(String phone){
         phone =  phone.replaceAll("[()\\-\\s]", "");
