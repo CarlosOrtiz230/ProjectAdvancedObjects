@@ -1,22 +1,41 @@
 import java.util.List;
 
+/**
+ * Represents a checking account.
+ */
 public class Checking extends Account {
 
-    //constructor
+    //constructor----------------------------------------------------------------
+     
+    /**
+     * Constructs a Checking object with the specified account number.
+     *
+     * @param accountNumber The account number for the checking account.
+     */
     public Checking(String accountNumber) {
         super(accountNumber);
     }
 
+    //setters and getters----------------------------------------------------------------
 
-    //setters and getters
-
+    /**
+         * Retrieves the account number of the checking account.
+         *
+         * @return The account number.
+     */
     @Override
     public String getAccountNumber() {
         return this.accountNumber;
     }
     
 
-    //methods
+    //methods------------------------------------------------------------------
+
+    /**
+         * Withdraws the specified amount from the account.
+         *
+         * @param amount The amount to be withdrawn.
+    */
     @Override
     public void withdraw(double amount) {
         if (balance >= amount) {
@@ -26,6 +45,11 @@ public class Checking extends Account {
         }
     }
 
+    /**
+         * Deposits the specified amount into the account.
+         *
+         * @param amount The amount to be deposited.
+    */
     @Override
     public void deposit(double amount){
         if(amount >= 0){
@@ -35,6 +59,12 @@ public class Checking extends Account {
         }
     }
 
+    /**
+         * Transfers the specified amount from the checking account to the savings account.
+         *
+         * @param savingAccount The savings account to transfer the money to.
+         * @param amount        The amount to be transferred.
+    */
     public void transferMoneyToSaving(Savings savingAccount, double amount) {
         if (this.balance >= amount) {
             savingAccount.deposit(amount);
@@ -45,6 +75,16 @@ public class Checking extends Account {
         }
     }
 
+
+    /**
+         * Pays a specified amount to a third party recipient.
+         *
+         * @param dataBase       The database of customers.
+         * @param name           The first name of the recipient.
+         * @param lastname       The last name of the recipient.
+         * @param accountNumber  The account number of the recipient.
+         * @param amount         The amount to be paid.
+     */
     @Override
     public void payToThirdParty(List<Customer> dataBase ,String name, String lastname, String accountNumber,double amount) {
         String receiverFullName  = name + " " + lastname;
@@ -81,4 +121,5 @@ public class Checking extends Account {
 
         System.out.println("Your Deposit to " + receiverFullName + " was successful");
     }
+    
 }
