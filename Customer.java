@@ -11,6 +11,7 @@ public class Customer extends Person {
     private List<Account> accounts;
     private String password;
     private String identificationNumber;
+    private String phoneNumberDivided;
 
     //construtors----------------------------------------
 
@@ -21,12 +22,13 @@ public class Customer extends Person {
      * @param name The name of the Customer.
      * @param address The address of the Customer.
      */
-    public Customer(String name, String dob, String address,String password , String identificationNumber) {
+    public Customer(String name, String dob, String address,String password , String identificationNumber,String phoneNumberDivided) {
         super(name, address,dob,password);
         this.accounts = new ArrayList<>();
         String phone =  password.replaceAll("[()\\-\\s]", ""); //get ride of spaces and lines
         this.password = phone;
         this.identificationNumber = identificationNumber;
+        this.phoneNumberDivided = phoneNumberDivided;
     }
 
    
@@ -47,6 +49,10 @@ public class Customer extends Person {
     */
     public String getPassword(){
         return this.password;
+    }
+
+    public String getPhoneNumberDivided(){
+        return this.phoneNumberDivided;
     }
 
     /**

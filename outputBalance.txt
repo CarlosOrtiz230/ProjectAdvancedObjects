@@ -1,0 +1,2 @@
+Customer Daniel A with account type: A made a deposit of 3000.0 --->Current balance: 6364.79
+Customer Daniel A with account type: B made a deposit of 300.0 --->Current balance: 1157.56

@@ -55,7 +55,6 @@ public class Main {
                         System.out.print(">");
                         String accountType = x.nextLine();
                         System.out.println("Your current balance is: " + currentCustomer.checkBalance(accountType));
-                        logTransaction(currentCustomer, accountType, "balance inquiry", currentCustomer.checkBalance(accountType), log );
                         break;
 
                     case "2":
@@ -76,7 +75,7 @@ public class Main {
                         if(depositAccount.equalsIgnoreCase("A") || depositAccount.equalsIgnoreCase("B")){
                             currentCustomer.deposit(depositAccount, depositAmount);
                             System.out.println("Deposit Successful!");
-                            logTransaction(currentCustomer, depositAccount, "deposit", depositAmount, log);
+                            logTransaction(currentCustomer, depositAccount, "deposit", depositAmount,currentCustomer.checkBalance(depositAccount), log);
                         } else {
                             System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
                         }
@@ -99,7 +98,7 @@ public class Main {
                             }
                             currentCustomer.withdraw(withdrawAccount, withdrawAmount);
                             System.out.println("With DrawSuccessful!");
-                            logTransaction(currentCustomer, withdrawAccount, "withdrawal", withdrawAmount, log);
+                            logTransaction(currentCustomer, withdrawAccount, "withdrawal", withdrawAmount,currentCustomer.checkBalance(withdrawAccount),log);
                         }else{
                             System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
                         }
@@ -124,11 +123,11 @@ public class Main {
                                 switch (transferAccount.toLowerCase()) {
                                     case "a"://savings
                                         currentCustomer.transferMoneyToSaving(transferAmount);
-                                        logTransaction(currentCustomer, "Checkings", "transfer to Savings", transferAmount, log);
+                                        logTransaction(currentCustomer, "Checkings", "transfer to Savings", transferAmount,currentCustomer.checkBalance(transferAccount) ,log);
                                         break;
                                     case "b":
                                         currentCustomer.transferMoneyToChecking(transferAmount);
-                                        logTransaction(currentCustomer, "Savings", "transfer to Checkings", transferAmount, log);
+                                        logTransaction(currentCustomer, "Savings", "transfer to Checkings", transferAmount,currentCustomer.checkBalance(transferAccount), log);
                                         break;
                                     default:
                                         System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
@@ -170,13 +169,13 @@ public class Main {
                             x.nextLine(); // This line is added to consume the newline character
                             if (payAccount.equalsIgnoreCase("A") || payAccount.equalsIgnoreCase("B")){
                                 switch (payAccount.toLowerCase()) {
-                                    case "a"://savings
+                                    case "A"://savings
                                         ((Savings)currentCustomer.getAccounts().get(1)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
-                                        logTransaction(currentCustomer, "Savings", ("transfer to " + name + " " + lastName  + " "), payAmount, log);
+                                        logTransaction(currentCustomer, "Savings", ("transfer to " + name + " " + lastName  + " "), payAmount,currentCustomer.checkBalance("A"), log);
                                         break;
-                                    case "b"://checking
+                                    case "B"://checking
                                         ((Checking)currentCustomer.getAccounts().get(0)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
-                                        logTransaction(currentCustomer, "Checking", ("transfer to " + name + " " + lastName  + " "), payAmount, log);
+                                        logTransaction(currentCustomer, "Checking", ("transfer to " + name + " " + lastName  + " "), payAmount, currentCustomer.checkBalance("B") ,log);
                                         break;
                                     default:
                                         System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
@@ -226,6 +225,7 @@ public class Main {
                 String dob = data[3];
                 String address = data[4] + "," + data[5] + "," + data[6]; // Combine address
                 String phoneNumber = data[7].replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
+                String phoneNumberDivided = data[7];
                 String checkingAccountNum = data[8];
                 double checkingStartingBalance = Double.parseDouble(data[9]);
                 String savingsAccountNum = data[10];
@@ -234,7 +234,7 @@ public class Main {
                 double creditMax = Double.parseDouble(data[13]);
                 double creditStartingBalance = Double.parseDouble(data[14]);
 
-                Customer customer = new Customer(firstName + " " + lastName, dob,address, phoneNumber, identificationNumber);
+                Customer customer = new Customer(firstName + " " + lastName, dob,address, phoneNumber, identificationNumber,phoneNumberDivided);
                 Checking checkingAccount = new Checking(checkingAccountNum);
                 Savings savingsAccount = new Savings(savingsAccountNum);
                 Credit creditAccount = new Credit(creditAccountNumber, creditMax);
@@ -486,8 +486,8 @@ public class Main {
          * @param balance         the current balance after the transaction
          * @param log             the list of String objects representing the transaction log
      */
-    public static void logTransaction(Customer customer, String accountType, String transactionType, double balance, List<String> log) {
-        String logEntry = "Customer " + customer.getName() + " with account type: " + accountType + " made a " + transactionType + ". Current balance: " + balance;
+    public static void logTransaction(Customer customer, String accountType, String transactionType, double ammount, double balance ,List<String> log) {
+        String logEntry = "Customer " + customer.getName() + " with account type: " + accountType + " made a " + transactionType + " of " + ammount + " --->Current balance: " + balance;
         log.add(logEntry);
     }
     
@@ -513,28 +513,20 @@ public class Main {
          * @param csvFile   the file path of the CSV file to write to
     */
     public static void writeCustomersToCSV(List<Customer> customers, String csvFile) throws IOException {
-        try (FileWriter writer = new FileWriter(csvFile, false)) {
-            // Escribir los datos de los clientes en el CSV
-            for (int i = 0; i < customers.size(); i++) {
-                Customer customer = customers.get(i);
-
-                if (i > 0) {
-                    writer.write("\n"); // Agregar una nueva línea después de la primera línea
-                }
-
-                if(i==0){
-                    String line = "Identification Number,First Name,Last Name,Date of Birth,Address,Phone" +
+        FileWriter writer = new FileWriter(csvFile, false);
+        String line = "Identification Number,First Name,Last Name,Date of Birth,Address,Phone" +
                             "Number,Checking Account Number,Checking Starting Balance," +
                             "Savings Account Number,Savings Starting Balance,Credit Account Number,Credit Max,Credit Starting Balance";
                             writer.write(line);
-                    continue;
-                }
+                            writer.write("\n"); // Agregar una nueva línea después de la primera línea
+            // Escribir los datos de los clientes en el CSV
+            for (int i = 0; i < customers.size(); i++) { 
+                Customer customer = customers.get(i);
+                
                 //get information that can be retrived before
-
-                //name and last name
-
+           
                 String[] nameAndLastName = customer.getName().split(" "); //since it comes together
-                String name = nameAndLastName[0];
+                String name = nameAndLastName[0];        //name and last name
                 String lastName = nameAndLastName[1];
 
                 //account infos from account subclasses
@@ -547,12 +539,12 @@ public class Main {
                 double creditMax = ((Credit) (customer.getAccounts().get(2))).getCreditLimit(); // need to cast Credit because Account does not have this function
                 double creditBalance = customer.getAccounts().get(2).getBalance();
 
-                String line = customer.getIdentificationNumber() + "," +
+                        line = customer.getIdentificationNumber() + "," +
                         name + "," +
                         lastName + "," +
                         customer.getDob() + "," +
                         customer.getAddress() + "," +
-                        customer.getPhoneNumber() + "," +
+                        customer.getPhoneNumberDivided() + "," +
                         checkingAccountNumber + "," +
                         checkingBalance + "," +
                         savingAccountNumber + "," +
@@ -561,8 +553,9 @@ public class Main {
                         creditMax + "," +
                         creditBalance;
                 writer.write(line);
+                writer.write("\n");
             }
-        }
+        
     }
 
     /**
