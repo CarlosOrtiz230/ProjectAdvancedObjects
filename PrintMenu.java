@@ -1,4 +1,4 @@
-public class Menu{
+public class PrintMenu{
     /**
          * Displays the menu options for the bank manager.
     */
