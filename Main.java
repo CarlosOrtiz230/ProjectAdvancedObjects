@@ -39,7 +39,7 @@ public class Main {
                 Menu.displayCustomerMenu();
                 Scanner x = new Scanner(System.in);
                 String option = x.nextLine();
-                //x.nextLine(); // To skp line
+                x.nextLine(); // To skp line
 
                 switch(option.toLowerCase()){
                     case "1":
@@ -181,7 +181,7 @@ public class Main {
                     case "exit":
                         System.out.println("Exiting... Bye!");
                         CSVReaderWriter.writeCustomersToCSV(customers, csvFile);
-                        createTextFile(log, "outputBalance.txt");
+                        CSVReaderWriter.createTextFile(log, "outputBalance.txt");
                         System.exit(0);
                     default:  
                         System.out.println("xxxx----please enter a valid option----xxxx");
@@ -278,7 +278,7 @@ public class Main {
         case "exit":
             String csvFile = "BankUser.CSV"; // Name of DataBase
             CSVReaderWriter.writeCustomersToCSV(customers, csvFile);
-            createTextFile(log, "outputBalance.txt");
+            CSVReaderWriter.createTextFile(log, "outputBalance.txt");
             System.exit(0);//leave program
         default: 
             System.out.println("xxxx----This is not a valid entry----xxxx");
@@ -351,22 +351,9 @@ public class Main {
         } catch (NumberFormatException e) {
             return false;
         }
-    }
+    }//this can be an interface
 
 
 
-    /**
-         * Creates a text file with the given lines of text.
-         *
-         * @param lines    the list of String objects representing the lines of text
-         * @param fileName the name of the text file to create
-    */
-    public static void createTextFile(List<String> lines, String fileName) throws IOException {
-        try (FileWriter writer = new FileWriter(fileName)) {
-            for (String line : lines) {
-                writer.write(line + "\n");
-            }
-        }
-    }
 
 }// class ends

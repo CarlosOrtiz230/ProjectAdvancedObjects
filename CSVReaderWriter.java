@@ -90,4 +90,19 @@ public class CSVReaderWriter {
             }
         }
     }
+
+
+    /**
+         * Creates a text file with the given lines of text.
+         *
+         * @param lines    the list of String objects representing the lines of text
+         * @param fileName the name of the text file to create
+    */
+    public static void createTextFile(List<String> lines, String fileName) throws IOException {
+        try (FileWriter writer = new FileWriter(fileName)) {
+            for (String line : lines) {
+                writer.write(line + "\n");
+            }
+        }
+    }
 }
