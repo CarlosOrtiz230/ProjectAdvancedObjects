@@ -79,8 +79,8 @@ public class Main {
                         x.nextLine(); // Consume newline left-over
                         if(depositAccount.equalsIgnoreCase("1") || depositAccount.equalsIgnoreCase("2")){
                             currentCustomer.deposit(depositAccount, depositAmount);
-                           
-                            logTransaction(currentCustomer, depositAccount, "deposit", depositAmount,currentCustomer.checkBalance(depositAccount), log);
+                            
+                            logTransaction(currentCustomer,new Customer(), depositAccount, "N/A" ,deposit, depositAmount,currentCustomer.checkBalance(depositAccount), log,transactions);
                         } else {
                             System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
                         }
@@ -255,7 +255,7 @@ public class Main {
                 return;
             }
             currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
-                    receiverFirstName + "," + receiverLastName + ",, " + ammount; // Empty value for receiverAccountType
+                    receiverFirstName + "," + receiverLastName + ", " + ammount; // Empty value for receiverAccountType
         } else {
             // Other transactions (e.g., inquiry, withdraw, transfer) can have incomplete information
             currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
@@ -263,7 +263,6 @@ public class Main {
         }
     
         transaction.add(currentTransaction);
-    }
     }
 
 
