@@ -37,8 +37,8 @@
         Scanner x = new Scanner(System.in);
         System.out.println("are you a Bank Client or Manager?");
         System.out.println("1. Bank Client\n2. Bank Manager\ntype 'exit' to finish the program");
-        String role = x.nextLine();
         System.out.print(">");
+        String role = x.nextLine();
         if(role.equalsIgnoreCase("exit")){
             System.exit(0);
         }

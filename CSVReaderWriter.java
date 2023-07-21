@@ -49,21 +49,28 @@ public class CSVReaderWriter {
     }//file reader ends
 
     public static void writeCustomersToCSV(List<Customer> customers, String csvFile) throws IOException {
-        try (FileWriter writer = new FileWriter(csvFile, false)) {
-            String line = "Identification Number,First Name,Last Name,Date of Birth,Address,Phone" +
-                    "Number,Checking Account Number,Checking Starting Balance," +
-                    "Savings Account Number,Savings Starting Balance,Credit Account Number,Credit Max,Credit Starting Balance";
-            writer.write(line);
-            writer.write("\n"); // Add a new line after the first line
+        //constant
+        final String CSV_HEADER = "Identification Number,First Name,Last Name,Date of Birth,Address,Phone Number," +
+        "Checking Account Number,Checking Starting Balance," +
+        "Savings Account Number,Savings Starting Balance," +
+        "Credit Account Number,Credit Max,Credit Starting Balance";
 
+        try (FileWriter writer = new FileWriter(csvFile, false)) {
+            writer.write(CSV_HEADER);
+            writer.write("\n"); // Add a new line after the header
+    
             // Write the customer data in the CSV
             for (Customer customer : customers) {
-                // Get information that can be retrieved before
-                String[] nameAndLastName = customer.getName().split(" "); // Since it comes together
-                String name = nameAndLastName[0];
+                // Get customer information
+                String identificationNumber = customer.getIdentificationNumber();
+                String[] nameAndLastName = customer.getName().split(" ");
+                String firstName = nameAndLastName[0];
                 String lastName = nameAndLastName[1];
-
-                // Account infos from account subclasses
+                String dob = customer.getDob();
+                String address = customer.getAddress();
+                String phoneNumber = customer.getPhoneNumber();
+    
+                // Account info from account subclasses
                 String checkingAccountNumber = customer.getAccounts().get(0).getAccountNumber(); // Index 0 is checking
                 double checkingBalance = customer.getAccounts().get(0).getBalance();
                 String savingAccountNumber = customer.getAccounts().get(1).getAccountNumber(); // Index 1 is savings
@@ -71,13 +78,13 @@ public class CSVReaderWriter {
                 String creditAccountNumber = customer.getAccounts().get(2).getAccountNumber();
                 double creditMax = ((Credit) (customer.getAccounts().get(2))).getCreditLimit(); // Need to cast Credit because Account does not have this function
                 double creditBalance = customer.getAccounts().get(2).getBalance();
-
-                line = customer.getIdentificationNumber() + "," +
-                        name + "," +
+    
+                String line = identificationNumber + "," +
+                        firstName + "," +
                         lastName + "," +
-                        customer.getDob() + "," +
-                        customer.getAddress() + "," +
-                        customer.getPhoneNumberDivided() + "," +
+                        dob + "," +
+                        address + "," +
+                        phoneNumber + "," +
                         checkingAccountNumber + "," +
                         checkingBalance + "," +
                         savingAccountNumber + "," +
@@ -85,6 +92,7 @@ public class CSVReaderWriter {
                         creditAccountNumber + "," +
                         creditMax + "," +
                         creditBalance;
+    
                 writer.write(line);
                 writer.write("\n");
             }

@@ -9,10 +9,23 @@ public class Main {
          * @param args the command line arguments
     */
     public static void main(String[] args) throws IOException {
+        //constants
+
+       
+        
         List<String> log = new ArrayList<>();
-        String csvFile = "BankUser.CSV"; // Name of DataBase
+        String csvFile;
         List<Customer> customers = new ArrayList<>(); //Array List to hold database during the program 
-        customers = CSVReaderWriter.bankUserReader(csvFile);
+        List<String> transactions = new ArrayList<>();
+        try { //try catch for the dataBase creation 
+            csvFile = "BankUser.CSV";
+            customers = CSVReaderWriter.bankUserReader(csvFile);
+        }catch (Exception e) {
+            System.out.println("Error during the creation of the dataBase: " +e.getMessage() );
+            return;
+        }
+        
+        
         Customer currentCustomer = null; //before assigning a customer
         while(true){
         //Check if the user is a manager to change the functionality
@@ -66,7 +79,7 @@ public class Main {
                         x.nextLine(); // Consume newline left-over
                         if(depositAccount.equalsIgnoreCase("1") || depositAccount.equalsIgnoreCase("2")){
                             currentCustomer.deposit(depositAccount, depositAmount);
-                            System.out.println("Deposit Successful!");
+                           
                             logTransaction(currentCustomer, depositAccount, "deposit", depositAmount,currentCustomer.checkBalance(depositAccount), log);
                         } else {
                             System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
@@ -207,11 +220,24 @@ public class Main {
          * @param balance         the current balance after the transaction
          * @param log             the list of String objects representing the transaction log
      */
-    public static void logTransaction(Customer customer, String accountType, String transactionType, double ammount, double balance ,List<String> log) {
-        String logEntry = "Customer " + customer.getName() + " with account type: " + accountType + " made a " + transactionType + " of " + ammount + " --->Current balance: " + balance;
+    public static void logTransaction(Customer customer ,Customer reciever, String accountType, String recieverAccountType, String transactionType, double ammount, double balance ,List<String> log,List<String> currentTransaction) {
+        String logEntry = "Customer " + customer.getName() + " from: " + accountType + " made a " + transactionType + " of " + ammount + " --->Current balance: " + balance;
         log.add(logEntry);
+        
+        // THIS IS FOR .CSV ONLY
+
+        String [] tokens = customer.getName().split(","); //tokens 0 name and tokens 1 last name
+        String name = tokens[0];
+        String lastName =tokens[1];
+        tokens = null;
+        tokens = reciever.getName().split(","); //tokens 0 name and tokens 1 last name for reciever
+        String recieverFirstName = tokens[0];
+        String recieverLastName = tokens[1];
+        
+        String currentTransaction =   "" +  name + "," + lastName + "," + accountType + "," + transactionType + "," + recieverFirstName + "," +
+                recieverLastName + "," + recieverAccountType + "," +  ammount;
+        transactions.add(currentTransaction);
     }
-    
 
 
 }// class ends
