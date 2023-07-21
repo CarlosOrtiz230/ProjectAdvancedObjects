@@ -3,3 +3,6 @@ Se corrigieron errores menores de menu A/B instead of 1/2
 try catch fueron agregados
 
 fileWritter FUE RE-HECHO MAS EFFICENTE ,LEGIBLE (readable) y protegido por un Try/catch
+
+Se creo transactions array List y SE NECESITA CORREGIR CADA METODO PARA AGREGAR LOS NEEDED PARAMETER
+BASED ON THE .csv transactions needs
