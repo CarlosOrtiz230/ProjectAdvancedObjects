@@ -19,5 +19,20 @@ public class PrintMenu{
         System.out.println("\n1. Inquiry about a balance \n2. Deposit money to an account");
         System.out.println("3. Withdraw money from an account \n4. Transfer money between accounts \n5. Switch Bank Roles\n" + 
         "6. Pay to someone else" +"\n--Type 'EXIT' to Close--");
-    }//displayManagerMenu ends
+    }
+
+    public static void whichAccountInquire(){
+        System.out.println("Which account's balance would you like to check? \n1.Savings\n2.Checkings");
+        System.out.print(">");
+    }
+
+    public static void whichAccountDeposit(){
+        System.out.println("To which account would you like to deposit money? \n1.Savings\n2.Checkings");
+        System.out.print(">");
+    }
+
+    public static void enterAmmountDeposit(){
+        System.out.println("Enter the amount you want to deposit:");
+        System.out.print(">");
+    }
 }

@@ -2,6 +2,10 @@ import java.io.*;
 import java.util.*;
 
 public class CSVReaderWriter {
+    //Contains all information that might be printed 
+    public static List<String> log = new ArrayList<>();
+    public static List<String> transactions = new ArrayList<>(); //arraylist to create transactions.csv file
+
     public static List<Customer> bankUserReader(String csvFile) throws IOException {
         String line;
         List<Customer> customers = new ArrayList<>();
@@ -113,4 +117,58 @@ public class CSVReaderWriter {
             }
         }
     }
+
+    /**
+         * Logs a transaction by creating an entry in the transaction log.
+         *
+         * @param customer        the Customer object associated with the transaction
+         * @param accountType     the type of account involved in the transaction
+         * @param transactionType the type of transaction performed
+         * @param balance         the current balance after the transaction
+         * @param log             the list of String objects representing the transaction log
+     */
+    public static void logTransaction(Customer customer ,Customer reciever, String accountType, String recieverAccountType, String transactionType, double ammount, double balance ,List<String> log,List<String> transaction) {
+        String logEntry = "Customer " + customer.getName() + " from: " + accountType + " made a " + transactionType + " of " + ammount + " --->Current balance: " + balance;
+        log.add(logEntry);
+
+    // THIS IS FOR .CSV ONLY
+        String[] tokens = customer.getName().split(" "); // Assuming the name is in the format "First Name Last Name"
+        String name = tokens[0];
+        String lastName = tokens[1];
+        String receiverFirstName = "";
+        String receiverLastName = "";
+    
+        if (reciever != null) {
+            tokens = reciever.getName().split(" ");
+            receiverFirstName = tokens[0];
+            receiverLastName = tokens[1];
+        }
+    
+        // Prepare the CSV entry based on the transaction type
+        String currentTransaction;
+        if (transactionType.equalsIgnoreCase("pay")) {
+            // Pay transaction requires all information
+            if (reciever == null || recieverAccountType == null) {
+                System.out.println("Incomplete information for pay transaction.");
+                return;
+            }
+            currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
+                    receiverFirstName + "," + receiverLastName + "," + recieverAccountType + "," + ammount;
+        } else if (transactionType.equalsIgnoreCase("deposit")) {
+            // Deposit transaction only requires receiver information
+            if (reciever == null) {
+                System.out.println("Incomplete information for deposit transaction.");
+                return;
+            }
+            currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
+                    receiverFirstName + "," + receiverLastName + ", " + ammount; // Empty value for receiverAccountType
+        } else {
+            // Other transactions (e.g., inquiry, withdraw, transfer) can have incomplete information
+            currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
+                    receiverFirstName + "," + receiverLastName + "," + recieverAccountType + "," + ammount;
+        }
+    
+        transaction.add(currentTransaction);
+    }// log ends
 }
+

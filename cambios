@@ -10,3 +10,6 @@ BASED ON THE .csv transactions needs
 Besides I add more fuctions to Print menu to make the program more readable :D 
 
 me hize una pallaringa
+
+se agrego a CSVREADERWRITTER la funcion log por lo que each time you call transaction or log, it must be called by the utilitary function CSVREADERWRITTER
+Ahora las arrays globales estan en esa funcion y siguen siendo globales.

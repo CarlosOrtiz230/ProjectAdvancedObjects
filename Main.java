@@ -9,14 +9,10 @@ public class Main {
          * @param args the command line arguments
     */
     public static void main(String[] args) throws IOException {
-        //constants
-
-       
         
-        List<String> log = new ArrayList<>();
         String csvFile;
         List<Customer> customers = new ArrayList<>(); //Array List to hold database during the program 
-        List<String> transactions = new ArrayList<>();
+        
         try { //try catch for the dataBase creation 
             csvFile = "BankUser.CSV";
             customers = CSVReaderWriter.bankUserReader(csvFile);
@@ -41,7 +37,7 @@ public class Main {
 
             if(isManager){ // main menu for managers
                 while(true){
-                    ManagerRole.managerOptions(customers, log);
+                    ManagerRole.managerOptions(customers, CSVReaderWriter.log);
                 }
             }
             isManager = false;
@@ -55,40 +51,40 @@ public class Main {
                 x.nextLine(); // To skp line
 
                 switch(option.toLowerCase()){
-                    case "1":
-                        System.out.println("Which account's balance would you like to check? \n1.Savings\n2.Checkings");
-                        System.out.print(">");
+                    case "1"://desposit 
+                        PrintMenu.whichAccountInquire(); 
                         String accountType = x.nextLine();
                         System.out.println("Your current balance is: " + currentCustomer.checkBalance(accountType));
-                        break;
+                        CSVReaderWriter.logTransaction(currentCustomer, new Customer(), accountType, "NA","inquire",0.0,currentCustomer.checkBalance(accountType),CSVReaderWriter.log, CSVReaderWriter.transactions);
+                        break; 
 
                     case "2":
-                        System.out.println("To which account would you like to deposit money? \n1.Savings\n2.Checkings");
-                        System.out.print(">");
+                        PrintMenu.whichAccountDeposit();
                         String depositAccount = x.nextLine().trim().toUpperCase();
-                        System.out.println("Enter the amount you want to deposit:");
-                        System.out.print(">");
+                        PrintMenu.enterAmmountDeposit();
                         String depositInput = x.nextLine(); //to avoid crashing
                         double depositAmount;
-                        if (interfaceClass.isNumeric(depositInput)) {
+
+                        if(interfaceClass.isNumeric(depositInput)) {
                             depositAmount = Double.parseDouble(depositInput);
-                        } else {
-                            System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
+                        }else{
+                            System.out.println("\nxxxx----Invalid input. Please enter a valid number.----xxxx");
                             break; //exit the program
                         }
                         x.nextLine(); // Consume newline left-over
                         if(depositAccount.equalsIgnoreCase("1") || depositAccount.equalsIgnoreCase("2")){
                             currentCustomer.deposit(depositAccount, depositAmount);
-                            
-                            logTransaction(currentCustomer,new Customer(), depositAccount, "N/A" ,deposit, depositAmount,currentCustomer.checkBalance(depositAccount), log,transactions);
+
+                            // sender Name, recieverName, senderAccountType, recieverAccountType,transactionsType,ammount,balance ,log,transactions
+                            CSVReaderWriter.logTransaction(new Customer(),currentCustomer, "NA", depositAccount,"deposit", depositAmount,currentCustomer.checkBalance(depositAccount),CSVReaderWriter.log, CSVReaderWriter.transactions);
                         } else {
-                            System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
+                            System.out.println("\nxxxx----Invalid account type entered! Please try again.----xxxx");
                         }
                         break;
                 
                     case "3":
                         System.out.println("From which account you would like to withdraw money? \n1.Savings\n2.Checkings");
-                        //System.out.print(">");
+                        System.out.print(">");
                         String withdrawAccount = x.nextLine();
                         if (withdrawAccount.equalsIgnoreCase("1") || withdrawAccount.equalsIgnoreCase("2")){
                             System.out.println("Enter the amount you want to withdraw:");
@@ -103,7 +99,7 @@ public class Main {
                             }
                             currentCustomer.withdraw(withdrawAccount, withdrawAmount);
                             System.out.println("With DrawSuccessful!");
-                            logTransaction(currentCustomer, withdrawAccount, "withdrawal", withdrawAmount,currentCustomer.checkBalance(withdrawAccount),log);
+                            CSVReaderWriter.logTransaction(currentCustomer, currentCustomer ,withdrawAccount, withdrawAccount,"withdrawal", withdrawAmount,currentCustomer.checkBalance(withdrawAccount),CSVReaderWriter.log,CSVReaderWriter.transactions);
                         }else{
                             System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
                         }
@@ -128,11 +124,11 @@ public class Main {
                                 switch (transferAccount.toLowerCase()) {
                                     case "1"://savings
                                         currentCustomer.transferMoneyToSaving(transferAmount);
-                                        logTransaction(currentCustomer, "Checkings", "transfer to Savings", transferAmount,currentCustomer.checkBalance(transferAccount) ,log);
+                                        CSVReaderWriter.logTransaction(currentCustomer,currentCustomer, "Checkings", "Savings","transfer" ,transferAmount,(Double)(currentCustomer.checkBalance(transferAccount)) , CSVReaderWriter.log,CSVReaderWriter.transactions);
                                         break;
                                     case "2":
                                         currentCustomer.transferMoneyToChecking(transferAmount);
-                                        logTransaction(currentCustomer, "Savings", "transfer to Checkings", transferAmount,currentCustomer.checkBalance(transferAccount), log);
+                                        CSVReaderWriter.logTransaction(currentCustomer,currentCustomer, "Savings", "Checkings","Transfer" ,transferAmount,currentCustomer.checkBalance(transferAccount), CSVReaderWriter.log,CSVReaderWriter.transactions);
                                         break;
                                     default:
                                         System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
@@ -173,14 +169,17 @@ public class Main {
                             }
                             x.nextLine(); // This line is added to consume the newline character
                             if (payAccount.equalsIgnoreCase("1") || payAccount.equalsIgnoreCase("2")){
+                                Customer reciever = BankManager.findCustomerByName(x, customers);
                                 switch (payAccount.toLowerCase()) {
                                     case "1"://savings
                                         ((Savings)currentCustomer.getAccounts().get(1)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
-                                        logTransaction(currentCustomer, "Savings", ("transfer to " + name + " " + lastName  + " "), payAmount,currentCustomer.checkBalance("1"), log);
+                                        
+                                        CSVReaderWriter.logTransaction(currentCustomer,reciever, "Savings","NEEDS TO ADD TYPE OF ACCOUNT", ("transfer to " + name + " " + lastName  + " "), payAmount,currentCustomer.checkBalance("1"), CSVReaderWriter.log,CSVReaderWriter.transactions);
                                         break;
                                     case "2"://checking
                                         ((Checking)currentCustomer.getAccounts().get(0)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
-                                        logTransaction(currentCustomer, "Checking", ("transfer to " + name + " " + lastName  + " "), payAmount, currentCustomer.checkBalance("2") ,log);
+                                       
+                                        CSVReaderWriter.logTransaction(currentCustomer,reciever, "Checking", "NEEDS TO ADD TYPE OF ACCOUNT", ("transfer to " + name + " " + lastName  + " "), payAmount, currentCustomer.checkBalance("2") ,CSVReaderWriter.log,CSVReaderWriter.transactions);
                                         break;
                                     default:
                                         System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
@@ -194,7 +193,7 @@ public class Main {
                     case "exit":
                         System.out.println("Exiting... Bye!");
                         CSVReaderWriter.writeCustomersToCSV(customers, csvFile);
-                        CSVReaderWriter.createTextFile(log, "outputBalance.txt");
+                        CSVReaderWriter.createTextFile(CSVReaderWriter.log, "outputBalance.txt");
                         System.exit(0);
                     default:  
                         System.out.println("xxxx----please enter a valid option----xxxx");
@@ -204,66 +203,6 @@ public class Main {
                     break;
                 }
             }//while
-
         } //biggest while end
-}//main method ends
-   
-//complementary methods start -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-===-=-=-=
-
-
-    /**
-         * Logs a transaction by creating an entry in the transaction log.
-         *
-         * @param customer        the Customer object associated with the transaction
-         * @param accountType     the type of account involved in the transaction
-         * @param transactionType the type of transaction performed
-         * @param balance         the current balance after the transaction
-         * @param log             the list of String objects representing the transaction log
-     */
-    public static void logTransaction(Customer customer ,Customer reciever, String accountType, String recieverAccountType, String transactionType, double ammount, double balance ,List<String> log,List<String> transaction) {
-        String logEntry = "Customer " + customer.getName() + " from: " + accountType + " made a " + transactionType + " of " + ammount + " --->Current balance: " + balance;
-        log.add(logEntry);
-        
-        // THIS IS FOR .CSV ONLY
-
-        String[] tokens = customer.getName().split(" "); // Assuming the name is in the format "First Name Last Name"
-        String name = tokens[0];
-        String lastName = tokens[1];
-        String receiverFirstName = "";
-        String receiverLastName = "";
-    
-        if (reciever != null) {
-            tokens = reciever.getName().split(" ");
-            receiverFirstName = tokens[0];
-            receiverLastName = tokens[1];
-        }
-    
-        // Prepare the CSV entry based on the transaction type
-        String currentTransaction;
-        if (transactionType.equalsIgnoreCase("pay")) {
-            // Pay transaction requires all information
-            if (reciever == null || recieverAccountType == null) {
-                System.out.println("Incomplete information for pay transaction.");
-                return;
-            }
-            currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
-                    receiverFirstName + "," + receiverLastName + "," + recieverAccountType + "," + ammount;
-        } else if (transactionType.equalsIgnoreCase("deposit")) {
-            // Deposit transaction only requires receiver information
-            if (reciever == null) {
-                System.out.println("Incomplete information for deposit transaction.");
-                return;
-            }
-            currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
-                    receiverFirstName + "," + receiverLastName + ", " + ammount; // Empty value for receiverAccountType
-        } else {
-            // Other transactions (e.g., inquiry, withdraw, transfer) can have incomplete information
-            currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
-                    receiverFirstName + "," + receiverLastName + "," + recieverAccountType + "," + ammount;
-        }
-    
-        transaction.add(currentTransaction);
-    }
-
-
+}   //main method ends
 }// class ends
