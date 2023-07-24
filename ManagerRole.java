@@ -97,16 +97,29 @@ public class ManagerRole{
 
         // Generate an identification number
         String identificationNumber = idGenerator.generateID();
+        String creditAccountNumber = idGenerator.generateID();
+        String savingAccountNumber = idGenerator.generateID();
+        String checkingAccountNumber = idGenerator.generateID();
 
         // Generate a credit limit based on the credit score
         double creditLimit = creditLimitGenerator.generateCreditLimit(creditScore);
 
         // Create a new Customer object
         Customer newCustomer = new Customer(name, dob, address, identificationNumber, phoneNumberDivided);
-        //Checking checkingaccount = new Checking(/*add method */);
-        //Savings savingsAccount = new Savings(/*Add method here */);
-        //Credit creditAccount = new Credit(/*add method here */)
+        Checking checkingaccount = new Checking(checkingAccountNumber);
+        Savings savingsAccount = new Savings(savingAccountNumber);
+        Credit creditAccount = new Credit(creditAccountNumber, creditLimit);
 
+        //Set the starting balances of 0
+        checkingaccount.deposit(0);
+        savingsAccount.deposit(0);
+        creditAccount.deposit(creditLimit);
+
+        //Add the accounts to the customer
+        newCustomer.addAccount(checkingaccount);
+        newCustomer.addAccount(savingsAccount);
+        newCustomer.addAccount(creditAccount);
+        
         // Add the new customer to the list of customers
         customers.add(newCustomer);
 
