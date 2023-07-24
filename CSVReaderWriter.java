@@ -25,13 +25,13 @@ public class CSVReaderWriter {
                 String savingsAccountNum = data[10];
                 double savingsStartingBalance = Double.parseDouble(data[11]);
                 String creditAccountNumber = data[12];
-                double creditMax = Double.parseDouble(data[13]);
+                double creditLimit = Double.parseDouble(data[13]);
                 double creditStartingBalance = Double.parseDouble(data[14]);
 
-                Customer customer = new Customer(firstName + " " + lastName, dob,address, phoneNumber, identificationNumber, phoneNumberDivided);
+                Customer customer = new Customer(firstName + " " + lastName, dob,address, identificationNumber, phoneNumberDivided, creditLimit);
                 Checking checkingAccount = new Checking(checkingAccountNum);
                 Savings savingsAccount = new Savings(savingsAccountNum);
-                Credit creditAccount = new Credit(creditAccountNumber, creditMax);
+                Credit creditAccount = new Credit(creditAccountNumber, creditLimit);
 
                 // Set the starting balances
                 checkingAccount.deposit(checkingStartingBalance);
@@ -80,7 +80,7 @@ public class CSVReaderWriter {
                 String savingAccountNumber = customer.getAccounts().get(1).getAccountNumber(); // Index 1 is savings
                 double savingBalance = customer.getAccounts().get(1).getBalance();
                 String creditAccountNumber = customer.getAccounts().get(2).getAccountNumber();
-                double creditMax = ((Credit) (customer.getAccounts().get(2))).getCreditLimit(); // Need to cast Credit because Account does not have this function
+                double creditLimit = ((Credit) (customer.getAccounts().get(2))).getCreditLimit(); // Need to cast Credit because Account does not have this function
                 double creditBalance = customer.getAccounts().get(2).getBalance();
     
                 String line = identificationNumber + "," +
@@ -94,7 +94,7 @@ public class CSVReaderWriter {
                         savingAccountNumber + "," +
                         savingBalance + "," +
                         creditAccountNumber + "," +
-                        creditMax + "," +
+                        creditLimit + "," +
                         creditBalance;
     
                 writer.write(line);

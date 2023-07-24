@@ -5,7 +5,7 @@ public class PrintMenu{
     public static void displayManagerMenu(){
         System.out.println("----Manager Menu----");
         System.out.println("Would you like to inquire by name or by type/number");
-        System.out.println("1. Inquire account by name.\n2. Inquire account by type/number");
+        System.out.println("1. Inquire account by name.\n2. Inquire account by type/number\n3. Add new user");
         System.out.println("Type 'Exit' to leave the program");
         System.out.print(">");
     }//displayManagerMenu ends
