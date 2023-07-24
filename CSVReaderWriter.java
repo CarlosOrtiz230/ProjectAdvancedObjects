@@ -28,7 +28,7 @@ public class CSVReaderWriter {
                 double creditLimit = Double.parseDouble(data[13]);
                 double creditStartingBalance = Double.parseDouble(data[14]);
 
-                Customer customer = new Customer(firstName + " " + lastName, dob,address, identificationNumber, phoneNumberDivided, creditLimit);
+                Customer customer = new Customer(firstName + " " + lastName, dob,address, identificationNumber, phoneNumberDivided);
                 Checking checkingAccount = new Checking(checkingAccountNum);
                 Savings savingsAccount = new Savings(savingsAccountNum);
                 Credit creditAccount = new Credit(creditAccountNumber, creditLimit);

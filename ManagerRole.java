@@ -102,7 +102,10 @@ public class ManagerRole{
         double creditLimit = creditLimitGenerator.generateCreditLimit(creditScore);
 
         // Create a new Customer object
-        Customer newCustomer = new Customer(name, dob, address, identificationNumber, phoneNumberDivided, creditLimit);
+        Customer newCustomer = new Customer(name, dob, address, identificationNumber, phoneNumberDivided);
+        //Checking checkingaccount = new Checking(/*add method */);
+        //Savings savingsAccount = new Savings(/*Add method here */);
+        //Credit creditAccount = new Credit(/*add method here */)
 
         // Add the new customer to the list of customers
         customers.add(newCustomer);

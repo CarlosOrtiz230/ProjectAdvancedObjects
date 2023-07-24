@@ -12,7 +12,6 @@ public class Customer extends Person {
     private String password;
     private String identificationNumber;
     private String phoneNumberDivided;
-    private double creditLimit;
 
     //construtors----------------------------------------
 
@@ -23,12 +22,11 @@ public class Customer extends Person {
      * @param name The name of the Customer.
      * @param address The address of the Customer.
      */
-    public Customer(String name, String dob, String address, String identificationNumber, String phoneNumberDivided, double creditLimit) {
+    public Customer(String name, String dob, String address, String identificationNumber, String phoneNumberDivided) {
         super(name, address, dob, phoneNumberDivided);
         this.accounts = new ArrayList<>();
         this.identificationNumber = identificationNumber;
         this.phoneNumberDivided = phoneNumberDivided;
-        this.creditLimit = creditLimit;
     }
 
    
