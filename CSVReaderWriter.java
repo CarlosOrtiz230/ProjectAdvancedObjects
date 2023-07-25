@@ -10,7 +10,7 @@ public class CSVReaderWriter {
         String line;
         List<Customer> customers = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            String skipLine = br.readLine();
+            br.readLine(); //skip first line
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 String identificationNumber = data[0];
@@ -18,8 +18,7 @@ public class CSVReaderWriter {
                 String lastName = data[2];
                 String dob = data[3];
                 String address = data[4] + "," + data[5] + "," + data[6]; // Combine address
-                String phoneNumber = data[7].replace("(", "").replace(")", "").replace("-", "").replace(" ", "");
-                String phoneNumberDivided = data[7];
+                String phoneNumber = data[7];
                 String checkingAccountNum = data[8];
                 double checkingStartingBalance = Double.parseDouble(data[9]);
                 String savingsAccountNum = data[10];
@@ -28,7 +27,7 @@ public class CSVReaderWriter {
                 double creditLimit = Double.parseDouble(data[13]);
                 double creditStartingBalance = Double.parseDouble(data[14]);
 
-                Customer customer = new Customer(firstName + " " + lastName, dob,address, identificationNumber, phoneNumberDivided);
+                Customer customer = new Customer(firstName + " " + lastName, dob,address, identificationNumber, phoneNumber);
                 Checking checkingAccount = new Checking(checkingAccountNum);
                 Savings savingsAccount = new Savings(savingsAccountNum);
                 Credit creditAccount = new Credit(creditAccountNumber, creditLimit);
@@ -52,6 +51,12 @@ public class CSVReaderWriter {
         return customers;
     }//file reader ends
 
+    /**
+     * This function makes the global transactions to a .csv file
+     * @param customers
+     * @param csvFile
+     * @throws IOException
+     */
     public static void writeCustomersToCSV(List<Customer> customers, String csvFile) throws IOException {
         //constant
         final String CSV_HEADER = "Identification Number,First Name,Last Name,Date of Birth,Address,Phone Number," +
