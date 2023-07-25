@@ -24,7 +24,7 @@ public class ManagerRole{
                     break;
                 case "3":
                     addNewBankUser(customers, idGenerator, creditLimitGenerator);
-                    break;
+                    return;
                 case "exit":
                     String csvFile = "BankUser.CSV"; 
                     CSVReaderWriter.writeCustomersToCSV(customers, csvFile);
@@ -78,50 +78,64 @@ public class ManagerRole{
     public static void addNewBankUser(List<Customer> customers, IDGenerator idGenerator, CreditLimitGenerator creditLimitGenerator) {
         try {
             Scanner scanner = new Scanner(System.in);
-
-            System.out.println("Enter your name:");
-            String name = scanner.nextLine();
-
+    
+            System.out.println("Enter your name (First Name, Last Name):");
+            String fullName = scanner.nextLine();
+            String[] nameParts = fullName.split(",");
+            if (nameParts.length != 2) {
+                throw new IllegalArgumentException("Name must be in the format 'First Name,Last Name'");
+            }
+            String firstName = nameParts[0].trim();
+            String lastName = nameParts[1].trim();
+            String name = firstName + " " + lastName;
+    
             System.out.println("Enter your date of birth:");
             String dob = scanner.nextLine();
-
-            System.out.println("Enter your address (including city and state):");
-            String address = scanner.nextLine();
-
+    
+            System.out.println("Enter your address (Street, City, State):");
+            String fullAddress = scanner.nextLine();
+            String[] addressParts = fullAddress.split(",");
+            if (addressParts.length != 3) {
+                throw new IllegalArgumentException("Address must be in the format 'Street,City,State'");
+            }
+            String street = addressParts[0].trim();
+            String city = addressParts[1].trim();
+            String state = addressParts[2].trim();
+            String address = street + ", " + city + ", " + state;
+    
             System.out.println("Enter your phone number:");
             String phoneNumberDivided = scanner.nextLine();
-
+    
             System.out.println("Enter your credit score:");
             int creditScore = scanner.nextInt();
             scanner.nextLine(); 
-
+    
             String identificationNumber = idGenerator.generateID();
-            String creditAccountNumber = idGenerator.generateID();
-            String savingAccountNumber = idGenerator.generateID();
-            String checkingAccountNumber = idGenerator.generateID();
-
+            String creditAccountNumber = idGenerator.generateAccountID();
+            String savingAccountNumber = idGenerator.generateAccountID();
+            String checkingAccountNumber = idGenerator.generateAccountID();
+    
             double creditLimit = creditLimitGenerator.generateCreditLimit(creditScore);
-
+    
             Customer newCustomer = new Customer(name, dob, address, identificationNumber, phoneNumberDivided);
             Checking checkingaccount = new Checking(checkingAccountNumber);
             Savings savingsAccount = new Savings(savingAccountNumber);
             Credit creditAccount = new Credit(creditAccountNumber, creditLimit);
-
+    
             checkingaccount.deposit(0);
             savingsAccount.deposit(0);
             creditAccount.deposit(creditLimit);
-
+    
             newCustomer.addAccount(checkingaccount);
             newCustomer.addAccount(savingsAccount);
             newCustomer.addAccount(creditAccount);
             
             customers.add(newCustomer);
-
+    
             System.out.println("New bank user added successfully!");
         } catch (Exception e) {
             System.out.println("An error occurred while adding a new bank user: " + e.getMessage());
             e.printStackTrace();
         }
-    
-    }
+    }    
 }

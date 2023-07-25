@@ -1,3 +1,4 @@
 public interface IDGenerator {
-    String generateID();
+    String generateID();//3digits
+    String generateAccountID();// 4 digits
 }
