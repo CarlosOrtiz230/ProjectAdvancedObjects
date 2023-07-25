@@ -37,6 +37,7 @@ public class Credit extends Account {
          *
          * @return The account number.
     */
+    
     @Override
     public String getAccountNumber() {
         return this.accountNumber;
@@ -76,6 +77,7 @@ public class Credit extends Account {
          * @param accountNumber The account number of the receiver.
          * @param amount        The amount to be paid.
     */
+
     @Override
     public void payToThirdParty(List<Customer> dataBase ,String name, String lastname, String accountNumber,double amount) {
         String recieverFullName  = name + " " + lastname;

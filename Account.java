@@ -69,6 +69,7 @@ public abstract class Account {
          * @param accountNumber The account number of the recipient.
          * @param amount        The amount to be transferred.
     */
+    
     public abstract void payToThirdParty(List<Customer> dataBase,String name, String lastname, String accountNumber,double amount);
 
 }
