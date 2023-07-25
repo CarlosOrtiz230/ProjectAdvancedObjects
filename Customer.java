@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
-import java.util.*;
+ 
 
 /**
  * This class represents a Customer.
@@ -9,8 +8,9 @@ import java.util.*;
 public class Customer extends Person {
     //attributes----------------------------------------------
     private List<Account> accounts;
+    private List<String> customerTransactions = new ArrayList<String>();
     private String identificationNumber;
-    private String phoneNumberDivided;
+    private String phoneNumber;
 
     //constructors----------------------------------------
 
@@ -25,7 +25,7 @@ public class Customer extends Person {
         super(name, address, dob, phoneNumberDivided);
         this.accounts = new ArrayList<>();
         this.identificationNumber = identificationNumber;
-        this.phoneNumberDivided = phoneNumberDivided;
+        this.phoneNumber = phoneNumberDivided;
     }
 
    
@@ -40,7 +40,7 @@ public class Customer extends Person {
     }
 
     public String getPhoneNumberDivided(){
-        return this.phoneNumberDivided;
+        return this.phoneNumber;
     }
 
     /**
@@ -233,5 +233,16 @@ public class Customer extends Person {
             e.printStackTrace();
         }
     }
+
+    // New method to add a transaction
+    public void addTransaction(String transaction) {
+        this.customerTransactions.add(transaction);
+    }
+
+    // New method to get all transactions
+    public List<String> getTransactions() {
+        return this.customerTransactions;
+    }
+    
 }
 

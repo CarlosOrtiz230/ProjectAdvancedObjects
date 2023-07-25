@@ -128,47 +128,49 @@ public class CSVReaderWriter {
          * @param log             the list of String objects representing the transaction log
      */
     public static void logTransaction(Customer customer ,Customer reciever, String accountType, String recieverAccountType, String transactionType, double ammount, double balance ,List<String> log,List<String> transaction) {
-        String logEntry = "Customer " + customer.getName() + " from: " + accountType + " made a " + transactionType + " of " + ammount + " --->Current balance: " + balance;
-        log.add(logEntry);
-
-    // THIS IS FOR .CSV ONLY
+        StringBuilder logEntry = new StringBuilder();
+        logEntry.append("Customer ").append(customer.getName()).append(" from: ").append(accountType).append(" made a ").append(transactionType).append(" of ").append(ammount).append(" --->Current balance: ").append(balance);
+        log.add(logEntry.toString());
+    
+        // THIS IS FOR .CSV ONLY
         String[] tokens = customer.getName().split(" "); // Assuming the name is in the format "First Name Last Name"
         String name = tokens[0];
         String lastName = tokens[1];
         String receiverFirstName = "";
         String receiverLastName = "";
-    
+        
         if (reciever != null) {
             tokens = reciever.getName().split(" ");
             receiverFirstName = tokens[0];
             receiverLastName = tokens[1];
         }
-    
+        
         // Prepare the CSV entry based on the transaction type
-        String currentTransaction;
+        StringBuilder currentTransaction = new StringBuilder();
+        currentTransaction.append(name).append(",").append(lastName).append(",").append(accountType).append(",").append(transactionType).append(",");
+        
         if (transactionType.equalsIgnoreCase("pay")) {
             // Pay transaction requires all information
             if (reciever == null || recieverAccountType == null) {
                 System.out.println("Incomplete information for pay transaction.");
                 return;
             }
-            currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
-                    receiverFirstName + "," + receiverLastName + "," + recieverAccountType + "," + ammount;
+            currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",").append(recieverAccountType).append(",").append(ammount);
         } else if (transactionType.equalsIgnoreCase("deposit")) {
             // Deposit transaction only requires receiver information
             if (reciever == null) {
                 System.out.println("Incomplete information for deposit transaction.");
                 return;
             }
-            currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
-                    receiverFirstName + "," + receiverLastName + ", " + ammount; // Empty value for receiverAccountType
+            currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",,").append(ammount); // Empty value for receiverAccountType
         } else {
             // Other transactions (e.g., inquiry, withdraw, transfer) can have incomplete information
-            currentTransaction = name + "," + lastName + "," + accountType + "," + transactionType + "," +
-                    receiverFirstName + "," + receiverLastName + "," + recieverAccountType + "," + ammount;
+            currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",").append(recieverAccountType).append(",").append(ammount);
         }
-    
-        transaction.add(currentTransaction);
-    }// log ends
-}
+        
+        transaction.add(currentTransaction.toString());
+        customer.addTransaction(currentTransaction.toString()); //individual transaction
+    }//method
+}//class
+
 
