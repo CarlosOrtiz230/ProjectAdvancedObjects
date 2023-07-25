@@ -18,11 +18,10 @@ public class RoleSelection {
         
             for (Customer customer : customers) {
                 if (customer.getName().equalsIgnoreCase(userName)) {
-                    x.close();
                     return customer; 
                 }
             }
-            x.close();
+
             System.out.println("xxxx----User not found. Try Again----xxxx");
         } catch (Exception e) {
             System.out.println("An error occurred during user login: " + e.getMessage());
@@ -47,17 +46,15 @@ public class RoleSelection {
                 System.exit(0);
             }
             if(role.equalsIgnoreCase("1") ||  role.equalsIgnoreCase("1")){ 
-                x.close();
                 return false;
             }
             else if(role.equalsIgnoreCase("2") || role.equalsIgnoreCase("2")){ 
-                x.close();
                 return true;
             }
             else{
                 System.out.println("xxxx----this entry is not valid----xxxx");
             }
-            x.close(); //close scanner
+
         } catch (Exception e) {
             System.out.println("An error occurred while checking if user is a manager: " + e.getMessage());
             e.printStackTrace();

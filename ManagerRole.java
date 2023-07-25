@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class ManagerRole{
 
@@ -30,7 +32,6 @@ public class ManagerRole{
                     System.exit(0);
                 default: 
                     System.out.println("xxxx----This is not a valid entry----xxxx");
-                    userInput.close();
                     return;
             }
             
@@ -117,7 +118,6 @@ public class ManagerRole{
             customers.add(newCustomer);
 
             System.out.println("New bank user added successfully!");
-            scanner.close();
         } catch (Exception e) {
             System.out.println("An error occurred while adding a new bank user: " + e.getMessage());
             e.printStackTrace();

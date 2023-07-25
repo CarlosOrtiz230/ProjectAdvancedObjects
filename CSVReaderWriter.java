@@ -3,8 +3,8 @@ import java.util.*;
 
 public class CSVReaderWriter {
     //Contains all information that might be printed 
-    public static List<String> log = new ArrayList<>();
-    public static List<String> transactions = new ArrayList<>(); //arraylist to create transactions.csv file
+    public static List<String> log = new ArrayList<String>();
+    public static List<String> transactions = new ArrayList<String>(); //arraylist to create transactions.csv file
 
     public static List<Customer> bankUserReader(String csvFile) throws IOException {
         String line;
