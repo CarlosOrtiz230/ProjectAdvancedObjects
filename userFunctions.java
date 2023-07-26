@@ -7,8 +7,10 @@ public class userFunctions{
         PrintMenu.whichAccountInquire(); 
         String accountType = x.nextLine();
         System.out.println("Your current balance is: " + currentCustomer.checkBalance(accountType));
-        CSVReaderWriter.logTransaction(currentCustomer, new Customer(), AccountTypes.CHECKING, "NA", TransactionTypes.INQUIRE, 0.0, currentCustomer.checkBalance(AccountTypes.CHECKING), CSVReaderWriter.log, CSVReaderWriter.transactions);
+        // Use the accountType entered by the user, not "Checking"
+        CSVReaderWriter.logTransaction(currentCustomer, currentCustomer, accountType, "NA", TransactionTypes.INQUIRE, 0.0, currentCustomer.checkBalance(accountType), CSVReaderWriter.log, CSVReaderWriter.transactions);
     }
+    
 
     public static void handleDeposit(Customer currentCustomer, Scanner x) {
         PrintMenu.whichAccountDeposit();

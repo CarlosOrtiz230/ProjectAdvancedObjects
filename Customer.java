@@ -76,12 +76,13 @@ public class Customer extends Person {
     public double checkBalance(String accountType) {
         try {
             for (Account account : accounts) {
-                if ((account instanceof Checking && accountType.equalsIgnoreCase("B")) || 
-                    (account instanceof Savings && accountType.equalsIgnoreCase("A"))) {
+                if ((account instanceof Checking && accountType.equalsIgnoreCase("2")) || 
+                    (account instanceof Savings && accountType.equalsIgnoreCase("1"))) {
+                        System.out.println("TestingCheckBalance");
                     return account.getBalance();
                 }
             }
-            System.out.println("Account not found.");
+            System.out.println("Account not found. Checkbalance");
         } catch (Exception e) {
             System.out.println("An error occurred while checking balance: " + e.getMessage());
             e.printStackTrace();
@@ -98,8 +99,8 @@ public class Customer extends Person {
     public void deposit(String accountType, double amount) {
         try {
             for (Account account : accounts) {
-                if ((account instanceof Savings && accountType.equalsIgnoreCase("A")) || 
-                    (account instanceof Checking && accountType.equalsIgnoreCase("B"))) {
+                if ((account instanceof Savings && accountType.equalsIgnoreCase("1")) || 
+                    (account instanceof Checking && accountType.equalsIgnoreCase("2"))) {
                     account.deposit(amount);
                     System.out.println("Deposit of " + amount + " made to " + accountType + " account.");
                     return;
