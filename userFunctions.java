@@ -33,36 +33,40 @@ public class userFunctions{
     }   
 
     public static void handleWithdrawal(Customer currentCustomer, Scanner x) {
-        System.out.println("From which account you would like to withdraw money? \n1.Savings\n2.Checkings");
-        System.out.print(">");
+        PrintMenu.WhichAccountWithdraw();
+        String accountType;
         String withdrawAccount = x.nextLine();
         if (withdrawAccount.equalsIgnoreCase("1") || withdrawAccount.equalsIgnoreCase("2")){
-            System.out.println("Enter the amount you want to withdraw:");
-            System.out.print(">");
+            PrintMenu.enterAmmounWithdraw();
             String withdrawInput =  x.nextLine();
             double withdrawAmount;
-        if (interfaceClass.isNumeric(withdrawInput)) {
-            withdrawAmount = Double.parseDouble(withdrawInput);
-        }else {
-            System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
-            return; //exit the program
-        }
-        currentCustomer.withdraw(withdrawAccount, withdrawAmount);
-        System.out.println("With DrawSuccessful!");
-        CSVReaderWriter.logTransaction(currentCustomer, currentCustomer ,withdrawAccount, withdrawAccount,"withdrawal", withdrawAmount,currentCustomer.checkBalance(withdrawAccount),CSVReaderWriter.log,CSVReaderWriter.transactions);
+            
+            if (interfaceClass.isNumeric(withdrawInput)) {
+                withdrawAmount = Double.parseDouble(withdrawInput);
+            }else {
+                System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
+                return; //exit the program
+            }
+            //type of account
+            if(withdrawAccount.equals("1")){accountType = AccountTypes.SAVINGS;}else{accountType = AccountTypes.CHECKING;}
+            
+            currentCustomer.withdraw(withdrawAccount, withdrawAmount);
+            System.out.println("With DrawSuccessful!");
+            double currentBalance  = currentCustomer.checkBalance(accountType);
+            CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,accountType,accountType,TransactionTypes.WITHDRAW,withdrawAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
         }else{
          System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
         }
     }
 
     public static void handleTransfer(Customer currentCustomer, Scanner x) {
-        System.out.println("From which account would you like to transfer?\n1.Savings to Checkings \n2.Checkings to Savings");
-        System.out.print(">"); 
+        PrintMenu.whichAccountTransfer();
         String transferAccount = x.nextLine().trim();
-        System.out.println("Enter the amount you would like to transfer between your accounts:");
-        System.out.print(">");
+        PrintMenu.enterAmmountTransfer();
         String transferInput = x.nextLine();
         double transferAmount;
+        String accountType;
+        String senderAccount;
         if (interfaceClass.isNumeric(transferInput)) {
             transferAmount = Double.parseDouble(transferInput);
         }else {
@@ -71,19 +75,15 @@ public class userFunctions{
         }
         x.nextLine(); // This line is added to consume the newline character
         if (transferAccount.equalsIgnoreCase("1") || transferAccount.equalsIgnoreCase("2")){
-            switch (transferAccount.toLowerCase()) {
-            case "1"://savings
-                currentCustomer.transferMoneyToSaving(transferAmount);
-                CSVReaderWriter.logTransaction(currentCustomer,currentCustomer, "Checkings", "Savings","transfer" ,transferAmount,(Double)(currentCustomer.checkBalance(transferAccount)) , CSVReaderWriter.log,CSVReaderWriter.transactions);
-                break;
-            case "2":
-                currentCustomer.transferMoneyToChecking(transferAmount);
-                CSVReaderWriter.logTransaction(currentCustomer,currentCustomer, "Savings", "Checkings","Transfer" ,transferAmount,currentCustomer.checkBalance(transferAccount), CSVReaderWriter.log,CSVReaderWriter.transactions);
-                break;
-            default:
-                System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
-                break;
-             }
+            if(transferAccount.equals("1")){accountType = AccountTypes.SAVINGS; senderAccount = AccountTypes.CHECKING;}
+            else{accountType = AccountTypes.CHECKING; senderAccount = AccountTypes.SAVINGS;}
+
+            currentCustomer.deposit(accountType, transferAmount);
+            currentCustomer.withdraw(senderAccount, transferAmount);
+            double currentBalance = currentCustomer.checkBalance(accountType);
+            CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,senderAccount,accountType,TransactionTypes.TRANSFER,transferAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
+            PrintMenu.success();
+            return;
         } else {
             System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
         }
@@ -135,15 +135,31 @@ public class userFunctions{
         }
     }
 
-
+    public static void payCreditCard(Customer currentCustomer,Scanner x){
+        double payAmmount;
+        PrintMenu.enterAmmountPayCredit();
+        String ammount = x.nextLine();
+        if (interfaceClass.isNumeric(ammount)){
+            payAmmount = Double.parseDouble(ammount);
+        } else {
+            System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
+            return; //exit function
+        }
+        Credit creditUserAccount = (Credit) currentCustomer.getAccounts().get(2);
+        //pay
+        creditUserAccount.deposit(payAmmount);
+        //register
+        double userCurrentBalance = creditUserAccount.getBalance();
+        CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,AccountTypes.CREDIT,AccountTypes.CREDIT,TransactionTypes.PAY_CREDITCARD,payAmmount,userCurrentBalance,CSVReaderWriter.log,CSVReaderWriter.transactions);
+    }//pay credit card ends
     
-
 //inmutable classes 
 public static class TransactionTypes {
     public static final String INQUIRE = "inquire";
     public static final String DEPOSIT = "deposit";
     public static final String WITHDRAW = "withdraw";
     public static final String TRANSFER = "transfer";
+    public static final String PAY_CREDITCARD = "pay credit card";
     // Add more transaction types as needed
 }
 

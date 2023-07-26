@@ -2,6 +2,10 @@ public class PrintMenu{
     /**
          * Displays the menu options for the bank manager.
     */
+
+    public static void success(){
+        System.out.println("This transaction was done successfully");
+    }
     public static void displayManagerMenu(){
         System.out.println("----Manager Menu----");
         System.out.println("Would you like to inquire by name or by type/number");
@@ -33,6 +37,30 @@ public class PrintMenu{
 
     public static void enterAmmountDeposit(){
         System.out.println("Enter the amount you want to deposit:");
+        System.out.print(">");
+    }
+
+    public static void WhichAccountWithdraw(){
+        System.out.println("From which account you would like to withdraw money? \n1.Savings\n2.Checkings");
+        System.out.print(">");
+    }
+
+    public static void enterAmmounWithdraw(){
+        System.out.println("Enter the amount you want to withdraw:");
+        System.out.print(">");
+    }
+
+    public static void whichAccountTransfer(){
+        System.out.println("From which account would you like to transfer?\n1.Savings to Checkings \n2.Checkings to Savings");
+        System.out.print(">"); 
+    }
+    public static void enterAmmountTransfer(){
+        System.out.println("Enter the amount you would like to transfer between your accounts:");
+        System.out.print(">");
+    }
+
+    public static void enterAmmountPayCredit(){
+        System.out.println("Enter the amount to pay: ");
         System.out.print(">");
     }
 }

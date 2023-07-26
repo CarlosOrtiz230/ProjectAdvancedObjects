@@ -132,6 +132,7 @@ public class CSVReaderWriter {
          * @param balance         the current balance after the transaction
          * @param log             the list of String objects representing the transaction log
      */
+    
     public static void logTransaction(Customer customer ,Customer reciever, String accountType, String recieverAccountType, String transactionType, double ammount, double balance ,List<String> log,List<String> transaction) {
         StringBuilder logEntry = new StringBuilder();
         logEntry.append("Customer ").append(customer.getName()).append(" from: ").append(accountType).append(" made a ").append(transactionType).append(" of ").append(ammount).append(" --->Current balance: ").append(balance);
@@ -167,7 +168,7 @@ public class CSVReaderWriter {
                 System.out.println("Incomplete information for deposit transaction.");
                 return;
             }
-            currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",,").append(ammount); // Empty value for receiverAccountType
+            currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",").append(ammount); // Empty value for receiverAccountType
         } else {
             // Other transactions (e.g., inquiry, withdraw, transfer) can have incomplete information
             currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",").append(recieverAccountType).append(",").append(ammount);

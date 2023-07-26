@@ -31,7 +31,7 @@ public class Main {
                 currentCustomer = RoleSelection.userLogin(customers); //if the function returns true we will continue and the               
             }
             
-            //Moving forward main menu
+            //Moving forward main menu 2
 
             if(isManager){ // main menu for managers
                 while(true){ManagerRole.managerOptions(customers, CSVReaderWriter.log);}
@@ -68,6 +68,10 @@ public class Main {
 
                     case "6":
                         userFunctions.handleThirdPartyPayment(currentCustomer, customers, x);
+                        break; //breake case 6
+                    
+                    case "7":
+                        userFunctions.payCreditCard(currentCustomer, x);
                         break; //breake case 6
                 
                     case "exit":

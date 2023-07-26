@@ -68,60 +68,6 @@ public class Customer extends Person {
     }
 
     /**
-     * Transfers the specified amount of money from the checking account to the savings account.
-     *
-     * @param amount the amount of money to transfer
-     */
-    public void transferMoneyToSaving(double amount) {
-        try {
-            Savings savingsAccount = null;
-            Checking checkingAccount = null;
-            for (Account account : accounts) {
-                if (account instanceof Savings) {
-                    savingsAccount = (Savings) account;
-                } else if (account instanceof Checking) {
-                    checkingAccount = (Checking) account;
-                }
-            }
-            if (checkingAccount != null && savingsAccount != null) {
-                checkingAccount.transferMoneyToSaving(savingsAccount, amount);
-            } else {
-                System.out.println("Either Savings or Checking account not found.");
-            }
-        } catch (Exception e) {
-            System.out.println("An error occurred while transferring money to saving: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Transfers the specified amount of money from the checking account to the savings account.
-     *
-     * @param amount the amount of money to transfer
-     */
-    public void transferMoneyToChecking(double amount) {
-        try {
-            Savings savingsAccount = null;
-            Checking checkingAccount = null;
-            for (Account account : accounts) {
-                if (account instanceof Savings) {
-                    savingsAccount = (Savings) account;
-                } else if (account instanceof Checking) {
-                    checkingAccount = (Checking) account;
-                }
-            }
-            if (checkingAccount != null && savingsAccount != null) {
-                savingsAccount.transferMoneyToChecking(checkingAccount, amount); 
-            } else {
-                System.out.println("Either Savings or Checking account not found.");
-            }
-        } catch (Exception e) {
-            System.out.println("An error occurred while transferring money to checking: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Checks the balance of the specified account type.
      *
      * @param accountType the account type to check ("A" for Savings, "B" for Checking)
@@ -175,8 +121,8 @@ public class Customer extends Person {
     public void withdraw(String accountType, double amount) {
         try {
             for (Account account : accounts) {
-                if ((account instanceof Checking && accountType.equalsIgnoreCase("B")) || 
-                    (account instanceof Savings && accountType.equalsIgnoreCase("A"))) {
+                if ((account instanceof Checking && accountType.equalsIgnoreCase("2")) || 
+                    (account instanceof Savings && accountType.equalsIgnoreCase("1"))) {
                     account.withdraw(amount);
                     System.out.println("Withdraw of " + amount + " made to " + accountType + " account.");
                     return;
