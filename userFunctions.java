@@ -137,6 +137,7 @@ public class userFunctions{
 
     public static void payCreditCard(Customer currentCustomer,Scanner x){
         double payAmmount;
+        //hola
         PrintMenu.enterAmmountPayCredit();
         String ammount = x.nextLine();
         if (interfaceClass.isNumeric(ammount)){
