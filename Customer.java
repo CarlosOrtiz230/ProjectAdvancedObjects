@@ -78,11 +78,10 @@ public class Customer extends Person {
             for (Account account : accounts) {
                 if ((account instanceof Checking && accountType.equalsIgnoreCase("2")) || 
                     (account instanceof Savings && accountType.equalsIgnoreCase("1"))) {
-                        System.out.println("TestingCheckBalance");
                     return account.getBalance();
                 }
             }
-            System.out.println("Account not found. Checkbalance");
+            System.out.println("Account not found.");
         } catch (Exception e) {
             System.out.println("An error occurred while checking balance: " + e.getMessage());
             e.printStackTrace();

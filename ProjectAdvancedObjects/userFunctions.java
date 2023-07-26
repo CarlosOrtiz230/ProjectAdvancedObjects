@@ -7,6 +7,7 @@ public class userFunctions{
         PrintMenu.whichAccountInquire(); 
         String accountType = x.nextLine();
         System.out.println("Your current balance is: " + currentCustomer.checkBalance(accountType));
+        // Use the accountType entered by the user, not "Checking"
         CSVReaderWriter.logTransaction(currentCustomer, currentCustomer, accountType, "NA", TransactionTypes.INQUIRE, 0.0, currentCustomer.checkBalance(accountType), CSVReaderWriter.log, CSVReaderWriter.transactions);
     }
     
@@ -17,7 +18,7 @@ public class userFunctions{
         PrintMenu.enterAmmountDeposit();
         String depositInput = x.nextLine(); //to avoid crashing
         double depositAmount;
-    
+
         if(interfaceClass.isNumeric(depositInput)) {
             depositAmount = Double.parseDouble(depositInput);
         } else {
@@ -25,18 +26,17 @@ public class userFunctions{
             return; //exit the method
         }
         x.nextLine(); // Consume newline left-over
-    
-        if(depositAccount.equalsIgnoreCase("1") || depositAccount.equalsIgnoreCase("2")){
+        if(depositAccount.equalsIgnoreCase(AccountTypes.CHECKING) || depositAccount.equalsIgnoreCase(AccountTypes.SAVINGS)){
             currentCustomer.deposit(depositAccount, depositAmount);
-            CSVReaderWriter.logTransaction(currentCustomer, currentCustomer, "NA", depositAccount, TransactionTypes.DEPOSIT, depositAmount, currentCustomer.checkBalance(depositAccount), CSVReaderWriter.log, CSVReaderWriter.transactions);
+            CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,senderAccount,accountType,TransactionTypes.TRANSFER,transferAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
         }else {
             System.out.println("\nxxxx----Invalid account type entered! Please try again.----xxxx");
         }
     }   
-    
 
     public static void handleWithdrawal(Customer currentCustomer, Scanner x) {
         PrintMenu.WhichAccountWithdraw();
+        String accountType;
         String withdrawAccount = x.nextLine();
         if (withdrawAccount.equalsIgnoreCase("1") || withdrawAccount.equalsIgnoreCase("2")){
             PrintMenu.enterAmmounWithdraw();
@@ -49,10 +49,13 @@ public class userFunctions{
                 System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
                 return; //exit the program
             }
+            //type of account
+            if(withdrawAccount.equals("1")){accountType = AccountTypes.SAVINGS;}else{accountType = AccountTypes.CHECKING;}
+            
             currentCustomer.withdraw(withdrawAccount, withdrawAmount);
-            System.out.println("Withdrawal Successful!");
-            double currentBalance  = currentCustomer.checkBalance(withdrawAccount);
-            CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,withdrawAccount,withdrawAccount,TransactionTypes.WITHDRAW,withdrawAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
+            System.out.println("With DrawSuccessful!");
+            double currentBalance  = currentCustomer.checkBalance(accountType);
+            CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,accountType,accountType,TransactionTypes.WITHDRAW,withdrawAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
         }else{
          System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
         }
@@ -64,19 +67,24 @@ public class userFunctions{
         PrintMenu.enterAmmountTransfer();
         String transferInput = x.nextLine();
         double transferAmount;
+        String accountType;
+        String senderAccount;
         if (interfaceClass.isNumeric(transferInput)) {
             transferAmount = Double.parseDouble(transferInput);
         }else {
             System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
             return; //exit the program
         }
-        x.nextLine(); //consume the newline character
+        x.nextLine(); // This line is added to consume the newline character
         if (transferAccount.equalsIgnoreCase("1") || transferAccount.equalsIgnoreCase("2")){
-            String receiverAccount = transferAccount.equals("1") ? "2" : "1";
-            currentCustomer.withdraw(transferAccount, transferAmount);
-            currentCustomer.deposit(receiverAccount, transferAmount);
-            double currentBalance = currentCustomer.checkBalance(receiverAccount);
-            CSVReaderWriter.logTransaction(currentCustomer, currentCustomer, transferAccount, receiverAccount, TransactionTypes.TRANSFER, transferAmount, currentBalance, CSVReaderWriter.log, CSVReaderWriter.transactions);            PrintMenu.success();
+            if(transferAccount.equals("1")){accountType = AccountTypes.SAVINGS; senderAccount = AccountTypes.CHECKING;}
+            else{accountType = AccountTypes.CHECKING; senderAccount = AccountTypes.SAVINGS;}
+
+            currentCustomer.deposit(accountType, transferAmount);
+            currentCustomer.withdraw(senderAccount, transferAmount);
+            double currentBalance = currentCustomer.checkBalance(accountType);
+            CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,senderAccount,accountType,TransactionTypes.TRANSFER,transferAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
+            PrintMenu.success();
             return;
         } else {
             System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
@@ -93,7 +101,7 @@ public class userFunctions{
         System.out.println("What is the last name of the recipient");
         System.out.print(">"); 
         String lastName = x.nextLine().trim();
-    
+
         //account info
         System.out.println("What is the recipient account number");
         System.out.print(">"); 
@@ -110,19 +118,15 @@ public class userFunctions{
         }
         x.nextLine(); // This line is added to consume the newline character
         if (payAccount.equalsIgnoreCase("1") || payAccount.equalsIgnoreCase("2")){
-            Customer receiver = BankManager.findCustomerByName(x, customers);
-            if (receiver == null) {
-                System.out.println("The recipient customer was not found. Please try again.");
-                return; // exit the method
-            }
+            Customer reciever = BankManager.findCustomerByName(x, customers);
             switch (payAccount.toLowerCase()) {
                 case "1"://savings
                     ((Savings)currentCustomer.getAccounts().get(1)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
-                    CSVReaderWriter.logTransaction(currentCustomer, receiver, "Savings", "NEEDS TO ADD TYPE OF ACCOUNT", ("transfer to " + name + " " + lastName  + " "), payAmount, currentCustomer.checkBalance("1"), CSVReaderWriter.log, CSVReaderWriter.transactions);
+                    CSVReaderWriter.logTransaction(currentCustomer,reciever, "Savings","NEEDS TO ADD TYPE OF ACCOUNT", ("transfer to " + name + " " + lastName  + " "), payAmount,currentCustomer.checkBalance("1"), CSVReaderWriter.log,CSVReaderWriter.transactions);
                     break;
                 case "2"://checking
                     ((Checking)currentCustomer.getAccounts().get(0)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
-                    CSVReaderWriter.logTransaction(currentCustomer, receiver, "Checking", "NEEDS TO ADD TYPE OF ACCOUNT", ("transfer to " + name + " " + lastName  + " "), payAmount, currentCustomer.checkBalance("2"), CSVReaderWriter.log, CSVReaderWriter.transactions);
+                    CSVReaderWriter.logTransaction(currentCustomer,reciever, "Checking", "NEEDS TO ADD TYPE OF ACCOUNT", ("transfer to " + name + " " + lastName  + " "), payAmount, currentCustomer.checkBalance("2") ,CSVReaderWriter.log,CSVReaderWriter.transactions);
                     break;
                 default:
                     System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
@@ -132,7 +136,6 @@ public class userFunctions{
             System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
         }
     }
-    
 
     public static void payCreditCard(Customer currentCustomer,Scanner x){
         double payAmmount;
