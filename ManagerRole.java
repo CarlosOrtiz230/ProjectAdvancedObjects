@@ -67,7 +67,7 @@ public class ManagerRole{
                         return;
 
                     case "5":
-                        System.out.println(desiredCustomer.getName() + " transactions:");
+                        System.out.println(desiredCustomer.getName() + " transactions:\n");
                         for (String history : desiredCustomer.getTransactions()){
                             history = history.replace(",", " ");
                             System.out.println(history);

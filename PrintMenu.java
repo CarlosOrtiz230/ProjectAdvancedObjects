@@ -41,7 +41,7 @@ public class PrintMenu{
     }
 
     public static void WhichAccountWithdraw(){
-        System.out.println("From which account you would like to withdraw money? \n-Checking\n3.Saving");
+        System.out.println("From which account you would like to withdraw money? \n-Checking\n-Saving");
         System.out.print(">");
     }
 

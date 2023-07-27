@@ -100,8 +100,8 @@ public class Customer extends Person {
     public void deposit(String accountType, double amount) {
         try {
             for (Account account : accounts) {
-                if ((account instanceof Savings && accountType.equalsIgnoreCase("1")) || 
-                    (account instanceof Checking && accountType.equalsIgnoreCase("2"))) {
+                if ((account instanceof Savings && accountType.equalsIgnoreCase("savings")) || 
+                    (account instanceof Checking && accountType.equalsIgnoreCase("checking"))) {
                     account.deposit(amount);
                     System.out.println("Deposit of " + amount + " made to " + accountType + " account.");
                     return;
@@ -123,8 +123,8 @@ public class Customer extends Person {
     public void withdraw(String accountType, double amount) {
         try {
             for (Account account : accounts) {
-                if ((account instanceof Checking && accountType.equalsIgnoreCase("2")) || 
-                    (account instanceof Savings && accountType.equalsIgnoreCase("1"))) {
+                if ((account instanceof Checking && accountType.equalsIgnoreCase("checking")) || 
+                    (account instanceof Savings && accountType.equalsIgnoreCase("savings"))) {
                     account.withdraw(amount);
                     System.out.println("Withdraw of " + amount + " made to " + accountType + " account.");
                     return;

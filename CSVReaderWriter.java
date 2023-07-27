@@ -169,7 +169,7 @@ public class CSVReaderWriter {
             currentTransaction.append(",").append(",").append(ammount);  
         //inquire
         }else if(transactionType.equalsIgnoreCase("inquire")||transactionType.equalsIgnoreCase(TransactionTypes.INQUIRE)){
-            currentTransaction.append(name).append(",").append(lastName).append(",").append(accountType).append(",").append(transactionType).append(",");
+            currentTransaction.append(name).append(",").append(lastName).append(",").append(",").append(transactionType).append(",").append(accountType);
             currentTransaction.append(",").append(",");  
         
         }else{System.out.println("Something went wrong in log transactions\naccount Type not detected");}

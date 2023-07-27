@@ -22,10 +22,11 @@ public class userFunctions{
     public static void handleDeposit(Customer currentCustomer, Scanner x) {
         PrintMenu.whichAccountDeposit();
         String depositAccount = x.nextLine().trim().toUpperCase();
+        if (!(AccountTypes.isValidAccountType(depositAccount))){System.out.println("Not a valid account Type"); return;}
+        depositAccount = AccountTypes.getAccountType(depositAccount);
         PrintMenu.enterAmmountDeposit();
         String depositInput = x.nextLine(); //to avoid crashing
         double depositAmount;
-
         if(interfaceClass.isNumeric(depositInput)) {
             depositAmount = Double.parseDouble(depositInput);
         } else {
