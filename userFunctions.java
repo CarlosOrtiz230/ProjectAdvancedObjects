@@ -3,9 +3,17 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
-
+/**
+ * The userFunctions class provides methods to handle various banking operations for a bank customer.
+ */
 public class userFunctions{
  
+    /**
+     * Handles the inquiry transaction by asking the user to select an account type and displaying the account's current balance.
+     *
+     * @param currentCustomer The Customer object representing the currently logged-in customer.
+     * @param x Scanner object used to read user input.
+     */
     public static void handleInquiry(Customer currentCustomer, Scanner x) {
         PrintMenu.whichAccountInquire(); 
         String accountType = x.nextLine();

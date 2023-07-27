@@ -1,11 +1,21 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * The CSVReaderWriter class provides methods to read customer data from a CSV file and manage transaction logs.
+ */
 public class CSVReaderWriter {
-    //Contains all information that might be printed 
+    // Contains all information that might be printed
     public static List<String> log = new ArrayList<String>();
-    public static List<String> transactions = new ArrayList<String>(); //arraylist to create transactions.csv file
+    public static List<String> transactions = new ArrayList<String>(); // ArrayList to create transactions.csv file
 
+    /**
+     * Reads customer data from a CSV file and creates a list of Customer objects with their associated accounts.
+     *
+     * @param csvFile The file path of the CSV file containing customer data.
+     * @return A list of Customer objects representing the customers read from the CSV file.
+     * @throws IOException If an error occurs while reading the CSV file.
+     */
     public static List<Customer> bankUserReader(String csvFile) throws IOException {
         String line;
         List<Customer> customers = new ArrayList<>();
