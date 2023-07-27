@@ -1,5 +1,7 @@
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 
 public class userFunctions{
@@ -7,9 +9,14 @@ public class userFunctions{
     public static void handleInquiry(Customer currentCustomer, Scanner x) {
         PrintMenu.whichAccountInquire(); 
         String accountType = x.nextLine();
-        System.out.println("Your current balance is: " + currentCustomer.checkBalance(accountType));
-        // Use the accountType entered by the user, not "Checking"
-        CSVReaderWriter.logTransaction(currentCustomer, currentCustomer, accountType, "NA", TransactionTypes.INQUIRE, 0.0, currentCustomer.checkBalance(accountType), CSVReaderWriter.log, CSVReaderWriter.transactions);
+        //check if valid accout type
+        if (!(AccountTypes.isValidAccountType(accountType))){System.out.println("Not a valid account Type"); return;}
+        accountType = AccountTypes.getAccountType(accountType);
+        //check for correctness
+        double currentBalance = currentCustomer.checkBalance(accountType);
+        System.out.println("Your current " + accountType + " balance is: " + currentCustomer.checkBalance(accountType));
+        CSVReaderWriter.logTransaction(currentCustomer, currentCustomer, accountType, accountType, TransactionTypes.INQUIRE, 0.0,currentBalance, CSVReaderWriter.log, CSVReaderWriter.transactions);
+        PrintMenu.success(); //inform sucess 
     }
     
     public static void handleDeposit(Customer currentCustomer, Scanner x) {
@@ -154,23 +161,8 @@ public class userFunctions{
         creditUserAccount.deposit(payAmmount);
         //register
         double userCurrentBalance = creditUserAccount.getBalance();
-        CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,AccountTypes.CREDIT,AccountTypes.CREDIT,TransactionTypes.PAY_CREDITCARD,payAmmount,userCurrentBalance,CSVReaderWriter.log,CSVReaderWriter.transactions);
+        CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,AccountTypes.CREDIT,AccountTypes.CREDIT,TransactionTypes.PAY ,payAmmount,userCurrentBalance,CSVReaderWriter.log,CSVReaderWriter.transactions);
     }//pay credit card ends
     
-//inmutable classes 
-public static class TransactionTypes {
-    public static final String INQUIRE = "inquire";
-    public static final String DEPOSIT = "deposit";
-    public static final String WITHDRAW = "withdraw";
-    public static final String TRANSFER = "transfer";
-    public static final String PAY_CREDITCARD = "pay credit card";
-    // Add more transaction types as needed
-}
 
-public static final class AccountTypes {
-    public static final String CHECKING = "Checking";
-    public static final String SAVINGS = "Savings";
-    public static final String CREDIT = "Credit";
-    // Add more account types as needed
-}
 }//class ends

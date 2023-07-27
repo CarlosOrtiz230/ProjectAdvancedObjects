@@ -142,37 +142,38 @@ public class CSVReaderWriter {
         String[] tokens = customer.getName().split(" "); // Assuming the name is in the format "First Name Last Name"
         String name = tokens[0];
         String lastName = tokens[1];
-        String receiverFirstName = "";
-        String receiverLastName = "";
-        
-        if (reciever != null) {
-            tokens = reciever.getName().split(" ");
-            receiverFirstName = tokens[0];
-            receiverLastName = tokens[1];
-        }
-        
+
+        String[] tokens2 = reciever.getName().split(" "); // Assuming the name is in the format "First Name Last Name"
+        String receiverFirstName = tokens[0];
+        String receiverLastName = tokens[1];
+       
         // Prepare the CSV entry based on the transaction type
         StringBuilder currentTransaction = new StringBuilder();
-        currentTransaction.append(name).append(",").append(lastName).append(",").append(accountType).append(",").append(transactionType).append(",");
-        
-        if (transactionType.equalsIgnoreCase("pay")) {
+        //pay
+        if (transactionType.equalsIgnoreCase("pay")||transactionType.equalsIgnoreCase(TransactionTypes.PAY)) {
             // Pay transaction requires all information
-            if (reciever == null || recieverAccountType == null) {
-                System.out.println("Incomplete information for pay transaction.");
-                return;
-            }
+            currentTransaction.append(name).append(",").append(lastName).append(",").append(accountType).append(",").append(transactionType).append(",");
             currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",").append(recieverAccountType).append(",").append(ammount);
-        } else if (transactionType.equalsIgnoreCase("deposit")) {
+        //deposist  
+        } else if (transactionType.equalsIgnoreCase("deposit")||transactionType.equalsIgnoreCase(TransactionTypes.DEPOSIT)) {
             // Deposit transaction only requires receiver information
-            if (reciever == null) {
-                System.out.println("Incomplete information for deposit transaction.");
-                return;
-            }
-            currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",").append(ammount); // Empty value for receiverAccountType
-        } else {
-            // Other transactions (e.g., inquiry, withdraw, transfer) can have incomplete information
+            currentTransaction.append(",").append(",").append(",").append(transactionType).append(",").append(receiverFirstName).append(",");
             currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",").append(recieverAccountType).append(",").append(ammount);
-        }
+        //transfer  
+        }else if(transactionType.equalsIgnoreCase("transfers")||transactionType.equalsIgnoreCase("transfer")||transactionType.equalsIgnoreCase(TransactionTypes.TRANSFER)){
+            currentTransaction.append(name).append(",").append(lastName).append(",").append(accountType).append(",").append(transactionType).append(",");
+            currentTransaction.append(receiverFirstName).append(",").append(receiverLastName).append(",").append(recieverAccountType).append(",").append(ammount);  
+        //withdraw
+        }else if(transactionType.equalsIgnoreCase("withdraw")||transactionType.equalsIgnoreCase(TransactionTypes.WITHDRAW)){
+            currentTransaction.append(name).append(",").append(lastName).append(",").append(accountType).append(",").append(transactionType).append(",");
+            currentTransaction.append(",").append(",").append(ammount);  
+        //inquire
+        }else if(transactionType.equalsIgnoreCase("inquire")||transactionType.equalsIgnoreCase(TransactionTypes.INQUIRE)){
+            currentTransaction.append(name).append(",").append(lastName).append(",").append(accountType).append(",").append(transactionType).append(",");
+            currentTransaction.append(",").append(",");  
+        
+        }else{System.out.println("Something went wrong in log transactions\naccount Type not detected");}
+        
         
         transaction.add(currentTransaction.toString());
         customer.addTransaction(currentTransaction.toString()); //individual transaction

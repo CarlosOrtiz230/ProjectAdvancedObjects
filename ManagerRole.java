@@ -42,7 +42,7 @@ public class ManagerRole{
             
             while(true){
                 System.out.println("Which account would you like to inquire?");
-                System.out.println("1. Checkings\n2. Savings \n3. Credit\n4. Transaction Log");
+                System.out.println("1. Checkings\n2. Savings \n3. Credit\n4. Transaction Log\n5. Indivudial Transactions");
                 System.out.print(">");
                 managerInput = userInput.nextLine();
                 switch(managerInput.toLowerCase()){
@@ -61,9 +61,19 @@ public class ManagerRole{
                     case "4":
                         System.out.println("Log:");
                         for (String history : log){
+                            history = history.replace(",", " ");
                             System.out.println(history);
                         }
                         return;
+
+                    case "5":
+                        System.out.println(desiredCustomer.getName() + " transactions:");
+                        for (String history : desiredCustomer.getTransactions()){
+                            history = history.replace(",", " ");
+                            System.out.println(history);
+                        }
+                        return;
+
                     default:
                         System.out.println("xxxx----This is not a valid entry----x");
                         return;
