@@ -1,4 +1,4 @@
-public interface interfaceClass{
+public interface NumericCheck{
         /**
          * Checks if a given string can be parsed as a numeric value.
          *

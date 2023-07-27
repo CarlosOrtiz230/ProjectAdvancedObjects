@@ -9,6 +9,7 @@ public class CSVReaderWriter {
     public static List<Customer> bankUserReader(String csvFile) throws IOException {
         String line;
         List<Customer> customers = new ArrayList<>();
+        AccountFactory accountFactory = new AccountFactory(); // Create an instance of AccountFactory
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine(); //skip first line
             while ((line = br.readLine()) != null) {
@@ -26,22 +27,22 @@ public class CSVReaderWriter {
                 String creditAccountNumber = data[12];
                 double creditLimit = Double.parseDouble(data[13]);
                 double creditStartingBalance = Double.parseDouble(data[14]);
-
+    
                 Customer customer = new Customer(firstName + " " + lastName, dob,address, identificationNumber, phoneNumber);
-                Checking checkingAccount = new Checking(checkingAccountNum);
-                Savings savingsAccount = new Savings(savingsAccountNum);
-                Credit creditAccount = new Credit(creditAccountNumber, creditLimit);
-
+                Checking checkingAccount = (Checking) accountFactory.createAccount("Checking", checkingAccountNum);
+                Savings savingsAccount = (Savings) accountFactory.createAccount("Savings", savingsAccountNum);
+                Credit creditAccount = (Credit) accountFactory.createAccount("Credit", creditAccountNumber, creditLimit);
+    
                 // Set the starting balances
                 checkingAccount.deposit(checkingStartingBalance);
                 savingsAccount.deposit(savingsStartingBalance);
                 creditAccount.deposit(creditStartingBalance);
-
+    
                 // Add the accounts to the customer
                 customer.addAccount(checkingAccount); // 1 checkings 2 savings 3 credit
                 customer.addAccount(savingsAccount);
                 customer.addAccount(creditAccount);
-
+    
                 // Add the customer to our list
                 customers.add(customer);
             }
@@ -50,6 +51,7 @@ public class CSVReaderWriter {
         }
         return customers;
     }//file reader ends
+    
 
     /**
      * This function makes the global transactions to a .csv file

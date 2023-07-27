@@ -14,9 +14,9 @@ public class userFunctions{
         accountType = AccountTypes.getAccountType(accountType);
         //check for correctness
         double currentBalance = currentCustomer.checkBalance(accountType);
-        System.out.println("Your current " + accountType + " balance is: " + currentCustomer.checkBalance(accountType));
+        System.out.println("Your current " + accountType + " balance is: " + currentCustomer.checkBalance(accountType ));
         CSVReaderWriter.logTransaction(currentCustomer, currentCustomer, accountType, accountType, TransactionTypes.INQUIRE, 0.0,currentBalance, CSVReaderWriter.log, CSVReaderWriter.transactions);
-        PrintMenu.success(); //inform sucess 
+        System.out.println();
     }
     
     public static void handleDeposit(Customer currentCustomer, Scanner x) {
@@ -27,7 +27,7 @@ public class userFunctions{
         PrintMenu.enterAmmountDeposit();
         String depositInput = x.nextLine(); //to avoid crashing
         double depositAmount;
-        if(interfaceClass.isNumeric(depositInput)) {
+        if(NumericCheck.isNumeric(depositInput)) {
             depositAmount = Double.parseDouble(depositInput);
         } else {
             System.out.println("\nxxxx----Invalid input. Please enter a valid number.----xxxx");
@@ -53,7 +53,7 @@ public class userFunctions{
         String withdrawInput =  x.nextLine();
         double withdrawAmount;
         
-        if (interfaceClass.isNumeric(withdrawInput)) {
+        if (NumericCheck.isNumeric(withdrawInput)) {
             withdrawAmount = Double.parseDouble(withdrawInput);
         }else {
             System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
@@ -78,7 +78,7 @@ public class userFunctions{
         PrintMenu.enterAmmountTransfer();
         String transferInput = x.nextLine();
         double transferAmount;
-        if (interfaceClass.isNumeric(transferInput)) {
+        if (NumericCheck.isNumeric(transferInput)) {
             transferAmount = Double.parseDouble(transferInput);
         }else {
             System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
@@ -118,7 +118,7 @@ public class userFunctions{
         System.out.print(">");
         String payInput = x.nextLine();
         double payAmount;
-        if (interfaceClass.isNumeric(payInput)){
+        if (NumericCheck.isNumeric(payInput)){
             payAmount = Double.parseDouble(payInput);
         } else {
             System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
@@ -150,7 +150,7 @@ public class userFunctions{
         //hola
         PrintMenu.enterAmmountPayCredit();
         String ammount = x.nextLine();
-        if (interfaceClass.isNumeric(ammount)){
+        if (NumericCheck.isNumeric(ammount)){
             payAmmount = Double.parseDouble(ammount);
         } else {
             System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
