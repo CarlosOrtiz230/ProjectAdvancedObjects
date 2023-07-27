@@ -144,8 +144,8 @@ public class CSVReaderWriter {
         String lastName = tokens[1];
 
         String[] tokens2 = reciever.getName().split(" "); // Assuming the name is in the format "First Name Last Name"
-        String receiverFirstName = tokens[0];
-        String receiverLastName = tokens[1];
+        String receiverFirstName = tokens2[0];
+        String receiverLastName = tokens2[1];
        
         // Prepare the CSV entry based on the transaction type
         StringBuilder currentTransaction = new StringBuilder();
