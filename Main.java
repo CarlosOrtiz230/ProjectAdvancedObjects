@@ -22,8 +22,9 @@ public class Main {
         }
         
         
-        Customer currentCustomer = null; //before assigning a customer 
+       
         while(true){
+             Customer currentCustomer = null; //before assigning a customer 
             //Check if the user is a manager to change the functionality
             boolean isManager = RoleSelection.checkIfManager();
             // Implement user/password authentication based on cellphone 

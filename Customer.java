@@ -21,11 +21,11 @@ public class Customer extends Person {
      * @param name The name of the Customer.
      * @param address The address of the Customer.
      */
-    public Customer(String name, String dob, String address, String identificationNumber, String phoneNumberDivided) {
-        super(name, address, dob, phoneNumberDivided);
+    public Customer(String name, String dob, String address, String identificationNumber, String phoneNumber) {
+        super(name, address, dob, phoneNumber);
         this.accounts = new ArrayList<>();
         this.identificationNumber = identificationNumber;
-        this.phoneNumber = phoneNumberDivided;
+        this.phoneNumber = phoneNumber;
     }
 
    
@@ -76,8 +76,10 @@ public class Customer extends Person {
     public double checkBalance(String accountType) {
         try {
             for (Account account : accounts) {
-                if ((account instanceof Checking && accountType.equalsIgnoreCase("2")) || 
-                    (account instanceof Savings && accountType.equalsIgnoreCase("1"))) {
+                if ((account instanceof Checking && accountType.equalsIgnoreCase("checking")) || 
+                    ((account instanceof Checking && accountType.equalsIgnoreCase("checkings"))) ||
+                    (account instanceof Savings && accountType.equalsIgnoreCase("saving"))||
+                    (account instanceof Savings && accountType.equalsIgnoreCase("savings"))) {
                     return account.getBalance();
                 }
             }

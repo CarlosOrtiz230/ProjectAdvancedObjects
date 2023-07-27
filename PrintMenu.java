@@ -26,12 +26,12 @@ public class PrintMenu{
     }
 
     public static void whichAccountInquire(){
-        System.out.println("Which account's balance would you like to check? \n1.Savings\n2.Checkings");
+        System.out.println("Which account's balance would you like to check? Type \n-Checkings\n-Savings");
         System.out.print(">");
     }
 
     public static void whichAccountDeposit(){
-        System.out.println("To which account would you like to deposit money? \n1.Savings\n2.Checkings");
+        System.out.println("To which account would you like to deposit money? type \n-Checkings\n-Savings");
         System.out.print(">");
     }
 
@@ -41,7 +41,7 @@ public class PrintMenu{
     }
 
     public static void WhichAccountWithdraw(){
-        System.out.println("From which account you would like to withdraw money? \n1.Savings\n2.Checkings");
+        System.out.println("From which account you would like to withdraw money? \n-Checkings\n3.Saving");
         System.out.print(">");
     }
 
