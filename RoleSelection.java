@@ -1,5 +1,7 @@
 import java.util.*;   
-
+/**
+ * The RoleSelection class provides methods for user login and checking if the user is a bank client or manager.
+ */
 public class RoleSelection { 
 
     /**

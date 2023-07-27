@@ -42,7 +42,7 @@ class IDGeneratorReal implements IDGenerator {
      *
      * @param id The ID to check.
      * @param index The index of the ID in the CSV file.
-     * @return True if the ID exists, false otherwise.
+     * @return True if the ID exists, else false.
      */
     private boolean idExists(String id, int index) {
         try (BufferedReader br = new BufferedReader(new FileReader(CSVFile))) {

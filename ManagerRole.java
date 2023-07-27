@@ -7,6 +7,12 @@ public class ManagerRole{
     private static IDGenerator idGenerator = new IDGeneratorReal(); 
     private static CreditLimitGenerator creditLimitGenerator = new CreditLimitGeneratorReal(); 
 
+    /**
+     * Displays manager options and handles manager-related operations based on user input.
+     *
+     * @param customers The list of customers in the banking system.
+     * @param log       The list of log entries for transactions and operations.
+     */
     public static void managerOptions(List<Customer> customers, List<String> log) {
         try {
             PrintMenu.displayManagerMenu(); 
@@ -84,7 +90,13 @@ public class ManagerRole{
             e.printStackTrace();
         }
     }
-
+    /**
+     * Adds a new bank user to the banking system based on user input.
+     *
+     * @param customers            The list of customers in the banking system.
+     * @param idGenerator          The ID generator used to create unique IDs for customers and accounts.
+     * @param creditLimitGenerator The credit limit generator used to determine credit limits based on credit scores.
+     */
     public static void addNewBankUser(List<Customer> customers, IDGenerator idGenerator, CreditLimitGenerator creditLimitGenerator) {
         try {
             Scanner scanner = new Scanner(System.in);

@@ -1,4 +1,10 @@
+/**
+ * The TransactionTypes class provides constants representing various types of transactions that can occur in the banking system.
+ */
 public class TransactionTypes {
+    /**
+     * Constants representing action used by user. 
+     */
     public static final String INQUIRE = "inquire";
     public static final String DEPOSIT = "deposit";
     public static final String WITHDRAW = "withdraw";
