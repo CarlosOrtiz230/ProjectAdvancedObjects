@@ -11,6 +11,8 @@ public class Customer extends Person {
     private List<String> customerTransactions = new ArrayList<String>();
     private String identificationNumber;
     private String phoneNumber;
+    //private List<Transaction> customerTransactions = new ArrayList<>();
+
 
     //constructors----------------------------------------
 
@@ -191,6 +193,7 @@ public class Customer extends Person {
     public List<String> getTransactions() {
         return this.customerTransactions;
     }
+    //-=-=-=-=
     
 }
 

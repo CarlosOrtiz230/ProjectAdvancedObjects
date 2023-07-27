@@ -1,0 +1,68 @@
+Account Information: CHECKING
+Transaction Type: inquire
+Transaction Amount: 0.0
+Remaining Balance: 2094.16
+Transaction Details: Minnie,Mouse,,inquire,CHECKING,,
+Date of Transaction: Thu Jul 27 13:47:56 MDT 2023
+-------------------------------------------
+
+Account Information: CHECKING
+Transaction Type: deposit
+Transaction Amount: 2000.0
+Remaining Balance: 4094.16
+Transaction Details: ,,,deposit,Minnie,Minnie,Mouse,CHECKING,2000.0
+Date of Transaction: Thu Jul 27 13:48:03 MDT 2023
+-------------------------------------------
+
+Account Information: CHECKING
+Transaction Type: inquire
+Transaction Amount: 0.0
+Remaining Balance: 4094.16
+Transaction Details: Minnie,Mouse,,inquire,CHECKING,,
+Date of Transaction: Thu Jul 27 13:48:08 MDT 2023
+-------------------------------------------
+
+Account Information: CHECKING
+Transaction Type: transfer
+Transaction Amount: 1000.0
+Remaining Balance: 1327.99
+Transaction Details: Minnie,Mouse,CHECKING,transfer,Minnie,Mouse,SAVINGS,1000.0
+Date of Transaction: Thu Jul 27 13:48:33 MDT 2023
+-------------------------------------------
+
+Account Information: CHECKING
+Transaction Type: inquire
+Transaction Amount: 0.0
+Remaining Balance: 3094.16
+Transaction Details: Minnie,Mouse,,inquire,CHECKING,,
+Date of Transaction: Thu Jul 27 13:49:00 MDT 2023
+-------------------------------------------
+
+Account Information: CHECKING
+Transaction Type: inquire
+Transaction Amount: 0.0
+Remaining Balance: 3094.16
+Transaction Details: Minnie,Mouse,,inquire,CHECKING,,
+Date of Transaction: Thu Jul 27 13:53:10 MDT 2023
+-------------------------------------------
+
+Account Information: CHECKING
+Transaction Type: transfer
+Transaction Amount: 100.0
+Remaining Balance: 1427.99
+Transaction Details: Minnie,Mouse,CHECKING,transfer,Minnie,Mouse,SAVINGS,100.0
+Date of Transaction: Thu Jul 27 13:53:20 MDT 2023
+-------------------------------------------
+
+Account Information: CHECKING
+Transaction Type: withdraw
+Transaction Amount: 100.0
+Ending Balance: 2994.16
+Date of Transaction: Thu Jul 27 13:56:26 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: inquire
+Transaction Amount: 0.0
+Ending Balance: 2994.16
+Date of Transaction: Thu Jul 27 14:59:01 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n

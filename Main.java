@@ -14,7 +14,7 @@ public class Main {
        
         String csvFile;
         List<Customer> customers = new ArrayList<Customer>(); //Array List to hold database during the program 
-        
+
         try { //try catch for the dataBase creation 
             csvFile = "BankUser.CSV";
             customers = CSVReaderWriter.bankUserReader(csvFile);

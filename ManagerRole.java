@@ -31,6 +31,10 @@ public class ManagerRole{
                 case "3":
                     addNewBankUser(customers, idGenerator, creditLimitGenerator);
                     return;
+                case "4":
+                    String transactionsFile = "Transactions.csv";
+                    System.out.println("Importing Data from file Complete!");
+                    return;
                 case "exit":
                     String csvFile = "BankUser.CSV"; 
                     CSVReaderWriter.writeCustomersToCSV(customers, csvFile);
@@ -90,6 +94,8 @@ public class ManagerRole{
             e.printStackTrace();
         }
     }
+
+    
     /**
      * Adds a new bank user to the banking system based on user input.
      *
@@ -159,5 +165,6 @@ public class ManagerRole{
             System.out.println("An error occurred while adding a new bank user: " + e.getMessage());
             e.printStackTrace();
         }
-    }    
-}
+    }//method ends    
+
+}//class ends

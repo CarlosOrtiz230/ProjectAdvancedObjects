@@ -171,6 +171,5 @@ public class userFunctions{
         double userCurrentBalance = creditUserAccount.getBalance();
         CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,AccountTypes.CREDIT,AccountTypes.CREDIT,TransactionTypes.PAY ,payAmmount,userCurrentBalance,CSVReaderWriter.log,CSVReaderWriter.transactions);
     }//pay credit card ends
-    
 
 }//class ends

@@ -9,7 +9,7 @@ public class PrintMenu{
     public static void displayManagerMenu(){
         System.out.println("----Manager Menu----");
         System.out.println("Would you like to inquire by name or by type/number");
-        System.out.println("1. Inquire account by name.\n2. Inquire account by type/number\n3. Add new user");
+        System.out.println("1. Inquire account by name.\n2. Inquire account by type/number\n3. Add new user\n4. Import data from Transaction.csv");
         System.out.println("Type 'Exit' to leave the program");
         System.out.print(">");
     }//displayManagerMenu ends
@@ -51,7 +51,7 @@ public class PrintMenu{
     }
 
     public static void whichAccountTransfer(){
-        System.out.println("From which account would you like to transfer? Type one of the following:\n1.Savings to Checking \n2.Checking to Savings");
+        System.out.println("From which account would you like to transfer? Type one which account you are transferring FROM\n-From Checking to Savings \n-From Savings to Checkings");
         System.out.print(">"); 
     }
     public static void enterAmmountTransfer(){
