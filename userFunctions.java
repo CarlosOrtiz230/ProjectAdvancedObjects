@@ -72,11 +72,12 @@ public class userFunctions{
     public static void handleTransfer(Customer currentCustomer, Scanner x) {
         PrintMenu.whichAccountTransfer();
         String transferAccount = x.nextLine().trim();
+        if (!(AccountTypes.isValidAccountType(transferAccount))){System.out.println("Not a valid account Type"); return;}
+        transferAccount = AccountTypes.getAccountType(transferAccount);
+
         PrintMenu.enterAmmountTransfer();
         String transferInput = x.nextLine();
         double transferAmount;
-        String accountType;
-        String senderAccount;
         if (interfaceClass.isNumeric(transferInput)) {
             transferAmount = Double.parseDouble(transferInput);
         }else {
@@ -84,19 +85,18 @@ public class userFunctions{
             return; //exit the program
         }
         x.nextLine(); // This line is added to consume the newline character
-        if (transferAccount.equalsIgnoreCase("1") || transferAccount.equalsIgnoreCase("2")){
-            if(transferAccount.equals("1")){accountType = AccountTypes.SAVINGS; senderAccount = AccountTypes.CHECKING;}
-            else{accountType = AccountTypes.CHECKING; senderAccount = AccountTypes.SAVINGS;}
-
-            currentCustomer.deposit(accountType, transferAmount);
-            currentCustomer.withdraw(senderAccount, transferAmount);
-            double currentBalance = currentCustomer.checkBalance(accountType);
-            CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,senderAccount,accountType,TransactionTypes.TRANSFER,transferAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
-            PrintMenu.success();
-            return;
-        } else {
-            System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
-        }
+        String recieverAccount;
+        if(transferAccount.equals(AccountTypes.CHECKING)){recieverAccount = AccountTypes.SAVINGS;}
+        else{recieverAccount = AccountTypes.CHECKING;}
+        //to which account to deposit
+        currentCustomer.deposit(recieverAccount, transferAmount);
+        //from which account take the mone out
+        currentCustomer.withdraw(transferAccount, transferAmount);
+        double currentBalance = currentCustomer.checkBalance(recieverAccount);
+        CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,transferAccount,recieverAccount,TransactionTypes.TRANSFER,transferAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
+        PrintMenu.success();
+        return;
+        
     }
 
     public static void handleThirdPartyPayment(Customer currentCustomer, List<Customer> customers, Scanner x) {
