@@ -45,29 +45,28 @@ public class userFunctions{
 
     public static void handleWithdrawal(Customer currentCustomer, Scanner x) {
         PrintMenu.WhichAccountWithdraw();
-        String accountType;
-        String withdrawAccount = x.nextLine();
-        if (withdrawAccount.equalsIgnoreCase("1") || withdrawAccount.equalsIgnoreCase("2")){
-            PrintMenu.enterAmmounWithdraw();
-            String withdrawInput =  x.nextLine();
-            double withdrawAmount;
-            
-            if (interfaceClass.isNumeric(withdrawInput)) {
-                withdrawAmount = Double.parseDouble(withdrawInput);
-            }else {
-                System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
-                return; //exit the program
-            }
-            //type of account
-            if(withdrawAccount.equals("1")){accountType = AccountTypes.SAVINGS;}else{accountType = AccountTypes.CHECKING;}
-            
-            currentCustomer.withdraw(withdrawAccount, withdrawAmount);
-            System.out.println("With DrawSuccessful!");
-            double currentBalance  = currentCustomer.checkBalance(accountType);
-            CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,accountType,accountType,TransactionTypes.WITHDRAW,withdrawAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
-        }else{
-         System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
+        String accountType = x.nextLine();
+        if (!(AccountTypes.isValidAccountType(accountType))){System.out.println("Not a valid account Type"); return;}
+            accountType = AccountTypes.getAccountType(accountType);
+       
+        PrintMenu.enterAmmounWithdraw();
+        String withdrawInput =  x.nextLine();
+        double withdrawAmount;
+        
+        if (interfaceClass.isNumeric(withdrawInput)) {
+            withdrawAmount = Double.parseDouble(withdrawInput);
+        }else {
+            System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
+            return; //exit the program
         }
+        //type of account 
+        double currentBalance  = currentCustomer.checkBalance(accountType);
+        if(withdrawAmount>currentBalance){System.out.println("Ammount to withdraw is more than the balance");return;}
+        currentCustomer.withdraw(accountType,withdrawAmount);
+        currentBalance  = currentCustomer.checkBalance(accountType);
+        System.out.println("With DrawSuccessful!");
+        CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,accountType,accountType,TransactionTypes.WITHDRAW,withdrawAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
+         
     }
 
     public static void handleTransfer(Customer currentCustomer, Scanner x) {
