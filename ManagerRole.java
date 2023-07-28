@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class ManagerRole{
 
@@ -33,8 +36,11 @@ public class ManagerRole{
                     return;
                 case "4":
                     String transactionsFile = "Transactions.csv";
+                    TransactionReader transactionReader = new TransactionReader(transactionsFile, customers);
+                    transactionReader.processTransactions();
                     System.out.println("Importing Data from file Complete!");
                     return;
+            
                 case "exit":
                     String csvFile = "BankUser.CSV"; 
                     CSVReaderWriter.writeCustomersToCSV(customers, csvFile);

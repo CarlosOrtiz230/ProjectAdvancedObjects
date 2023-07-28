@@ -7,6 +7,7 @@ public abstract class Person {
     private String address; 
     private String dob;
     private String phoneNumber;
+    private int id;
 
     //constructor----------------------------------------------------------------
     public Person() {} //default 
@@ -17,7 +18,8 @@ public abstract class Person {
      * @param name    the name of the person
      * @param address the address of the person
      */
-    public Person(String name, String address,String dob,String phoneNumber) {
+    public Person(int id, String name, String address,String dob,String phoneNumber) {
+        this.id = id;
         this.name = name;
         this.address = address;
         this.dob = dob;
@@ -26,6 +28,14 @@ public abstract class Person {
 
     //getters and setters----------------------------------------------------------------
 
+    /**
+     * Retrieves the ID of the person
+     * 
+     * @return the ID of the person
+     */
+    public int getID(){
+        return id;
+    }
     /**
      * Retrieves the name of the person.
      *

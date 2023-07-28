@@ -24,11 +24,12 @@ public class Customer extends Person {
      * @param address The address of the Customer.
      */
     public Customer(String name, String dob, String address, String identificationNumber, String phoneNumber) {
-        super(name, address, dob, phoneNumber);
+        super(Integer.parseInt(identificationNumber), name, address, dob, phoneNumber);
         this.accounts = new ArrayList<>();
         this.identificationNumber = identificationNumber;
         this.phoneNumber = phoneNumber;
     }
+    
 
    
     //getters and setters----------------------------------
