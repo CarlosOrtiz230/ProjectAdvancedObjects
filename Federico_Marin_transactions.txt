@@ -1,0 +1,42 @@
+Account Information: CHECKING
+Transaction Type: deposit
+Transaction Amount: 5000.0
+Ending Balance: 6917.27
+Date of Transaction: Thu Jul 27 22:09:59 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 1000.0
+Ending Balance: 5917.27
+Date of Transaction: Thu Jul 27 22:09:59 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 1000.0
+Ending Balance: 917.27
+Date of Transaction: Thu Jul 27 22:19:13 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: deposit
+Transaction Amount: 5000.0
+Ending Balance: 6917.27
+Date of Transaction: Thu Jul 27 22:22:57 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 1000.0
+Ending Balance: 5917.27
+Date of Transaction: Thu Jul 27 22:22:57 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: deposit
+Transaction Amount: 5000.0
+Ending Balance: 6917.27
+Date of Transaction: Fri Jul 28 10:57:54 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 1000.0
+Ending Balance: 5917.27
+Date of Transaction: Fri Jul 28 10:57:54 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n

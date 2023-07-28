@@ -1,0 +1,72 @@
+Account Information: SAVINGS
+Transaction Type: withdraw
+Transaction Amount: 57.0
+Ending Balance: 672.5
+Date of Transaction: Thu Jul 27 22:09:59 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 46.88
+Ending Balance: 1535.09
+Date of Transaction: Thu Jul 27 22:09:59 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: pays
+Transaction Amount: 28.89
+Ending Balance: 643.61
+Date of Transaction: Thu Jul 27 22:09:59 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: withdraw
+Transaction Amount: 57.0
+Ending Balance: 672.5
+Date of Transaction: Thu Jul 27 22:19:13 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 46.88
+Ending Balance: 1535.09
+Date of Transaction: Thu Jul 27 22:19:13 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: pays
+Transaction Amount: 28.89
+Ending Balance: 643.61
+Date of Transaction: Thu Jul 27 22:19:13 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: withdraw
+Transaction Amount: 57.0
+Ending Balance: 672.5
+Date of Transaction: Thu Jul 27 22:22:57 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 46.88
+Ending Balance: 1535.09
+Date of Transaction: Thu Jul 27 22:22:57 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: pays
+Transaction Amount: 28.89
+Ending Balance: 643.61
+Date of Transaction: Thu Jul 27 22:22:57 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: withdraw
+Transaction Amount: 57.0
+Ending Balance: 672.5
+Date of Transaction: Fri Jul 28 10:57:54 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 46.88
+Ending Balance: 1535.09
+Date of Transaction: Fri Jul 28 10:57:54 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: pays
+Transaction Amount: 28.89
+Ending Balance: 643.61
+Date of Transaction: Fri Jul 28 10:57:54 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n

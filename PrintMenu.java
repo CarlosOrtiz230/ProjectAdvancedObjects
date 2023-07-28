@@ -22,7 +22,7 @@ public class PrintMenu{
         System.out.println("What would you like to do today?");
         System.out.println("\n1. Inquiry about a balance \n2. Deposit money to an account");
         System.out.println("3. Withdraw money from an account \n4. Transfer money between accounts \n5. Switch Bank Roles\n" + 
-        "6. Pay to someone else" +"\n--Type 'EXIT' to Close--");
+        "6. Pay to someone else" +"\n7. Pay Credit Card"+"\n--Type 'EXIT' to Close--");
     }
 
     public static void whichAccountInquire(){

@@ -1,0 +1,72 @@
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 28.89
+Ending Balance: 605.0500000000001
+Date of Transaction: Thu Jul 27 22:09:59 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: withdraw
+Transaction Amount: 59.0
+Ending Balance: 1028.1
+Date of Transaction: Thu Jul 27 22:09:59 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: withdraw
+Transaction Amount: 94.0
+Ending Balance: 511.05000000000007
+Date of Transaction: Thu Jul 27 22:09:59 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 28.89
+Ending Balance: 605.0500000000001
+Date of Transaction: Thu Jul 27 22:19:13 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: withdraw
+Transaction Amount: 59.0
+Ending Balance: 1028.1
+Date of Transaction: Thu Jul 27 22:19:13 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: withdraw
+Transaction Amount: 94.0
+Ending Balance: 511.05000000000007
+Date of Transaction: Thu Jul 27 22:19:13 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 28.89
+Ending Balance: 605.0500000000001
+Date of Transaction: Thu Jul 27 22:22:57 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: withdraw
+Transaction Amount: 59.0
+Ending Balance: 1028.1
+Date of Transaction: Thu Jul 27 22:22:57 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: withdraw
+Transaction Amount: 94.0
+Ending Balance: 511.05000000000007
+Date of Transaction: Thu Jul 27 22:22:57 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: pays
+Transaction Amount: 28.89
+Ending Balance: 605.0500000000001
+Date of Transaction: Fri Jul 28 10:57:54 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: SAVINGS
+Transaction Type: withdraw
+Transaction Amount: 59.0
+Ending Balance: 1028.1
+Date of Transaction: Fri Jul 28 10:57:54 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: withdraw
+Transaction Amount: 94.0
+Ending Balance: 511.05000000000007
+Date of Transaction: Fri Jul 28 10:57:54 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
