@@ -26,6 +26,21 @@ public class BankManager {
             System.out.println("An error occurred while finding customer by name: " + e.getMessage());
             e.printStackTrace();
         }
+        System.out.println("name wasn't found");
+        return null;
+    }
+
+    public static Customer findCustomerByNameString(String fullName, List<Customer> customers) {
+        try {
+            for (Customer customer : customers) {
+                if (customer.getName().equalsIgnoreCase(fullName)) {
+                    return customer;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("An error occurred while finding customer by name: " + e.getMessage());
+            e.printStackTrace();
+        }
         return null;
     }
 

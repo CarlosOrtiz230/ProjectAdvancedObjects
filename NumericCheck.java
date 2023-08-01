@@ -10,7 +10,17 @@ public interface NumericCheck{
             Double.parseDouble(str);
             return true;
         } catch (NumberFormatException e) {
+            System.out.println("Error:" + e.getMessage());
             return false;
         }
     }//this can be an interface
+
+    public static boolean isPositiveNumber(double number){
+        if( 0 >number){
+             System.out.println("You can't use negative ammounts");
+             return false;
+        }
+        return true;
+       
+    }
 }

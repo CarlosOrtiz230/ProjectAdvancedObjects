@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -29,6 +30,16 @@ public final class AccountTypes {
         return ACCOUNT_TYPES.contains(type.toUpperCase());
     }
 
+    
+    //overloaded to different situation // dont think it is recursion
+    public static boolean isValidAccountType(String type,String transactionType){
+        if((type.equalsIgnoreCase(AccountTypes.CREDIT)) && (transactionType.equalsIgnoreCase(TransactionTypes.DEPOSIT))){
+            System.out.println("Credit can't be deposited");
+            return false;
+        }
+        return isValidAccountType(type);
+    }
+
     /**
      * Retrieves the standardized account type for the provided account type.
      * @param accountType The account type to retrieve 
@@ -42,5 +53,19 @@ public final class AccountTypes {
             System.out.println(accountType + " is not a valid account type");
             return "Not valid";
         }
+    }
+
+    public static String instanceOfAccountByNumber(String recipientAccountNumber, List<Customer> customers){
+        for (Customer customer : customers) {
+            for (Account currentAccount : customer.getAccounts()) {
+                if (currentAccount.accountNumber.equals(recipientAccountNumber)) {
+                        if(currentAccount instanceof Checking){return CHECKING;}
+                        else if (currentAccount instanceof Savings){return SAVINGS;}
+                        else{return CREDIT;}
+                }
+            }
+        } 
+        PrintMenu.accountNubmerNotfound();
+        return null;
     }
 }

@@ -46,7 +46,7 @@ public class Main {
                 PrintMenu.displayCustomerMenu();
                 Scanner x = new Scanner(System.in);
                 String option = x.nextLine();
-                x.nextLine(); // To skp line
+                x.nextLine(); // To skp line2
 
                 switch(option.toLowerCase()){
                     case "1"://desposit 

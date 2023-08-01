@@ -79,10 +79,11 @@ public class Customer extends Person {
     public double checkBalance(String accountType) {
         try {
             for (Account account : accounts) {
-                if ((account instanceof Checking && accountType.equalsIgnoreCase("checking")) || 
-                    ((account instanceof Checking && accountType.equalsIgnoreCase("checkings"))) ||
+                if  ((account instanceof Checking && accountType.equalsIgnoreCase("checking")) || 
+                    (account instanceof Checking && accountType.equalsIgnoreCase("checkings")) ||
                     (account instanceof Savings && accountType.equalsIgnoreCase("saving"))||
-                    (account instanceof Savings && accountType.equalsIgnoreCase("savings"))) {
+                    (account instanceof Savings && accountType.equalsIgnoreCase("savings"))||
+                    (account instanceof Credit && accountType.equalsIgnoreCase("credit"))) {
                     return account.getBalance();
                 }
             }
@@ -104,7 +105,8 @@ public class Customer extends Person {
         try {
             for (Account account : accounts) {
                 if ((account instanceof Savings && accountType.equalsIgnoreCase("savings")) || 
-                    (account instanceof Checking && accountType.equalsIgnoreCase("checking"))) {
+                    (account instanceof Checking && accountType.equalsIgnoreCase("checking"))||
+                    (account instanceof Credit && accountType.equalsIgnoreCase("Credit"))) {
                     account.deposit(amount);
                     System.out.println("Deposit of " + amount + " made to " + accountType + " account.");
                     return;
@@ -127,7 +129,8 @@ public class Customer extends Person {
         try {
             for (Account account : accounts) {
                 if ((account instanceof Checking && accountType.equalsIgnoreCase("checking")) || 
-                    (account instanceof Savings && accountType.equalsIgnoreCase("savings"))) {
+                    (account instanceof Savings && accountType.equalsIgnoreCase("savings"))||
+                    (account instanceof Credit && accountType.equalsIgnoreCase("Credit"))) {
                     account.withdraw(amount);
                     System.out.println("Withdraw of " + amount + " made to " + accountType + " account.");
                     return;

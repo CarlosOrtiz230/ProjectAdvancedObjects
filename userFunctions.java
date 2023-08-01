@@ -19,12 +19,14 @@ public class userFunctions{
         String accountType = x.nextLine();
         //check if valid accout type
         if (!(AccountTypes.isValidAccountType(accountType))){System.out.println("Not a valid account Type"); return;}
+        //if it is a valid account type, it is save it in a variable
         accountType = AccountTypes.getAccountType(accountType);
         //check for correctness
         double currentBalance = currentCustomer.checkBalance(accountType);
         System.out.println("Your current " + accountType + " balance is: " + currentCustomer.checkBalance(accountType ));
         CSVReaderWriter.logTransaction(currentCustomer, currentCustomer, accountType, accountType, TransactionTypes.INQUIRE, 0.0,currentBalance, CSVReaderWriter.log, CSVReaderWriter.transactions);
         System.out.println();
+        PrintMenu.success();
     }
     
     public static void handleDeposit(Customer currentCustomer, Scanner x) {
@@ -35,38 +37,27 @@ public class userFunctions{
         PrintMenu.enterAmmountDeposit();
         String depositInput = x.nextLine(); //to avoid crashing
         double depositAmount;
-        if(NumericCheck.isNumeric(depositInput)) {
-            depositAmount = Double.parseDouble(depositInput);
-        } else {
-            System.out.println("\nxxxx----Invalid input. Please enter a valid number.----xxxx");
-            return; //exit the method
-        }
+        if(!(NumericCheck.isNumeric(depositInput))) { return;}//exit method if not numeric
+        depositAmount = Double.parseDouble(depositInput);
+        if(!(NumericCheck.isPositiveNumber(depositAmount))){System.out.println("No change is done to balance");return;}
         x.nextLine(); // Consume newline left-over
-        if(depositAccount.equalsIgnoreCase(AccountTypes.CHECKING) || depositAccount.equalsIgnoreCase(AccountTypes.SAVINGS)){
-            currentCustomer.deposit(depositAccount, depositAmount);
-            double currentBalance = currentCustomer.checkBalance(depositAccount);
-            CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,depositAccount,depositAccount,TransactionTypes.DEPOSIT,depositAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
-        }else {
-            System.out.println("\nxxxx----Invalid account type entered! Please try again.----xxxx");
-        }
+        currentCustomer.deposit(depositAccount, depositAmount);
+        double currentBalance = currentCustomer.checkBalance(depositAccount);
+        CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,depositAccount,depositAccount,TransactionTypes.DEPOSIT,depositAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);  
+        PrintMenu.success();
     }   
 
     public static void handleWithdrawal(Customer currentCustomer, Scanner x) {
         PrintMenu.WhichAccountWithdraw();
         String accountType = x.nextLine();
         if (!(AccountTypes.isValidAccountType(accountType))){System.out.println("Not a valid account Type"); return;}
-            accountType = AccountTypes.getAccountType(accountType);
-       
+        accountType = AccountTypes.getAccountType(accountType);
         PrintMenu.enterAmmounWithdraw();
         String withdrawInput =  x.nextLine();
         double withdrawAmount;
-        
-        if (NumericCheck.isNumeric(withdrawInput)) {
-            withdrawAmount = Double.parseDouble(withdrawInput);
-        }else {
-            System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
-            return; //exit the program
-        }
+        if (!(NumericCheck.isNumeric(withdrawInput)) ){return;}
+        withdrawAmount = Double.parseDouble(withdrawInput);
+        if(!(NumericCheck.isPositiveNumber(withdrawAmount))){System.out.println("Withdraw cancelled");return;}
         //type of account 
         double currentBalance  = currentCustomer.checkBalance(accountType);
         if(withdrawAmount>currentBalance){System.out.println("Ammount to withdraw is more than the balance");return;}
@@ -74,7 +65,7 @@ public class userFunctions{
         currentBalance  = currentCustomer.checkBalance(accountType);
         System.out.println("With DrawSuccessful!");
         CSVReaderWriter.logTransaction(currentCustomer,currentCustomer,accountType,accountType,TransactionTypes.WITHDRAW,withdrawAmount,currentBalance,CSVReaderWriter.log, CSVReaderWriter.transactions);
-         
+        PrintMenu.success();
     }
 
     public static void handleTransfer(Customer currentCustomer, Scanner x) {
@@ -82,16 +73,12 @@ public class userFunctions{
         String transferAccount = x.nextLine().trim();
         if (!(AccountTypes.isValidAccountType(transferAccount))){System.out.println("Not a valid account Type"); return;}
         transferAccount = AccountTypes.getAccountType(transferAccount);
-
         PrintMenu.enterAmmountTransfer();
         String transferInput = x.nextLine();
         double transferAmount;
-        if (NumericCheck.isNumeric(transferInput)) {
-            transferAmount = Double.parseDouble(transferInput);
-        }else {
-            System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
-            return; //exit the program
-        }
+        if (!(NumericCheck.isNumeric(transferInput))) {return;}
+        transferAmount = Double.parseDouble(transferInput); 
+        if(!(NumericCheck.isPositiveNumber(transferAmount))){System.out.println("transfer cancelled");return;} 
         x.nextLine(); // This line is added to consume the newline character
         String recieverAccount;
         if(transferAccount.equals(AccountTypes.CHECKING)){recieverAccount = AccountTypes.SAVINGS;}
@@ -108,49 +95,31 @@ public class userFunctions{
     }
 
     public static void handleThirdPartyPayment(Customer currentCustomer, List<Customer> customers, Scanner x) {
-        System.out.println("From which account would you like to pay/deposit thirdParty?\n1.Savings\n2.Checkings");
-        System.out.print(">"); 
+        PrintMenu.whichAccountPayThirdPrt();
         String payAccount = x.nextLine().trim();
-        System.out.println("What is the first name of the recipient");
-        System.out.print(">"); 
-        String name = x.nextLine().trim();
-        System.out.println("What is the last name of the recipient");
-        System.out.print(">"); 
-        String lastName = x.nextLine().trim();
-
+        if (!(AccountTypes.isValidAccountType(payAccount))){System.out.println("Not a valid account Type"); return;}
+        Customer recivier = BankManager.findCustomerByName(x, customers);
+        if(recivier == null){return;} //customer not found not found
         //account info
-        System.out.println("What is the recipient account number");
-        System.out.print(">"); 
+        PrintMenu.whatRecipientAccountNumber();
         String reciepientAccountNumber = x.nextLine().trim();
-        System.out.println("Enter the amount you would like to pay to thirdParty:");
-        System.out.print(">");
+        String recipientAccountType = AccountTypes.instanceOfAccountByNumber(reciepientAccountNumber,customers);
+        if(recipientAccountType == null){return;} //account number not found
+        //entering ammount
+        PrintMenu.enterAmmountPay3rdPrty();
         String payInput = x.nextLine();
-        double payAmount;
-        if (NumericCheck.isNumeric(payInput)){
-            payAmount = Double.parseDouble(payInput);
-        } else {
-            System.out.println("xxxx----Invalid input. Please enter a valid number.----xxxx");
-            return; //exit the program
-        }
+        if (!(NumericCheck.isNumeric(payInput))){ System.out.println("Payment cancelled");return;}
+        double payAmount = Double.parseDouble(payInput);
+        if(!(NumericCheck.isPositiveNumber(payAmount))){System.out.println("payment cancelled");return;} 
         x.nextLine(); // This line is added to consume the newline character
-        if (payAccount.equalsIgnoreCase("1") || payAccount.equalsIgnoreCase("2")){
-            Customer reciever = BankManager.findCustomerByName(x, customers);
-            switch (payAccount.toLowerCase()) {
-                case "1"://savings
-                    ((Savings)currentCustomer.getAccounts().get(1)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
-                    CSVReaderWriter.logTransaction(currentCustomer,reciever, "Savings","NEEDS TO ADD TYPE OF ACCOUNT", ("transfer to " + name + " " + lastName  + " "), payAmount,currentCustomer.checkBalance("1"), CSVReaderWriter.log,CSVReaderWriter.transactions);
-                    break;
-                case "2"://checking
-                    ((Checking)currentCustomer.getAccounts().get(0)).payToThirdParty(customers,name,lastName,reciepientAccountNumber,payAmount); //index 1 is savings
-                    CSVReaderWriter.logTransaction(currentCustomer,reciever, "Checking", "NEEDS TO ADD TYPE OF ACCOUNT", ("transfer to " + name + " " + lastName  + " "), payAmount, currentCustomer.checkBalance("2") ,CSVReaderWriter.log,CSVReaderWriter.transactions);
-                    break;
-                default:
-                    System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
-                    break;
-            }
-        } else {
-            System.out.println("xxxx----Invalid account type entered! Please try again.----xxxx");
-        }
+        //asks for account number
+        double currentBalance = currentCustomer.checkBalance(payAccount);
+        //paymant is performed
+        currentCustomer.withdraw(payAccount, payAmount);
+        recivier.deposit(recipientAccountType, payAmount);
+        //log is registered
+        CSVReaderWriter.logTransaction(currentCustomer, recivier, payAccount, recipientAccountType,TransactionTypes.PAY , payAmount, currentBalance ,CSVReaderWriter.log,CSVReaderWriter.transactions);
+        PrintMenu.success();
     }
 
     public static void payCreditCard(Customer currentCustomer,Scanner x){
