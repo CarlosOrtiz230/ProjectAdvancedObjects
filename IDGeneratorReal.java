@@ -16,7 +16,7 @@ class IDGeneratorReal implements IDGenerator {
      * @return A unique customer ID.
      */
     @Override
-    public String generateID() {
+    public String generateID() { //overrides generateID from interface.
         String newId;
         do {
             newId = String.format("%03d", ++idCounter % 1000); // Limit to 3 digits
@@ -29,12 +29,13 @@ class IDGeneratorReal implements IDGenerator {
      *
      * @return A unique account ID.
      */
+    @Override
     public String generateAccountID() {
         String newId;
         do {
-            newId = String.format("%04d", ++idCounter % 10000); // Limit to 4 digits 
-        } while (idExists(newId, 8) || idExists(newId, 10) || idExists(newId, 12));
-        return newId;
+            newId = String.format("%04d", ++idCounter % 10000); // Limit to 4 digits  and max number 9999
+        } while (idExists(newId, 8) || idExists(newId, 10) || idExists(newId, 12)); // check that ID does not exist in indexes for accounts.
+        return newId; // once it reaches a false, it returns a new ID using counter. 
     }
 
     /**
@@ -45,11 +46,11 @@ class IDGeneratorReal implements IDGenerator {
      * @return True if the ID exists, else false.
      */
     private boolean idExists(String id, int index) {
-        try (BufferedReader br = new BufferedReader(new FileReader(CSVFile))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(CSVFile))) { //read CSV file BankUser
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
-                if (values[index].equals(id)) {
+                if (values[index].equals(id)) { // if the value in CSV file equals to ID generated, return true/ else false
                     return true;
                 }
             }

@@ -18,11 +18,11 @@ public class AccountFactory {
     public Account createAccount(String type, String accountNumber, double... params) {
         switch (type) {
             case "Savings":
-                return new Savings(accountNumber);
+                return new Savings(accountNumber); //instantiate Savings
             case "Checking":
-                return new Checking(accountNumber);
+                return new Checking(accountNumber); // instantiates Checkings
             case "Credit":
-                if (params.length > 0) {
+                if (params.length > 0) { //passed credit limit and account number
                     return new Credit(accountNumber, params[0]);
                 } else {
                     throw new IllegalArgumentException("Credit account requires a credit limit.");

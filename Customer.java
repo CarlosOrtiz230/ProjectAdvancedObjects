@@ -7,6 +7,9 @@ import java.util.List;
  */
 public class Customer extends Person {
     //attributes----------------------------------------------
+    /**
+     * Initializing all attributes of the customers 
+     */
     private List<Account> accounts;
     private List<String> customerTransactions = new ArrayList<String>();
     private String identificationNumber;
@@ -19,15 +22,19 @@ public class Customer extends Person {
     public Customer() {} //default 
 
     /**
-     * Constructs a new Customer with the given name and address.
-     * @param name The name of the Customer.
-     * @param address The address of the Customer.
+     * Constructs a new Customer with the given personal information.
+     *
+     * @param name               The name of the Customer.
+     * @param dob                The date of birth of the Customer in the format "yyyy-MM-dd".
+     * @param address            The address of the Customer.
+     * @param identificationNumber The identification number (e.g., passport, national ID) of the Customer.
+     * @param phoneNumber        The phone number of the Customer.
      */
     public Customer(String name, String dob, String address, String identificationNumber, String phoneNumber) {
-        super(Integer.parseInt(identificationNumber), name, address, dob, phoneNumber);
+        super(Integer.parseInt(identificationNumber), name, address, dob, phoneNumber); //passes everything to Person class constructor
         this.accounts = new ArrayList<>();
-        this.identificationNumber = identificationNumber;
-        this.phoneNumber = phoneNumber;
+        this.identificationNumber = identificationNumber; 
+        this.phoneNumber = phoneNumber; //accessing attributes from within the class.
     }
     
 
@@ -39,11 +46,7 @@ public class Customer extends Person {
      * @return The list of Accounts.
      */
     public List<Account> getAccounts() {
-        return this.accounts;
-    }
-
-    public String getPhoneNumberDivided(){
-        return this.phoneNumber;
+        return this.accounts; //returns accounts from user
     }
 
     /**
@@ -63,7 +66,7 @@ public class Customer extends Person {
      */
     public void addAccount(Account account) {
         try {
-            this.accounts.add(account);
+            this.accounts.add(account); //adding account to current instance of accounts
         } catch (Exception e) {
             System.out.println("An error occurred while adding account: " + e.getMessage());
             e.printStackTrace();
@@ -79,12 +82,12 @@ public class Customer extends Person {
     public double checkBalance(String accountType) {
         try {
             for (Account account : accounts) {
-                if  ((account instanceof Checking && accountType.equalsIgnoreCase("checking")) || 
+                if  ((account instanceof Checking && accountType.equalsIgnoreCase("checking")) || //checking if account type is an instance of checking and it matches with userinput
                     (account instanceof Checking && accountType.equalsIgnoreCase("checkings")) ||
                     (account instanceof Savings && accountType.equalsIgnoreCase("saving"))||
                     (account instanceof Savings && accountType.equalsIgnoreCase("savings"))||
-                    (account instanceof Credit && accountType.equalsIgnoreCase("credit"))) {
-                    return account.getBalance();
+                    (account instanceof Credit && accountType.equalsIgnoreCase("credit"))) {// in case user adds "s" to end of term
+                    return account.getBalance(); //Calls Account and return current balance of current account. 
                 }
             }
             System.out.println("Account not found.");
@@ -106,9 +109,9 @@ public class Customer extends Person {
             for (Account account : accounts) {
                 if ((account instanceof Savings && accountType.equalsIgnoreCase("savings")) || 
                     (account instanceof Checking && accountType.equalsIgnoreCase("checking"))||
-                    (account instanceof Credit && accountType.equalsIgnoreCase("Credit"))) {
-                    account.deposit(amount);
-                    System.out.println("Deposit of " + amount + " made to " + accountType + " account.");
+                    (account instanceof Credit && accountType.equalsIgnoreCase("Credit"))) { //checking and matching account type 
+                    account.deposit(amount); // add amount to account current balance. Calls upon Account then overrides to account type
+                    System.out.println("Deposit of " + amount + " made to " + accountType + " account."); //prints deposit information
                     return;
                 }
             }
@@ -131,7 +134,7 @@ public class Customer extends Person {
                 if ((account instanceof Checking && accountType.equalsIgnoreCase("checking")) || 
                     (account instanceof Savings && accountType.equalsIgnoreCase("savings"))||
                     (account instanceof Credit && accountType.equalsIgnoreCase("Credit"))) {
-                    account.withdraw(amount);
+                    account.withdraw(amount); // subtracts current balance from account type by ammount. 
                     System.out.println("Withdraw of " + amount + " made to " + accountType + " account.");
                     return;
                 }

@@ -20,14 +20,14 @@ public class TransactionReader {
                 
                 String[] values = line.split(",");
     
-                String fromFirstName = values[0];
+                String fromFirstName = values[0]; //gets first elements
                 String fromLastName = values[1];
                 String fromWhere = values[2];
                 String action = values[3];
-                String toFirstName = values.length > 4 ? values[4] : null;
+                String toFirstName = values.length > 4 ? values[4] : null; //assigns null if no recipient is on csv and prevent ArrayIndexOutOfBoundsExceptions
                 String toLastName = values.length > 5 ? values[5] : null;
                 String toWhere = values.length > 6 ? values[6] : null;
-                double amount = values.length > 7 ? Double.parseDouble(values[7]) : 0.0;
+                double amount = values.length > 7 ? Double.parseDouble(values[7]) : 0.0; 
     
                 // Call the appropriate method based on the action
                 switch (action.toLowerCase()) {

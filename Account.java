@@ -7,12 +7,9 @@ public abstract class Account {
 
     /**
      * The current balance of the account.
+     * Unique account number of client. 
      */
     protected double balance;
-
-    /**
-     * The unique identifier of the account.
-     */
     protected String accountNumber;
 
     /**

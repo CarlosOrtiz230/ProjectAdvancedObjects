@@ -3,7 +3,7 @@ import java.util.List;
 /**
  * This class represents a checking account.
  */
-public class Checking extends Account {
+public class Checking extends Account { //1 of 3 subclasses of Account 
 
     /**
      * Constructs a Checking object with the specified account number.
@@ -11,7 +11,7 @@ public class Checking extends Account {
      * @param accountNumber The account number for the checking account.
      */
     public Checking(String accountNumber) {
-        super(accountNumber);
+        super(accountNumber); // call constructor of superclass (Account) | it passes accountNumber to the constructor of the superclass.
     }
 
     /**
@@ -21,7 +21,7 @@ public class Checking extends Account {
      */
     @Override
     public String getAccountNumber() {
-        return this.accountNumber;
+        return this.accountNumber; //returns accountNumber
     }
 
     /**

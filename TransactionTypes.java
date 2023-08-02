@@ -1,6 +1,7 @@
 /**
  * The TransactionTypes class provides constants representing various types of transactions that can occur in the banking system.
  */
+//Could be an interface
 public class TransactionTypes {
     /**
      * Constants representing action used by user. 

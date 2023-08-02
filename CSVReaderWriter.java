@@ -120,45 +120,6 @@ public class CSVReaderWriter {
         }
     }
 
-    public static List<Transaction> readTransactionsFromCSV(String fileName) {
-        List<Transaction> transactions = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            boolean isFirstLine = true; // To skip the header row
-            while ((line = br.readLine()) != null) {
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue; // Skip the header row
-                }
-
-                String[] data = line.split(",");
-                if (data.length == 8) {
-                    String fromFirstName = data[0].trim();
-                    String fromLastName = data[1].trim();
-                    String fromWhere = data[2].trim();
-                    String action = data[3].trim();
-                    String toFirstName = data[4].trim();
-                    String toLastName = data[5].trim();
-                    String toWhere = data[6].trim();
-                    double actionAmount = Double.parseDouble(data[7].trim());
-
-                    Transaction transaction = new Transaction(fromFirstName, fromLastName, fromWhere, action, toFirstName, toLastName, toWhere, actionAmount);
-                    transactions.add(transaction);
-                } else {
-                    System.out.println("Invalid data format in CSV file: " + line);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("An error occurred while reading the CSV file: " + e.getMessage());
-        } catch (NumberFormatException e) {
-            System.out.println("Error parsing the 'Action Amount' field: " + e.getMessage());
-        }
-
-        return transactions;
-    }
-
-
     /**
          * Creates a text file with the given lines of text.
          *

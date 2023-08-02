@@ -1,0 +1,20 @@
+Bank Statement
+==============
+
+Full Name: Carlos ORtiz
+Address: jaim, lkjaf, laj;df
+Phone Number: 4890328
+Date of Birth: 29348903
+
+Account Type: Checking
+Account Number: 0007
+Balance: 0.0
+
+Account Type: Savings
+Account Number: 0006
+Balance: 0.0
+
+Account Type: Credit
+Account Number: 0005
+Balance: 238.63066979937622
+

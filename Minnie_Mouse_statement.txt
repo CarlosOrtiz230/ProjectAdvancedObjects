@@ -1,0 +1,20 @@
+Bank Statement
+==============
+
+Full Name: Minnie Mouse
+Address: "1313 Disneyland Dr, Anaheim, CA 92802"
+Phone Number: 7147814636
+Date of Birth: 3-Nov-94
+
+Account Type: Checking
+Account Number: 1002
+Balance: 2994.16
+
+Account Type: Savings
+Account Number: 2002
+Balance: 1327.99
+
+Account Type: Credit
+Account Number: 3002
+Balance: -239.31
+

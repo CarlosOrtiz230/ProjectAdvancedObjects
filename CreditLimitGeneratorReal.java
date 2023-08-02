@@ -12,20 +12,24 @@ class CreditLimitGeneratorReal implements CreditLimitGenerator {
      */
     @Override
     public double generateCreditLimit(int creditScore) throws IllegalArgumentException {
-        if (creditScore < 0) {
+        if (creditScore < 0) {// credit score must be greater than 0
             throw new IllegalArgumentException("Credit score cannot be negative.");
         }
-
+    
+        double limit;
         if (creditScore <= 580) {
-            return Math.random() * (699 - 100) + 100;
+            limit = Math.random() * (699 - 100) + 100;
         } else if (creditScore <= 669) {
-            return Math.random() * (4999 - 700) + 700;
+            limit = Math.random() * (4999 - 700) + 700;
         } else if (creditScore <= 739) {
-            return Math.random() * (7499 - 5000) + 5000;
+            limit = Math.random() * (7499 - 5000) + 5000;
         } else if (creditScore <= 799) {
-            return Math.random() * (15999 - 7500) + 7500;
+            limit = Math.random() * (15999 - 7500) + 7500;
         } else {
-            return Math.random() * (25000 - 16000) + 16000;
+            limit = Math.random() * (25000 - 16000) + 16000;
         }
+    
+        // return the value rounded to 2 decimal places
+        return Math.round(limit * 100.0) / 100.0;
     }
 }

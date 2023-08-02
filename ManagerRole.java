@@ -58,7 +58,7 @@ public class ManagerRole{
             
             while(true){
                 System.out.println("Which account would you like to inquire?");
-                System.out.println("1. Checkings\n2. Savings \n3. Credit\n4. Transaction Log\n5. Indivudial Transactions");
+                System.out.println("1. Checkings\n2. Savings \n3. Credit\n4. Bank Statement\n5. Individual Log Transactions");
                 System.out.print(">");
                 managerInput = userInput.nextLine();
                 switch(managerInput.toLowerCase()){
@@ -75,11 +75,10 @@ public class ManagerRole{
                         desiredCustomer.printCreditInfo();
                         return;
                     case "4":
-                        System.out.println("Log:");
-                        for (String history : log){
-                            history = history.replace(",", " ");
-                            System.out.println(history);
-                        }
+                        System.out.println("Generating Bank Statement output in the form of Text file...\n");
+                        BankStatement generator = new BankStatement();
+                        String filename = desiredCustomer.getName().replaceAll(" ", "_") + "_statement.txt";
+                        generator.generateBankStatement(desiredCustomer, filename);
                         return;
 
                     case "5":
@@ -114,49 +113,49 @@ public class ManagerRole{
             Scanner scanner = new Scanner(System.in);
     
             System.out.println("Enter your name (First Name, Last Name):");
-            String fullName = scanner.nextLine();
+            String fullName = scanner.nextLine(); // get new name and separate into two elemetns using "," as delimiter
             String[] nameParts = fullName.split(",");
-            if (nameParts.length != 2) {
+            if (nameParts.length != 2) { // if name is greater than 2 or less, then throw error. 
                 throw new IllegalArgumentException("Name must be in the format 'First Name,Last Name'");
             }
-            String firstName = nameParts[0].trim();
+            String firstName = nameParts[0].trim(); // get firstName and remove leading spaces
             String lastName = nameParts[1].trim();
-            String name = firstName + " " + lastName;
+            String name = firstName + " " + lastName; //unpackage then repackage to send to Customer constructor
     
             System.out.println("Enter your date of birth:");
             String dob = scanner.nextLine();
     
             System.out.println("Enter your address (Street, City, State):");
             String fullAddress = scanner.nextLine();
-            String[] addressParts = fullAddress.split(",");
-            if (addressParts.length != 3) {
+            String[] addressParts = fullAddress.split(","); //separate elements by delimiter ","
+            if (addressParts.length != 3) { // if provided elements are less or greater than 3, throw error
                 throw new IllegalArgumentException("Address must be in the format 'Street,City,State'");
             }
-            String street = addressParts[0].trim();
+            String street = addressParts[0].trim(); //unpackage then repackage fulladdress to send to Customer
             String city = addressParts[1].trim();
             String state = addressParts[2].trim();
             String address = street + ", " + city + ", " + state;
     
             System.out.println("Enter your phone number:");
-            String phoneNumberDivided = scanner.nextLine();
+            String phoneNumber = scanner.nextLine();
     
             System.out.println("Enter your credit score:");
             int creditScore = scanner.nextInt();
             scanner.nextLine(); 
     
-            String identificationNumber = idGenerator.generateID();
+            String identificationNumber = idGenerator.generateID(); //calls idGenerator for all accounts. 
             String creditAccountNumber = idGenerator.generateAccountID();
             String savingAccountNumber = idGenerator.generateAccountID();
             String checkingAccountNumber = idGenerator.generateAccountID();
     
-            double creditLimit = creditLimitGenerator.generateCreditLimit(creditScore);
+            double creditLimit = creditLimitGenerator.generateCreditLimit(creditScore); //calls credit limit generator
     
-            Customer newCustomer = new Customer(name, dob, address, identificationNumber, phoneNumberDivided);
+            Customer newCustomer = new Customer(name, dob, address, identificationNumber, phoneNumber);
             Checking checkingaccount = new Checking(checkingAccountNumber);
             Savings savingsAccount = new Savings(savingAccountNumber);
             Credit creditAccount = new Credit(creditAccountNumber, creditLimit);
     
-            checkingaccount.deposit(0);
+            checkingaccount.deposit(0); //initial balance is 0
             savingsAccount.deposit(0);
             creditAccount.deposit(creditLimit);
     
@@ -164,7 +163,7 @@ public class ManagerRole{
             newCustomer.addAccount(savingsAccount);
             newCustomer.addAccount(creditAccount);
             
-            customers.add(newCustomer);
+            customers.add(newCustomer); //add new customer to customers arrayList
     
             System.out.println("New bank user added successfully!");
         } catch (Exception e) {

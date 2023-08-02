@@ -1,0 +1,20 @@
+Bank Statement
+==============
+
+Full Name: Jaime Perez
+Address: StreetNameExample, CityName, StateName
+Phone Number: 908394803
+Date of Birth: 08/23/2001
+
+Account Type: Checking
+Account Number: 4
+Balance: 0.0
+
+Account Type: Savings
+Account Number: 3
+Balance: 0.0
+
+Account Type: Credit
+Account Number: 2
+Balance: 3470.0410589942194
+
