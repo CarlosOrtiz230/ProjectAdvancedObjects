@@ -1,6 +1,8 @@
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.Scanner;
 
 public class BankStatement{
 
@@ -30,12 +32,30 @@ public class BankStatement{
                 writer.write("Balance: " + account.getBalance() + "\n\n");
             }
 
+            // Writing all transactions
+            writer.write("Transactions:\n\n");
+
+            // Read the transaction log file if there is already one made.
+            String logFileName = customer.getName().replace(" ", "_") + "_transactions.txt";
+            File logFile = new File(logFileName);
+            if (logFile.exists()) {
+                Scanner scanner = new Scanner(logFile);
+                while (scanner.hasNextLine()) {
+                    String transaction = scanner.nextLine();
+                    writer.write(transaction + "\n");
+                }
+                scanner.close();
+            } else {
+                writer.write("No transactions found.\n");
+            }
+
             writer.close();
             System.out.println("Bank statement generated successfully!");
-            System.out.println("--------------------------------------------\n\n")
+            System.out.println("--------------------------------------------\n\n");
         } catch (IOException e) {
             System.out.println("An error occurred while generating the bank statement: " + e.getMessage());
             e.printStackTrace();
         }
     }
+
 }

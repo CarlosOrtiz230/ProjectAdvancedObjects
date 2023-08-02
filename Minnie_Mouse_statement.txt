@@ -8,7 +8,7 @@ Date of Birth: 3-Nov-94
 
 Account Type: Checking
 Account Number: 1002
-Balance: 2994.16
+Balance: 3194.16
 
 Account Type: Savings
 Account Number: 2002
@@ -18,3 +18,28 @@ Account Type: Credit
 Account Number: 3002
 Balance: -239.31
 
+Transactions:
+Account Information: CHECKING
+Transaction Type: deposit
+Transaction Amount: 200.0
+Ending Balance: 3194.16
+Date of Transaction: Wed Aug 02 13:25:03 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: inquire
+Transaction Amount: 0.0
+Ending Balance: 2994.16
+Date of Transaction: Wed Aug 02 13:54:35 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: deposit
+Transaction Amount: 300.0
+Ending Balance: 3294.16
+Date of Transaction: Wed Aug 02 14:11:02 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: CHECKING
+Transaction Type: withdraw
+Transaction Amount: 100.0
+Ending Balance: 3194.16
+Date of Transaction: Wed Aug 02 14:11:10 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n

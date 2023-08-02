@@ -40,27 +40,28 @@ public class RoleSelection {
     public static boolean checkIfManager() {
         try {
             Scanner x = new Scanner(System.in);
-            System.out.println("are you a Bank Client or Manager?");
+            System.out.println("Are you a Bank Client or Manager?");
             System.out.println("1. Bank Client\n2. Bank Manager\ntype 'exit' to finish the program");
             System.out.print(">");
             String role = x.nextLine();
             if(role.equalsIgnoreCase("exit")){
                 System.exit(0);
             }
-            if(role.equalsIgnoreCase("1") ||  role.equalsIgnoreCase("1")){ 
+            if(role.equalsIgnoreCase("1")){ 
                 return false;
             }
-            else if(role.equalsIgnoreCase("2") || role.equalsIgnoreCase("2")){ 
+            else if(role.equalsIgnoreCase("2")){ 
                 return true;
             }
             else{
                 System.out.println("xxxx----this entry is not valid----xxxx");
             }
-
+    
         } catch (Exception e) {
             System.out.println("An error occurred while checking if user is a manager: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
     }
+    
 }
