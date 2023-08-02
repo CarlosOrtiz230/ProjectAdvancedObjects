@@ -26,10 +26,10 @@ public class ManagerRole{
             
             switch(managerInput.toLowerCase()) {
                 case "1":
-                    desiredCustomer = BankManager.findCustomerByName(userInput, customers);
+                    desiredCustomer = SearchCustomer.findCustomerByName(userInput, customers);
                     break;
                 case "2":
-                    desiredCustomer = BankManager.findCustomerByAccount(userInput, customers);
+                    desiredCustomer = SearchCustomer.findCustomerByAccount(userInput, customers);
                     break;
                 case "3":
                     addNewBankUser(customers, idGenerator, creditLimitGenerator);

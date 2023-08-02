@@ -1,9 +1,9 @@
 import java.util.*;
 
 /**
- * The BankManager class provides utility methods to find customers in a list based on their name or account number.
+ * The SearchCustoemr class provides utility methods to find customers in a list based on their name or account number.
  */
-public class BankManager {
+public class SearchCustomer {
 
     /**
      * Finds a customer in the provided list based on their name.

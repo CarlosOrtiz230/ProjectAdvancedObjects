@@ -98,7 +98,7 @@ public class userFunctions{
         PrintMenu.whichAccountPayThirdPrt();
         String payAccount = x.nextLine().trim();
         if (!(AccountTypes.isValidAccountType(payAccount))){System.out.println("Not a valid account Type"); return;}
-        Customer recivier = BankManager.findCustomerByName(x, customers);
+        Customer recivier = SearchCustomer.findCustomerByName(x, customers);
         if(recivier == null){return;} //customer not found not found
         //account info
         PrintMenu.whatRecipientAccountNumber();

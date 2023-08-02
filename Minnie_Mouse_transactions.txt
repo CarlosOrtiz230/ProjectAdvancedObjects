@@ -1,0 +1,6 @@
+Account Information: CHECKING
+Transaction Type: deposit
+Transaction Amount: 200.0
+Ending Balance: 3194.16
+Date of Transaction: Wed Aug 02 13:25:03 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
