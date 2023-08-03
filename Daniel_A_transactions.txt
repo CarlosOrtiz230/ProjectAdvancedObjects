@@ -112,3 +112,9 @@ Transaction Amount: 100.0
 Ending Balance: -786.93
 Date of Transaction: Tue Aug 01 01:17:09 MDT 2023
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
+Account Information: credit
+Transaction Type: pay
+Transaction Amount: 1000.0
+Ending Balance: -786.93
+Date of Transaction: Tue Aug 01 01:19:50 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n

@@ -1,0 +1,6 @@
+Account Information: CHECKING
+Transaction Type: transfer
+Transaction Amount: 3000.0
+Ending Balance: 6235.49
+Date of Transaction: Wed Aug 02 20:34:35 MDT 2023
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-n
