@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Main {
+public  class Main {
       
     /**
          * The main entry point of the program.
@@ -23,8 +23,6 @@ public class Main {
             return;
         }
         
-        
-       
         while(true){
              Customer currentCustomer = null; //before assigning a customer 
             //Check if the user is a manager to change the functionality
